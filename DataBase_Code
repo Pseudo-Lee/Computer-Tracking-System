@@ -1,0 +1,33 @@
+#Component Table
+CREATE TABLE [dbo].[Component] (
+    [ComponentID] INT          NOT NULL,
+    [Name]        VARCHAR (50) NULL,
+    [Description] TEXT         NULL,
+    PRIMARY KEY CLUSTERED ([ComponentID] ASC)
+);
+
+#Compnent Type
+CREATE TABLE [dbo].[Component_Type] (
+    [CompTypeID]  INT  NOT NULL,
+    [Description] TEXT NULL,
+    PRIMARY KEY CLUSTERED ([CompTypeID] ASC)
+);
+
+#Computer Condition
+CREATE TABLE [dbo].[Computer-Condition] (
+    [ConditionID] INT  NOT NULL,
+    [Description] TEXT NULL,
+    PRIMARY KEY CLUSTERED ([ConditionID] ASC)
+);
+
+#Student Table
+CREATE TABLE [dbo].[Computer-Condition] (
+    [ConditionID] INT  NOT NULL,
+    [Description] TEXT NULL,
+    PRIMARY KEY CLUSTERED ([ConditionID] ASC)
+);
+#Update Table
+CREATE TABLE [dbo].[Update] (
+    [Id] INT NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
