@@ -53,6 +53,14 @@
         .buttonClass:hover {
             background-color: #45a049;
         }
+        .hyperlinkClass {
+    color: #1E90FF;
+    text-decoration: none;
+    margin-right: 10px;
+}
+.hyperlinkClass:hover {
+    text-decoration: underline;
+}
     </style>
 </head>
 <body>
@@ -76,8 +84,11 @@
             <asp:Label ID="Label4" runat="server" Text="Enter new password:" CssClass="labelClass"></asp:Label>
             <br />
             <asp:TextBox ID="TextBoxName" runat="server" CssClass="textboxClass"></asp:TextBox>
+     
             <br />
             <asp:Button ID="UpdatePasswordBtn" runat="server" Text="Update Password" CssClass="buttonClass" OnClick="UpdatePasswordBtn_Click" />
+                <br />
+      <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="Login.aspx" Text="Back to login" CssClass="hyperlinkClass"></asp:HyperLink>
         </div>
     </form>
 
