@@ -123,7 +123,7 @@
             <br />
             <asp:TextBox ID="TextBoxCellphone" runat="server" CssClass="textboxClass"></asp:TextBox>
             <br />
-            <asp:Label ID="Label6" runat="server" Text="Choose your username:" CssClass="labelClass"></asp:Label>
+            <asp:Label ID="Label6" runat="server" Text="Add new password" CssClass="labelClass"></asp:Label>
             <br />
             <asp:TextBox ID="TextBoxUsername" runat="server" CssClass="textboxClass"></asp:TextBox>
             <br />
