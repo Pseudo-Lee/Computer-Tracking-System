@@ -18,7 +18,8 @@
             align-items: center;
             flex-direction: column;
             text-align: center;
-            overflow: hidden; /* Prevent scrollbars */
+            overflow: hidden;
+            position: relative;
         }
 
         /* Style for the header text */
@@ -53,29 +54,63 @@
             background-color: #2980b9; /* Even darker shade of blue */
         }
 
-        /* Canvas for matrix effect */
-        #matrix {
+        .star {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; /* Ensure it is behind other elements */
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px white;
+            animation: fade 5s infinite ease-in-out;
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 0 20px white;
+            animation: shoot 5s ease-in-out;
+        }
+
+        .trail-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px white;
+            animation: trail 5s ease-in-out;
+        }
+
+        @keyframes fade {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes shoot {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(100vw, -100vh); opacity: 0; }
+        }
+
+        @keyframes trail {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
         }
     </style>
 </head>
 <body>
+    <asp:Label runat="server" Text="Computer Tracking System" CssClass="header-text" ID="lblHeader"></asp:Label>
     <form id="form1" runat="server">
         <div>
             <!-- Header text -->
+            
 
             <!-- Centered button -->
             <asp:Button runat="server" Text="Go to Login" OnClick="btnLogin_Click" CssClass="animated-button" ID="btnLogin"></asp:Button>
         </div>
     </form>
-
-    <!-- Canvas for matrix effect -->
-    <canvas id="matrix"></canvas>
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -83,45 +118,45 @@
         $(document).ready(function () {
             // Fade in the body when the page loads
             $("body").fadeIn(2000); // Fades in over 2 seconds
-        });
 
-        // Matrix effect
-        const canvas = document.getElementById('matrix');
-        const ctx = canvas.getContext('2d');
+            function createStar() {
+                const star = document.createElement('span');
+                star.classList.add('star');
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDuration = Math.random() * 5 + 5 + 's';
+                document.body.appendChild(star);
+            }
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+            function createShootingStar() {
+                const shootingStar = document.createElement('span');
+                shootingStar.classList.add('shooting-star');
+                shootingStar.style.left = Math.random() * 100 + '%';
+                shootingStar.style.top = Math.random() * 100 + '%';
+                document.body.appendChild(shootingStar);
 
-        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
-
-        const drops = [];
-        for (let x = 0; x < columns; x++) {
-            drops[x] = 1;
-        }
-
-        function draw() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#0F0';
-            ctx.font = fontSize + 'px arial';
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = letters[Math.floor(Math.random() * letters.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
+                for (let i = 1; i <= 10; i++) {
+                    const trailStar = document.createElement('span');
+                    trailStar.classList.add('trail-star');
+                    trailStar.style.left = shootingStar.style.left;
+                    trailStar.style.top = shootingStar.style.top;
+                    trailStar.style.width = (4 - i * 0.3) + 'px';
+                    trailStar.style.height = (4 - i * 0.3) + 'px';
+                    trailStar.style.animationDelay = (i * 0.1) + 's';
+                    trailStar.style.transform = `translate(${i * 10}px, ${-i * 10}px)`;
+                    document.body.appendChild(trailStar);
+                    setTimeout(() => trailStar.remove(), 5000);
                 }
 
-                drops[i]++;
+                setTimeout(() => shootingStar.remove(), 5000);
             }
-        }
 
-        setInterval(draw, 33);
+            for (let i = 0; i < 100; i++) {
+                setTimeout(createStar, Math.random() * 5000);
+            }
+
+            setInterval(createShootingStar, Math.random() * 10000 + 10000);
+        });
     </script>
 </body>
-            <asp:Label runat="server" Text="Computer Tracking System" CssClass="header-text" ID="lblHeader"></asp:Label>
 </html>
