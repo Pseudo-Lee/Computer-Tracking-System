@@ -118,14 +118,14 @@
     <script>
         $(document).ready(function () {
             // Fade in the body when the page loads
-            $("body").fadeIn(2000); // Fades in over 2 seconds
+            $("body").fadeIn(5000); // Fades in over 2 seconds
 
             function createStar() {
                 const star = document.createElement('span');
                 star.classList.add('star');
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                star.style.animationDuration = Math.random() * 5 + 5 + 's';
+                star.style.animationDuration = Math.random() * 2.5 + 2.5 + 's';
                 document.body.appendChild(star);
             }
 
@@ -140,7 +140,7 @@
                     const trailStar = document.createElement('span');
                     trailStar.classList.add('trail-star');
                     trailStar.style.left = shootingStar.style.left;
-                    trailStar.style.top = shootingStar.style.top;
+                    trailStar.style.bottom = shootingStar.style.bottom;
                     trailStar.style.width = (4 - i * 0.3) + 'px';
                     trailStar.style.height = (4 - i * 0.3) + 'px';
                     trailStar.style.animationDelay = (i * 0.1) + 's';
@@ -156,7 +156,7 @@
                 setTimeout(createStar, Math.random() * 5000);
             }
 
-            setInterval(createShootingStar, Math.random() * 10000 + 10000);
+            setInterval(createShootingStar, Math.random() * 5000 + 5000);
         });
     </script>
 </body>

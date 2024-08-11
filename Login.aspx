@@ -6,7 +6,7 @@
     <title>CTS Login</title>
     <style>
         body {
-            background-color: lightblue;
+            background-color: #7B4B94;
             overflow: hidden;
             position: relative;
             display: flex;
@@ -132,6 +132,32 @@
         .hyperlinkClass:hover {
             text-decoration: underline;
         }
+                .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px white;
+    animation: fade 5s infinite ease-in-out;
+}
+        .shooting-star {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 20px white;
+    animation: shoot 5s ease-in-out;
+}@keyframes fade {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+@keyframes shoot {
+    0% { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(100vw, -100vh); opacity: 0; }
+}
     </style>
 </head>
 <body>
@@ -151,7 +177,7 @@
             <asp:Button ID="LoginBtn" runat="server" Text="Login" CssClass="buttonClass" OnClick="LoginBtn_Click" />
             <br />
             <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="ForgotPassword.aspx" Text="Forgot Password?" CssClass="hyperlinkClass"></asp:HyperLink>
-            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="SignUp.aspx" Text="Sign Up" CssClass="hyperlinkClass"></asp:HyperLink>
+            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="Signup.aspx" Text="Sign Up" CssClass="hyperlinkClass"></asp:HyperLink>
         </div>
         <div class="cloud"></div>
         <div class="cloud"></div>
@@ -160,5 +186,41 @@
         <div class="cloud"></div>
         <div class="cloud"></div>
     </form>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Fade in the body when the page loads
+        $("body").fadeIn(2000); // Fades in over 2 seconds
+
+        function createStar() {
+            const star = document.createElement('span');
+            star.classList.add('star');
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDuration = Math.random() * 2.5 + 2.5 + 's';
+            document.body.appendChild(star);
+        }
+
+        function createShootingStar() {
+            const shootingStar = document.createElement('span');
+            shootingStar.classList.add('shooting-star');
+            shootingStar.style.left = Math.random() * 100 + '%';
+            shootingStar.style.top = Math.random() * 100 + '%';
+            shootingStar.style.right = Math.random() * 100 + '%';
+            shootingStar.style.bottom = Math.random() * 100 + '%';
+            document.body.appendChild(shootingStar);
+
+          
+
+            setTimeout(() => shootingStar.remove(), 5000);
+        }
+
+        for (let i = 0; i < 100; i++) {
+            setTimeout(createStar, Math.random() * 5000);
+        }
+
+        setInterval(createShootingStar, Math.random() * 5000 + 5000);
+    });
+</script>
 </body>
 </html>
