@@ -1,4 +1,4 @@
-#Component Table
+-- Component Table
 CREATE TABLE [dbo].[Component] (
     [ComponentID] INT          NOT NULL,
     [Name]        VARCHAR (50) NULL,
@@ -8,13 +8,14 @@ CREATE TABLE [dbo].[Component] (
     FOREIGN KEY ([CompTypeID]) REFERENCES [dbo].[Component_Type] ([CompTypeID])
 );
 
-#Compnent Type
+-- Component Type Table
 CREATE TABLE [dbo].[Component_Type] (
     [CompTypeID]  INT  NOT NULL,
     [Description] TEXT NULL,
     PRIMARY KEY CLUSTERED ([CompTypeID] ASC)
 );
-#Computer Table
+
+-- Computer Table
 CREATE TABLE [dbo].[Computer] (
     [ComputerID]   INT          NOT NULL,
     [Serial_no]    VARCHAR (50) NULL,
@@ -27,31 +28,28 @@ CREATE TABLE [dbo].[Computer] (
     FOREIGN KEY ([ConditionID]) REFERENCES [dbo].[Computer_Condition] ([ConditionID])
 );
 
-
-#Computer Condition
-CREATE TABLE [dbo].[Computer-Condition] (
+-- Computer Condition Table
+CREATE TABLE [dbo].[Computer_Condition] (
     [ConditionID] INT  NOT NULL,
     [Description] TEXT NULL,
     PRIMARY KEY CLUSTERED ([ConditionID] ASC)
 );
 
-
-#Student Table
+-- Student Table
 CREATE TABLE [dbo].[Student] (
     [LearnerID]     INT          NOT NULL,
-    [F_Name]        VARCHAR (50) NULL,
-    [L_Name]        VARCHAR (50) NULL,
+    [FirstName]     VARCHAR (50) NULL,
+    [LastName]      VARCHAR (50) NULL,
     [DateOfBirth]   DATE         NULL,
     [University]    VARCHAR (50) NULL,
     [TelephoneNo]   VARCHAR (50) NULL,
-    [Email_Address] VARCHAR (50) NULL,
+    [EmailAddress]  VARCHAR (50) NULL,
     [ComputerID]    INT          NOT NULL,
     PRIMARY KEY CLUSTERED ([LearnerID] ASC),
     FOREIGN KEY ([ComputerID]) REFERENCES [dbo].[Computer] ([ComputerID])
 );
 
-
-#Update Table
+-- Update Table
 CREATE TABLE [dbo].[Update] (
     [ComputerID]   INT  NOT NULL,
     [ComponentID]  INT  NOT NULL,
@@ -61,12 +59,10 @@ CREATE TABLE [dbo].[Update] (
     FOREIGN KEY ([ComponentID]) REFERENCES [dbo].[Component] ([ComponentID])
 );
 
-#User Table
+-- User Table
 CREATE TABLE [dbo].[User] (
     [UserID]   INT          NOT NULL,
     [Name]     VARCHAR (50) NULL,
-    [Password] CHAR (50)    NULL,
+    [Password] VARCHAR (50) NULL,
     PRIMARY KEY CLUSTERED ([UserID] ASC)
 );
-
-
