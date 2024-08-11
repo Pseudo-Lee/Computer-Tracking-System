@@ -110,6 +110,7 @@
             <!-- Centered button -->
             <asp:Button runat="server" Text="Go to Login" OnClick="btnLogin_Click" CssClass="animated-button" ID="btnLogin"></asp:Button>
         </div>
+
     </form>
 
     <!-- jQuery -->
