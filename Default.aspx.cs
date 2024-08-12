@@ -19,5 +19,11 @@ namespace CTS
         {
 
         }
+
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            //redirects to login page
+            Response.Redirect("Login.aspx");
+        }
     }
 }
