@@ -8,7 +8,7 @@
         /* Set the page background color to a shade of blue */
         body {
             display: none;
-            background-color: black; /* Darker shade of blue */
+            background-color: #2c3e50; /* Darker shade of blue */
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
