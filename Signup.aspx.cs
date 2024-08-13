@@ -18,5 +18,20 @@ namespace CTS
         {
             
         }
+
+        protected System.Void TextBoxName_TextChanged(System.Object sender, System.EventArgs e)
+        {
+
+        }
+
+        protected System.Void Page_Load(System.Object sender, System.EventArgs e)
+        {
+
+        }
+
+        protected System.Void TextBoxUsername_TextChanged(System.Object sender, System.EventArgs e)
+        {
+
+        }
     }
 }
