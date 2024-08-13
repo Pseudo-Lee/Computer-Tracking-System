@@ -1,6 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="CTS.Login" %>
 
 <!DOCTYPE html>
+<script runat="server">
+
+    protected void LoginBtn_Click(object sender, EventArgs e)
+    {
+
+    }
+</script>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>CTS Login</title>
@@ -163,7 +171,11 @@
 <body>
     <form id="form1" runat="server">
         <div class="form-container">
-            <asp:Label runat="server" Text="CTS Login" ID="ctl00" CssClass="Header"></asp:Label>
+            
+            
+            <br />
+            <asp:Label runat="server" Text="[MessageLabel]" ID="MessageLabel"></asp:Label>
+            <asp:Label runat="server" Text="CTS Login" ID="Header" CssClass="Header"></asp:Label>
             <br />
             <asp:Label ID="Label1" runat="server" Text="Enter your username:" CssClass="labelClass"></asp:Label>
             <br />
