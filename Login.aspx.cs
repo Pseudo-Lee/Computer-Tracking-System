@@ -13,8 +13,7 @@ namespace CTS
     public partial class Login : System.Web.UI.Page
     {
         // Connecting to the database
-        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\ComputerTrackerDB.mdf;Integrated Security=True; TrustServerCertificate=True");
-
+        SqlConnection conn = new SqlConnection(@"Data Source=MR-LEE\SQLEXPRESS;Initial Catalog=C:\USERS\USER\SOURCE\REPOS\CTS\APP_DATA\COMPUTERTRACKERDB.MDF;Integrated Security=True;TrustServerCertificate=True");
         protected void Page_Load(object sender, EventArgs e)
         {
             MessageLabel.Visible = false;
@@ -26,7 +25,7 @@ namespace CTS
                     if (conn.State == ConnectionState.Open)
                     {
                         // Connection successful
-                        Response.Write("<script>alert('Connection successful.');</script>");
+                        Response.Write(" < script>alert('Connection successful.');</script>");
                     }
                 }
                 catch (Exception ex)

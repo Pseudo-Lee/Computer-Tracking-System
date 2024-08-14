@@ -190,6 +190,7 @@
 </head>
 <body>
     <div id="connectionStatus" class="popup">Connected</div>
+       <div class="shooting-star"></div>
     <form id="form1" runat="server">
         <div class="form-container">
             
