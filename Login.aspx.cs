@@ -13,7 +13,7 @@ namespace CTS
     public partial class Login : System.Web.UI.Page
     {
         // Connecting to the database
-        SqlConnection conn = new SqlConnection(@"Data Source=MR-LEE\SQLEXPRESS;Initial Catalog=C:\USERS\USER\SOURCE\REPOS\CTS\APP_DATA\COMPUTERTRACKERDB.MDF;Integrated Security=True;TrustServerCertificate=True");
+        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\tshir\source\repos\Group13Projects\Computer-Tracking-System\App_Data\ComputerTrackerDB.mdf;Integrated Security=True");
         protected void Page_Load(object sender, EventArgs e)
         {
             MessageLabel.Visible = false;
