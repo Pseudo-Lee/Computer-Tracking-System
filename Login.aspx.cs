@@ -48,32 +48,43 @@ namespace CTS
             string username = TextBox1.Text;
             string password = TextBox2.Text;
 
-             conn.Open();
+            try
+            {
+                conn.Open();
 
                 // SQL Command
-                string query = "SELECT COUNT(1) FROM User WHERE Name=@Name AND Password=@Password";
+                string query = "SELECT * FROM User WHERE Name=@Name AND Password=@Password";
                 SqlCommand comm = new SqlCommand(query, conn);
 
                 // Adding Parameters to prevent SQL Injection
                 comm.Parameters.AddWithValue("@Name", username);
                 comm.Parameters.AddWithValue("@Password", password);
-            SqlDataReader reader = comm.ExecuteReader();
 
-                int count = (int)comm.ExecuteScalar();
-                conn.Close();
+                int count = Convert.ToInt32(comm.ExecuteScalar());
+
+
                 if (count > 0)
                 {
                     // User found, proceed to next step
-                    Response.Write("<script>alert('Login successful.');</script>");
-                    Response.Redirect("Main.aspx");
+                    Response.Write("<script>alert('Login Successful');</script>");
                 }
                 else
                 {
-                // User not found
-                Response.Write("<script>alert('Incorrect username or password.');</script>");
+                    // User not found
+                    Response.Write("<script>alert('Login UnSuccessful');</script>");
+                }
             }
-            
-           
+            catch (Exception ex)
+            {
+                // Handle exception
+                Response.Write("<script>alert('Error Searching for User');</script>");
+                
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
+
     }
 }
