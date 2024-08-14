@@ -55,14 +55,14 @@
             background-color: #45a049;
         }
         .star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background-color: white;
-    border-radius: 50%;
-    box-shadow: 0 0 10px white;
-    animation: fade 5s infinite ease-in-out;
-}
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px white;
+            animation: fade 5s infinite ease-in-out;
+        }
         .shooting-star {
             position: absolute;
             width: 4px;
@@ -72,30 +72,15 @@
             box-shadow: 0 0 20px white;
             animation: shoot 5s ease-in-out;
         }
-            .shooting-star2 {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background-color: white;
-    border-radius: 50%;
-    box-shadow: 0 0 20px white;
-    animation: shoot 5s ease-in-out;
-}@keyframes fade {
-
-}
- @keyframes fade {
-    0%, 100% { opacity: 0; }
-    50% { opacity: 1; }
-}
-
-@keyframes shoot {
-    0% { transform: translate(0, 0); opacity: 1; }
-    50% { transform: translate(20vw, 20vh); opacity: 0.8; }
- 
-    100% { transform: translate(100vw, 100vh); opacity: 0; }
-}
-
-
+        @keyframes fade {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+        @keyframes shoot {
+            0% { transform: translate(0, 0); opacity: 1; }
+            50% { transform: translate(20vw, 20vh); opacity: 0.8; }
+            100% { transform: translate(100vw, 100vh); opacity: 0; }
+        }
         .auto-style3 {
             height: 34px;
             width: 1881px;
@@ -151,8 +136,6 @@
             width: 2018px;
             height: 22px;
         }
-
-
     </style>
 </head>
 <body>
@@ -162,41 +145,41 @@
             <table align="center" class="auto-style8">
                 <tr>
                     <td class="auto-style16">
-            <asp:Label ID="Label1" runat="server" Text="Enter your name:" CssClass="labelClass"></asp:Label>
+                        <asp:Label ID="Label1" runat="server" Text="Enter your name:" CssClass="labelClass"></asp:Label>
                     </td>
                     <td class="auto-style17"></td>
                 </tr>
                 <tr>
                     <td class="auto-style12">
-            <asp:TextBox ID="TextBoxName" runat="server" CssClass="textboxClass" OnTextChanged="TextBoxName_TextChanged"></asp:TextBox>
+                        <asp:TextBox ID="TextBoxName" runat="server" CssClass="textboxClass"></asp:TextBox>
                     </td>
                     <td class="auto-style13">
-                        <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please enter your name"></asp:CustomValidator>
+                        <asp:CustomValidator ID="CustomValidator1" runat="server" ControlToValidate="TextBoxName" ErrorMessage="Please enter your name"></asp:CustomValidator>
                     </td>
                 </tr>
                 <tr>
                     <td class="auto-style16">
-            <asp:Label ID="Label2" runat="server" Text="Enter your surname:" CssClass="labelClass"></asp:Label>
+                        <asp:Label ID="Label2" runat="server" Text="Enter your surname:" CssClass="labelClass"></asp:Label>
                     </td>
                     <td class="auto-style17"></td>
                 </tr>
                 <tr>
                     <td class="auto-style12">
-            <asp:TextBox ID="TextBoxSurname" runat="server" CssClass="textboxClass"></asp:TextBox>
+                        <asp:TextBox ID="TextBoxSurname" runat="server" CssClass="textboxClass"></asp:TextBox>
                     </td>
                     <td class="auto-style13">
-                        <asp:CustomValidator ID="CustomValidator2" runat="server" ErrorMessage="Please enter your Surname"></asp:CustomValidator>
+                        <asp:CustomValidator ID="CustomValidator2" runat="server" ControlToValidate="TextBoxSurname" ErrorMessage="Please enter your surname"></asp:CustomValidator>
                     </td>
                 </tr>
                 <tr>
                     <td class="auto-style18">
-            <asp:Label ID="Label3" runat="server" Text="Enter your email:" CssClass="labelClass"></asp:Label>
+                        <asp:Label ID="Label3" runat="server" Text="Enter your email:" CssClass="labelClass"></asp:Label>
                     </td>
                     <td class="auto-style19"></td>
                 </tr>
                 <tr>
                     <td class="auto-style12">
-            <asp:TextBox ID="TextBoxEmail" runat="server" CssClass="textboxClass"></asp:TextBox>
+                        <asp:TextBox ID="TextBoxEmail" runat="server" CssClass="textboxClass"></asp:TextBox>
                     </td>
                     <td class="auto-style13">
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="TextBoxEmail" ErrorMessage="Enter correct email" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
@@ -204,52 +187,48 @@
                 </tr>
                 <tr>
                     <td class="auto-style18">
-            <asp:Label ID="Label4" runat="server" Text="Enter your ID number:" CssClass="labelClass"></asp:Label>
+                        <asp:Label ID="Label4" runat="server" Text="Enter your ID number:" CssClass="labelClass"></asp:Label>
                     </td>
                     <td class="auto-style19"></td>
                 </tr>
                 <tr>
                     <td class="auto-style12">
-            <asp:TextBox ID="TextBoxID" runat="server" CssClass="textboxClass"></asp:TextBox>
+                        <asp:TextBox ID="TextBoxID" runat="server" CssClass="textboxClass"></asp:TextBox>
                     </td>
                     <td class="auto-style13">&nbsp;</td>
                 </tr>
                 <tr>
                     <td class="auto-style20">
-            <asp:Label ID="Label5" runat="server" Text="Enter your cellphone number:" CssClass="labelClass"></asp:Label>
+                        <asp:Label ID="Label5" runat="server" Text="Enter your cellphone number:" CssClass="labelClass"></asp:Label>
                     </td>
                     <td class="auto-style21"></td>
                 </tr>
                 <tr>
                     <td class="auto-style12">
-            <asp:TextBox ID="TextBoxCellphone" runat="server" CssClass="textboxClass"></asp:TextBox>
+                        <asp:TextBox ID="TextBoxCellphone" runat="server" CssClass="textboxClass"></asp:TextBox>
                     </td>
                     <td class="auto-style13">&nbsp;</td>
                 </tr>
                 <tr>
                     <td class="auto-style16">
-            <asp:Label ID="Label6" runat="server" Text="Add new password" CssClass="labelClass"></asp:Label>
+                        <asp:Label ID="Label6" runat="server" Text="Add new password" CssClass="labelClass"></asp:Label>
                     </td>
                     <td class="auto-style17"></td>
                 </tr>
                 <tr>
                     <td class="auto-style12">
-            <asp:TextBox ID="TextBoxUsername" runat="server" CssClass="textboxClass" OnTextChanged="TextBoxUsername_TextChanged"></asp:TextBox>
+                        <asp:TextBox ID="TextBoxPassword" runat="server" CssClass="textboxClass" TextMode="Password"></asp:TextBox>
                     </td>
-                    <td class="auto-style13">&nbsp;</td>
+                    <td class="auto-style13">
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBoxPassword" ErrorMessage="Password is required"></asp:RequiredFieldValidator>
+                    </td>
                 </tr>
                 <tr>
                     <td class="auto-style12">
-            <asp:Label ID="Label7" runat="server" Text="Confirm password" CssClass="labelClass"></asp:Label>
+                        <asp:Label ID="Label7" runat="server" Text="Confirm password" CssClass="labelClass"></asp:Label>
                     </td>
-                    <td class="auto-style13">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="auto-style12">&nbsp;</td>
-                    <td class="auto-style13">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="auto-style3">
+                    <td class="auto-style13"></td
+
             <asp:Button ID="SignUpBtn" runat="server" Text="Sign Up" CssClass="buttonClass" OnClick="SignUpBtn_Click" />
                     </td>
                     <td class="auto-style11">&nbsp;</td>
