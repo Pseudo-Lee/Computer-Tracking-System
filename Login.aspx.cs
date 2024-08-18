@@ -1,12 +1,19 @@
 ﻿using System;
+<<<<<<< HEAD
 using System.Data;
 using System.Data.SqlClient;
+=======
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+>>>>>>> ac7753d4238f669432824c6ae9f8092f9ce9d7aa
 using System.Web.UI;
 
 namespace CTS
 {
     public partial class Login : System.Web.UI.Page
     {
+<<<<<<< HEAD
         // Connecting to the database
         SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\source\repos\CTS\App_Data\ComputerTrackerDB.mdf;Integrated Security=True");
 
@@ -36,13 +43,17 @@ namespace CTS
                     conn.Close();
                 }
             }
+=======
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            
+>>>>>>> ac7753d4238f669432824c6ae9f8092f9ce9d7aa
         }
 
         protected void LoginBtn_Click(object sender, EventArgs e)
         {
-            string username = TextBox1.Text;
-            string password = TextBox2.Text;
 
+<<<<<<< HEAD
             try
             {
                 conn.Open();
@@ -77,6 +88,8 @@ namespace CTS
             {
                 conn.Close();
             }
+=======
+>>>>>>> ac7753d4238f669432824c6ae9f8092f9ce9d7aa
         }
     }
 }
