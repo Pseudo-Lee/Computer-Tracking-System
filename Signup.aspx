@@ -1,6 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SignUp.aspx.cs" Inherits="CTS.SignUp" %>
 
 <!DOCTYPE html>
+<script runat="server">
+
+    protected void TextBoxName_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+</script>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Sign Up</title>
