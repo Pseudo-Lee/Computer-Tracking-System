@@ -1,6 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="CTS.Login" %>
 
 <!DOCTYPE html>
+<script runat="server">
+
+    protected void LoginBtn_Click(object sender, EventArgs e)
+    {
+
+    }
+</script>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>CTS Login</title>
@@ -149,7 +157,24 @@
     border-radius: 50%;
     box-shadow: 0 0 20px white;
     animation: shoot 5s ease-in-out;
-}@keyframes fade {
+}
+        .popup {
+    position: fixed;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1000;
+    transition: top 0.5s ease;
+}
+
+@keyframes fade {
     0%, 100% { opacity: 0; }
     50% { opacity: 1; }
 }
@@ -158,12 +183,21 @@
     0% { transform: translate(0, 0); opacity: 1; }
     100% { transform: translate(100vw, -100vh); opacity: 0; }
 }
+
     </style>
+ 
+
 </head>
 <body>
+    <div id="connectionStatus" class="popup">Connected</div>
+       <div class="shooting-star"></div>
     <form id="form1" runat="server">
         <div class="form-container">
-            <asp:Label runat="server" Text="CTS Login" ID="ctl00" CssClass="Header"></asp:Label>
+            
+            
+            <br />
+            <asp:Label runat="server" Text="[MessageLabel]" ID="MessageLabel" CssClass ="MessageLabel"></asp:Label>
+            <asp:Label runat="server" Text="CTS Login" ID="Header" CssClass="Header"></asp:Label>
             <br />
             <asp:Label ID="Label1" runat="server" Text="Enter your username:" CssClass="labelClass"></asp:Label>
             <br />
@@ -176,7 +210,7 @@
             <br />
             <asp:Button ID="LoginBtn" runat="server" Text="Login" CssClass="buttonClass" OnClick="LoginBtn_Click" />
             <br />
-            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="ForgotPassword.aspx" Text="Forgot Password?" CssClass="hyperlinkClass"></asp:HyperLink>
+            <asp:HyperLink ID="HyperLinkForgotpassword" runat="server" NavigateUrl="ForgotPassword.aspx" Text="Forgot Password?" CssClass="hyperlinkClass"></asp:HyperLink>
             <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="Signup.aspx" Text="Sign Up" CssClass="hyperlinkClass"></asp:HyperLink>
         </div>
         <div class="cloud"></div>
@@ -221,6 +255,12 @@
 
         setInterval(createShootingStar, Math.random() * 5000 + 5000);
     });
+
+
+    
 </script>
+       
+   
+
 </body>
 </html>

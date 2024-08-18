@@ -1,6 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ForgotPassword.aspx.cs" Inherits="CTS.ForgotPassword" %>
 
 <!DOCTYPE html>
+<script runat="server">
+
+    protected void UpdatePasswordBtn_Click(object sender, EventArgs e)
+    {
+
+    }
+</script>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Forgot Password</title>
@@ -68,27 +76,31 @@
         <div class="form-container">
             <asp:Label runat="server" Text="Forgot Password" ID="Header" CssClass="Header"></asp:Label>
             <br />
-            <asp:Label ID="Label1" runat="server" Text="Enter your username:" CssClass="labelClass"></asp:Label>
+            <asp:Label ID="LblFSUserName" runat="server" Text="Enter your username:" CssClass="labelClass"></asp:Label>
             <br />
-            <asp:TextBox ID="TextBoxUsername" runat="server" CssClass="textboxClass"></asp:TextBox>
+            <asp:TextBox ID="txtUserName" runat="server" CssClass="textboxClass"></asp:TextBox>
             <br />
-            <asp:Label ID="Label2" runat="server" Text="Enter your ID number:" CssClass="labelClass"></asp:Label>
+            <asp:Label ID="LblFSIdNum" runat="server" Text="Enter your ID number:" CssClass="labelClass"></asp:Label>
             <br />
             
-            <asp:TextBox ID="TextBoxID" runat="server" CssClass="textboxClass"></asp:TextBox>
+            <asp:TextBox ID="txtIdNum" runat="server" CssClass="textboxClass"></asp:TextBox>
             <br />
-            <asp:Label ID="Label3" runat="server" Text="Enter your email:" CssClass="labelClass"></asp:Label>
+            <asp:Label ID="LblFSEmail" runat="server" Text="Enter your email:" CssClass="labelClass"></asp:Label>
             <br />
-            <asp:TextBox ID="TextBoxEmail" runat="server" CssClass="textboxClass"></asp:TextBox>
+            <asp:TextBox ID="txtEmail" runat="server" CssClass="textboxClass"></asp:TextBox>
             <br />
-            <asp:Label ID="Label4" runat="server" Text="Enter new password:" CssClass="labelClass"></asp:Label>
+            <asp:Label ID="LblFSPassword" runat="server" Text="Enter new password:" CssClass="labelClass"></asp:Label>
             <br />
-            <asp:TextBox ID="TextBoxName" runat="server" CssClass="textboxClass"></asp:TextBox>
+            <asp:TextBox ID="txtPassword" runat="server" CssClass="textboxClass"></asp:TextBox>
      
             <br />
-            <asp:Button ID="UpdatePasswordBtn" runat="server" Text="Update Password" CssClass="buttonClass" OnClick="UpdatePasswordBtn_Click" />
+            <asp:Button ID="BtnPasswordReset" runat="server" Text="Reset Password" CssClass="buttonClass" OnClick="UpdatePasswordBtn_Click" Height="39px" />
                 <br />
       <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="Login.aspx" Text="Back to login" CssClass="hyperlinkClass"></asp:HyperLink>
+            <br />
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtEmail" ErrorMessage="Enter valid email address" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
+            <br />
+            <asp:Label ID="LblUpdatedPS" runat="server"></asp:Label>
         </div>
     </form>
 
