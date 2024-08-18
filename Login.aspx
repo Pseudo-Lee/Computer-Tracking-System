@@ -210,7 +210,7 @@
             <br />
             <asp:Button ID="LoginBtn" runat="server" Text="Login" CssClass="buttonClass" OnClick="LoginBtn_Click" />
             <br />
-            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="ForgotPassword.aspx" Text="Forgot Password?" CssClass="hyperlinkClass"></asp:HyperLink>
+            <asp:HyperLink ID="HyperLinkForgotpassword" runat="server" NavigateUrl="ForgotPassword.aspx" Text="Forgot Password?" CssClass="hyperlinkClass"></asp:HyperLink>
             <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="Signup.aspx" Text="Sign Up" CssClass="hyperlinkClass"></asp:HyperLink>
         </div>
         <div class="cloud"></div>

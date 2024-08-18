@@ -1,12 +1,15 @@
 ﻿using System;
-using System.Data;
-using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace CTS
 {
     public partial class Login : System.Web.UI.Page
     {
+<<<<<<< HEAD
         // Connecting to the database
         SqlConnection conn = new SqlConnection("""Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="C:\Users\User\OneDrive-North-West University\Documents\COMPUTER TRACKING SYSTEM\Group13Projects\Computer-Tracking-System\App_Data\CTS.mdf";Integrated Security=True""");
 
@@ -36,10 +39,16 @@ namespace CTS
                     conn.Close();
                 }
             }
+=======
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            
+>>>>>>> a8d51d3f56bf5f3cede9ee1d9950cf6a6dc4b058
         }
 
         protected void LoginBtn_Click(object sender, EventArgs e)
         {
+<<<<<<< HEAD
           
         }
 
@@ -82,6 +91,9 @@ namespace CTS
             {
                 conn.Close();
             }
+=======
+
+>>>>>>> a8d51d3f56bf5f3cede9ee1d9950cf6a6dc4b058
         }
     }
 }
