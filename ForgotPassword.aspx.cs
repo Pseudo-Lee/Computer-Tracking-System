@@ -10,7 +10,7 @@ using System.Data;
 
 namespace CTS
 {
-    public partial class ForgotPassword : System.Web.UI.Page
+    public partial class ForgotPassword :Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

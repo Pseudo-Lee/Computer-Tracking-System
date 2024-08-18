@@ -48,7 +48,8 @@ namespace CTS
             protected void LoginBtn_Click(object sender, EventArgs e)
             {
 
-
+            string username = TextBox1.Text;
+            string password = TextBox2.Text;
                 try
                 {
                     conn.Open();
