@@ -1,24 +1,25 @@
 ﻿using System;
-
 using System.Data;
 using System.Data.SqlClient;
-    using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using System.Web.UI.WebControls;
 using System.Web.UI;
 
 namespace CTS
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class Login : Page
     {
 
         // Connecting to the database
-        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\source\repos\CTS\App_Data\ComputerTrackerDB.mdf;Integrated Security=True");
+        private SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\source\repos\CTS\App_Data\ComputerTrackerDB.mdf;Integrated Security=True");
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            MessageLabel.Visible = false;
+            
+            //MessageLabel.Visible = false;
+            
             if (!IsPostBack)
             {
                 try
@@ -30,12 +31,12 @@ namespace CTS
                         Response.Write("<script>alert('Connection successful.');</script>");
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Handle connection error
-                    MessageLabel.Text = "Connection error: " + ex.Message;
-                    MessageLabel.ForeColor = System.Drawing.Color.Red;
-                    MessageLabel.Visible = true;
+                    //MessageLabel.Text = "Connection error: " + ex.Message;
+                    //MessageLabel.ForeColor = System.Drawing.Color.Red;
+                    //MessageLabel.Visible = true;
                 }
                 finally
                 {
@@ -48,8 +49,9 @@ namespace CTS
             protected void LoginBtn_Click(object sender, EventArgs e)
             {
 
-            string username = TextBox1.Text;
-            string password = TextBox2.Text;
+
+            string username = txtName.Text;
+            string password = txtPassword.Text;
                 try
                 {
                     conn.Open();
