@@ -1,19 +1,18 @@
 ﻿using System;
-<<<<<<< HEAD
+
 using System.Data;
 using System.Data.SqlClient;
-=======
-using System.Collections.Generic;
+    using System.Collections.Generic;
 using System.Linq;
 using System.Web;
->>>>>>> ac7753d4238f669432824c6ae9f8092f9ce9d7aa
+
 using System.Web.UI;
 
 namespace CTS
 {
     public partial class Login : System.Web.UI.Page
     {
-<<<<<<< HEAD
+
         // Connecting to the database
         SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\source\repos\CTS\App_Data\ComputerTrackerDB.mdf;Integrated Security=True");
 
@@ -43,53 +42,51 @@ namespace CTS
                     conn.Close();
                 }
             }
-=======
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            
->>>>>>> ac7753d4238f669432824c6ae9f8092f9ce9d7aa
         }
 
-        protected void LoginBtn_Click(object sender, EventArgs e)
-        {
 
-<<<<<<< HEAD
-            try
+            protected void LoginBtn_Click(object sender, EventArgs e)
             {
-                conn.Open();
 
-                // SQL Command
-                string query = "SELECT COUNT(*) FROM [User] WHERE Name=@Name AND Password=@Password";
-                SqlCommand comm = new SqlCommand(query, conn);
 
-                // Adding Parameters to prevent SQL Injection
-                comm.Parameters.AddWithValue("@Name", username);
-                comm.Parameters.AddWithValue("@Password", password);
-
-                int count = Convert.ToInt32(comm.ExecuteScalar());
-
-                if (count > 0)
+                try
                 {
-                    // User found, proceed to next step
-                    Response.Write("<script>alert('Login Successful');</script>");
+                    conn.Open();
+
+                    // SQL Command
+                    string query = "SELECT COUNT(*) FROM [User] WHERE Name=@Name AND Password=@Password";
+                    SqlCommand comm = new SqlCommand(query, conn);
+
+                    // Adding Parameters to prevent SQL Injection
+                    comm.Parameters.AddWithValue("@Name", username);
+                    comm.Parameters.AddWithValue("@Password", password);
+
+                    int count = Convert.ToInt32(comm.ExecuteScalar());
+
+                    if (count > 0)
+                    {
+                        // User found, proceed to next step
+                        Response.Write("<script>alert('Login Successful');</script>");
+                    }
+                    else
+                    {
+                        // User not found
+                        Response.Write("<script>alert('Login Unsuccessful');</script>");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    // User not found
-                    Response.Write("<script>alert('Login Unsuccessful');</script>");
+                    // Handle exception
+                    Response.Write("<script>alert('Error searching for user: " + ex.Message.Replace("'", "\\'") + "');</script>");
                 }
+                finally
+                {
+                    conn.Close();
+                }
+
             }
-            catch (Exception ex)
-            {
-                // Handle exception
-                Response.Write("<script>alert('Error searching for user: " + ex.Message.Replace("'", "\\'") + "');</script>");
-            }
-            finally
-            {
-                conn.Close();
-            }
-=======
->>>>>>> ac7753d4238f669432824c6ae9f8092f9ce9d7aa
+
+
         }
-    }
+    
 }
