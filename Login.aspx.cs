@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI.WebControls;
 using System.Web.UI;
 
 namespace CTS
 {
     public partial class Login : Page
     {
-
-        // Connecting to the database
-        private SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\source\repos\CTS\App_Data\ComputerTrackerDB.mdf;Integrated Security=True");
+        // Connection string to the database
+        private readonly string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\User\OneDrive - North-West University\Documents\COMPUTER TRACKING SYSTEM\Group13Projects\Computer-Tracking-System\App_Data\CTS.mdf"";Integrated Security=True";
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            //MessageLabel.Visible = false;
-            
             if (!IsPostBack)
+            {
+                TestDatabaseConnection();
+            }
+        }
+
+        private void TestDatabaseConnection()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 try
                 {
@@ -28,30 +28,24 @@ namespace CTS
                     if (conn.State == ConnectionState.Open)
                     {
                         // Connection successful
-                        Response.Write("<script>alert('Connection successful.');</script>");
+                        Response.Write("<script>alert('Connected');</script>");
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     // Handle connection error
-                    //MessageLabel.Text = "Connection error: " + ex.Message;
-                    //MessageLabel.ForeColor = System.Drawing.Color.Red;
-                    //MessageLabel.Visible = true;
-                }
-                finally
-                {
-                    conn.Close();
+                    Response.Write("<script>alert('Connection error: " + ex.Message.Replace("'", "\\'") + "');</script>");
                 }
             }
         }
 
-
-            protected void LoginBtn_Click(object sender, EventArgs e)
-            {
-
-
+        protected void LoginBtn_Click(object sender, EventArgs e)
+        {
             string username = txtName.Text;
             string password = txtPassword.Text;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
                 try
                 {
                     conn.Open();
@@ -69,7 +63,7 @@ namespace CTS
                     if (count > 0)
                     {
                         // User found, proceed to next step
-                        Response.Write("<script>alert('Login Successful');</script>");
+                        Response.Redirect("MainPage.aspx"); // Redirect to the main page
                     }
                     else
                     {
@@ -82,14 +76,7 @@ namespace CTS
                     // Handle exception
                     Response.Write("<script>alert('Error searching for user: " + ex.Message.Replace("'", "\\'") + "');</script>");
                 }
-                finally
-                {
-                    conn.Close();
-                }
-
             }
-
-
         }
-    
+    }
 }
