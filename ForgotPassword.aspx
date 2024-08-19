@@ -69,9 +69,6 @@
 .hyperlinkClass:hover {
     text-decoration: underline;
 }
-        .auto-style1 {
-            margin-left: 0px;
-        }
     </style>
 </head>
 <body>
@@ -95,12 +92,6 @@
             <asp:Label ID="LblFSPassword" runat="server" Text="Enter new password:" CssClass="labelClass"></asp:Label>
             <br />
             <asp:TextBox ID="txtPassword" runat="server" CssClass="textboxClass"></asp:TextBox>
-     
-            <br />
-            <asp:Label ID="Label1" runat="server" Text="Confirm your new password:"></asp:Label>
-            <br />
-            <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="textboxClass"></asp:TextBox>
-            <br />
      
             <br />
             <asp:Button ID="BtnPasswordReset" runat="server" Text="Reset Password" CssClass="buttonClass" OnClick="UpdatePasswordBtn_Click" Height="39px" />
