@@ -1,15 +1,6 @@
-﻿
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="CTS.Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="CTS.Login" %>
 
 <!DOCTYPE html>
-<script runat="server">
-
-    protected void LoginBtn_Click(object sender, EventArgs e)
-    {
-
-    }
-</script>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>CTS Login</title>
@@ -123,15 +114,12 @@
             cursor: pointer;
         }
         .buttonClass:hover {
-            
-            background-color: #3498db; /* Lighter shade of blue */
+            background-color: #3498db;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-           
             transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
-           
         }
         .hyperlinkClass {
             color: #1E90FF;
@@ -141,80 +129,66 @@
         .hyperlinkClass:hover {
             text-decoration: underline;
         }
-                .star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background-color: white;
-    border-radius: 50%;
-    box-shadow: 0 0 10px white;
-    animation: fade 5s infinite ease-in-out;
-}
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px white;
+            animation: fade 5s infinite ease-in-out;
+        }
         .shooting-star {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background-color: white;
-    border-radius: 50%;
-    box-shadow: 0 0 20px white;
-    animation: shoot 5s ease-in-out;
-}
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 0 20px white;
+            animation: shoot 5s ease-in-out;
+        }
         .popup {
-    position: fixed;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #28a745;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-    font-size: 16px;
-    font-weight: bold;
-    z-index: 1000;
-    transition: top 0.5s ease;
-}
-
-@keyframes fade {
-    0%, 100% { opacity: 0; }
-    50% { opacity: 1; }
-}
-
-@keyframes shoot {
-    0% { transform: translate(0, 0); opacity: 1; }
-    100% { transform: translate(100vw, -100vh); opacity: 0; }
-}
-
+            position: fixed;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            font-size: 16px;
+            font-weight: bold;
+            z-index: 1000;
+            transition: top 0.5s ease;
+        }
+        @keyframes fade {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+        @keyframes shoot {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(100vw, -100vh); opacity: 0; }
+        }
     </style>
- 
-
 </head>
 <body>
     <div id="connectionStatus" class="popup">Connected</div>
-       <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
     <form id="form1" runat="server">
         <div class="form-container">
-            
-             
             <br />
-            
             <asp:Label runat="server" Text="CTS Login" ID="Header" CssClass="Header"></asp:Label>
             <br />
-           
             <asp:Label ID="Label1" runat="server" Text="Enter your username:" CssClass="labelClass"></asp:Label>
             <br />
-            <asp:TextBox ID="txtName" runat="server" ></asp:TextBox>
-            
-                       <br />
+            <asp:TextBox ID="txtName" runat="server" CssClass="textboxClass"></asp:TextBox>
+            <br />
             <asp:Label ID="Label2" runat="server" Text="Enter your password:" CssClass="labelClass"></asp:Label>
-            
             <br />
-            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" ></asp:TextBox>
-
+            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="textboxClass"></asp:TextBox>
             <br />
-            
-            <br />
-            <asp:Button ID="LoginBtn" runat="server" Text="Login" CssClass="buttonClass" OnClick="LoginBtn_Click" />
+            <asp:Button ID="LoginBtn" runat="server" Text="Login" OnClick="LoginBtn_Click" CssClass="buttonClass" />
             <br />
             <asp:HyperLink ID="HyperLinkForgotpassword" runat="server" NavigateUrl="ForgotPassword.aspx" Text="Forgot Password?" CssClass="hyperlinkClass"></asp:HyperLink>
             <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="Signup.aspx" Text="Sign Up" CssClass="hyperlinkClass"></asp:HyperLink>
@@ -226,47 +200,42 @@
         <div class="cloud"></div>
         <div class="cloud"></div>
     </form>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        // Fade in the body when the page loads
-        $("body").fadeIn(2000); // Fades in over 2 seconds
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("body").fadeIn(2000); // Fades in over 2 seconds
 
-        function createStar() {
-            const star = document.createElement('span');
-            star.classList.add('star');
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.animationDuration = Math.random() * 2.5 + 2.5 + 's';
-            document.body.appendChild(star);
-        }
+            function createStar() {
+                const star = document.createElement('span');
+                star.classList.add('star');
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDuration = Math.random() * 2.5 + 2.5 + 's';
+                document.body.appendChild(star);
+                setTimeout(() => star.remove(), 5000);
+            }
+            setInterval(createStar, 100);
 
-        function createShootingStar() {
-            const shootingStar = document.createElement('span');
-            shootingStar.classList.add('shooting-star');
-            shootingStar.style.left = Math.random() * 100 + '%';
-            shootingStar.style.top = Math.random() * 100 + '%';
-            shootingStar.style.right = Math.random() * 100 + '%';
-            shootingStar.style.bottom = Math.random() * 100 + '%';
-            document.body.appendChild(shootingStar);
+            function createShootingStar() {
+                const shootingStar = document.createElement('span');
+                shootingStar.classList.add('shooting-star');
+                shootingStar.style.left = Math.random() * 100 + 'vw';
+                shootingStar.style.top = Math.random() * 50 + 'vh';
+                shootingStar.style.animationDuration = Math.random() * 1 + 4 + 's';
+                document.body.appendChild(shootingStar);
+                setTimeout(() => shootingStar.remove(), 5000);
+            }
+            setInterval(createShootingStar, 3000);
 
-          
-
-            setTimeout(() => shootingStar.remove(), 5000);
-        }
-
-        for (let i = 0; i < 100; i++) {
-            setTimeout(createStar, Math.random() * 5000);
-        }
-
-        setInterval(createShootingStar, Math.random() * 5000 + 5000);
-    });
-
-
-    
-</script>
-       
-   
-
+            // Show the popup on page load
+            const connectionPopup = document.getElementById('connectionStatus');
+            setTimeout(() => {
+                connectionPopup.style.top = '20px';
+            }, 500);
+            setTimeout(() => {
+                connectionPopup.style.top = '-50px';
+            }, 4000);
+        });
+    </script>
 </body>
 </html>
