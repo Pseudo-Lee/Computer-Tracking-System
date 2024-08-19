@@ -12,10 +12,7 @@ namespace CTS
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                TestDatabaseConnection();
-            }
+
         }
 
         private void TestDatabaseConnection()
@@ -43,40 +40,63 @@ namespace CTS
         {
             string username = txtName.Text;
             string password = txtPassword.Text;
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            if (IsPostBack)
             {
-                try
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    conn.Open();
+                    try {
+                        conn.Open();
 
-                    // SQL Command
-                    string query = "SELECT COUNT(*) FROM [User] WHERE Name=@Name AND Password=@Password";
-                    SqlCommand comm = new SqlCommand(query, conn);
+                        // SQL Command
+                        string query = "SELECT COUNT(1) FROM [User] WHERE Name=@Name AND Password=@Password";
+                        SqlCommand comm = new SqlCommand(query, conn);
 
-                    // Adding Parameters to prevent SQL Injection
-                    comm.Parameters.AddWithValue("@Name", username);
-                    comm.Parameters.AddWithValue("@Password", password);
+                        // Adding Parameters to prevent SQL Injection
+                        // Adding Parameters to prevent SQL Injection
+                        comm.Parameters.AddWithValue("@Name", username);
+                        comm.Parameters.AddWithValue("@Password", password);
+                        SqlDataAdapter da = new SqlDataAdapter(comm);
+                        DataSet ds = new DataSet();
+                        da.Fill(ds);
 
-                    int count = Convert.ToInt32(comm.ExecuteScalar());
+                        if (ds.Tables.Count == 0)
+                        {
+                            // Handle case where no table or no rows are found
+                            Response.Write("<script>alert('Invalid user or password');</script>");
+                        }
+                        else if (ds.Tables.Count == 1)
+                        {
+                            // Handle case where user is found
+                            Response.Write("<script>alert('Login Successful');</script>");
 
-                    if (count > 0)
-                    {
-                        // User found, proceed to next step
-                        Response.Redirect("MainPage.aspx"); // Redirect to the main page
+                            Response.Redirect("Main.aspx");
+                        }
+                        else
+                        {
+                        }
+                        int count = Convert.ToInt32(comm.ExecuteScalar());
+
+                        /* if (count >= 1)
+                         {
+                             Response.Write("Redirecting to Main.aspx");  // Temporary debugging line
+                             Response.Redirect("Main.aspx");
+
+                         }
+                         else
+                         {
+                             // User not found
+                             Response.Write("<script>alert('Login Unsuccessful');</script>");
+                         }*/
                     }
-                    else
+                    catch
                     {
-                        // User not found
                         Response.Write("<script>alert('Login Unsuccessful');</script>");
                     }
-                }
-                catch (Exception ex)
-                {
-                    // Handle exception
-                    Response.Write("<script>alert('Error searching for user: " + ex.Message.Replace("'", "\\'") + "');</script>");
+
+
                 }
             }
         }
+
     }
 }
