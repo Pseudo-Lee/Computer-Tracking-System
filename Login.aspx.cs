@@ -88,6 +88,10 @@ namespace CTS
                              Response.Write("<script>alert('Login Unsuccessful');</script>");
                          }*/
                     }
+                    catch
+                    {
+                        Response.Write("<script>alert('Login Unsuccessful');</script>");
+                    }
 
 
                 }
