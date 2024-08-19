@@ -8,7 +8,7 @@ namespace CTS
     public partial class Login : Page
     {
         // Connection string to the database
-        private  string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\GUSTAV\Documents\COMPUTER TRACKING SYSTEM\Group13Projects\Computer-Tracking-System\App_Data\CTS.mdf"";Integrated Security=True";
+        private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\User\OneDrive - North-West University\Documents\COMPUTER TRACKING SYSTEM\Group13Projects\Computer-Tracking-System\App_Data\CTS.mdf"";Integrated Security=True";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,7 +28,7 @@ namespace CTS
                     if (conn.State == ConnectionState.Open)
                     {
                         // Connection successful
-                        Response.Write("<script>alert('Connected');</script>");
+                        Response.Write(" < script>alert('Connected');</script>");
                     }
                 }
                 catch (Exception ex)
