@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="CTS.Login" %>
+﻿
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="CTS.Login" %>
 
 <!DOCTYPE html>
 <script runat="server">
@@ -194,19 +195,24 @@
     <form id="form1" runat="server">
         <div class="form-container">
             
-            
+             
             <br />
-            <asp:Label runat="server" Text="[MessageLabel]" ID="MessageLabel" CssClass ="MessageLabel"></asp:Label>
+            
             <asp:Label runat="server" Text="CTS Login" ID="Header" CssClass="Header"></asp:Label>
             <br />
+           
             <asp:Label ID="Label1" runat="server" Text="Enter your username:" CssClass="labelClass"></asp:Label>
             <br />
-            <asp:TextBox ID="TextBox1" runat="server" CssClass="textboxClass"></asp:TextBox>
-            <br />
+            <asp:TextBox ID="txtName" runat="server" ></asp:TextBox>
+            
+                       <br />
             <asp:Label ID="Label2" runat="server" Text="Enter your password:" CssClass="labelClass"></asp:Label>
+            
             <br />
+            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" ></asp:TextBox>
+
             <br />
-            <asp:TextBox ID="TextBox2" runat="server" TextMode="Password" CssClass="textboxClass"></asp:TextBox>
+            
             <br />
             <asp:Button ID="LoginBtn" runat="server" Text="Login" CssClass="buttonClass" OnClick="LoginBtn_Click" />
             <br />

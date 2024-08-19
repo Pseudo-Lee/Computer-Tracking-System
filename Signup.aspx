@@ -1,6 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SignUp.aspx.cs" Inherits="CTS.SignUp" %>
 
 <!DOCTYPE html>
+<script runat="server">
+
+    protected void TextBoxName_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+</script>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Sign Up</title>
@@ -107,8 +115,12 @@
             <asp:Label ID="Label4" runat="server" Text="Enter your ID number:" CssClass="labelClass"></asp:Label>
             <asp:TextBox ID="TextBoxID" runat="server" CssClass="textboxClass"></asp:TextBox>
             
+            <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="TextBoxID" ErrorMessage="Invalid ID number " MaximumValue="13" MinimumValue="1"></asp:RangeValidator>
+            
             <asp:Label ID="Label5" runat="server" Text="Enter your cellphone number:" CssClass="labelClass"></asp:Label>
             <asp:TextBox ID="TextBoxCellphone" runat="server" CssClass="textboxClass"></asp:TextBox>
+            
+            <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="TextBoxCellphone" ErrorMessage="Invalid number "></asp:RangeValidator>
             
             <asp:Label ID="Label6" runat="server" Text="Add new password:" CssClass="labelClass"></asp:Label>
             <asp:TextBox ID="TextBoxPassword" runat="server" CssClass="textboxClass" TextMode="Password"></asp:TextBox>

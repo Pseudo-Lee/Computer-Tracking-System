@@ -10,7 +10,7 @@ using System.Data;
 
 namespace CTS
 {
-    public partial class ForgotPassword : System.Web.UI.Page
+    public partial class ForgotPassword :Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,37 +25,8 @@ namespace CTS
         SqlDataReader read;
         DataSet ds;
 
-
         protected void UpdatePasswordBtn_Click(object sender, EventArgs e)
         {
-           
-
-            //declare the variables and assign them to the textboxes
-            String UserName = txtUserName.Text; 
-            String IdNum = txtIdNum.Text;
-            String Email = txtEmail.Text.Trim();   
-            String Password = txtPassword.Text;
-
-
-            try
-            {
-                conn = new SqlConnection(str);
-                conn.Open();
-
-                if (UserName != "" && IdNum != "" && Email != "" && Password != "")
-                {
-                    LblUpdatedPS.Text = "Password updated sucessfully!";
-                }
-
-
-                conn.Close();
-
-
-
-
-            }
-            catch (Exception ex)
-            {
 
             }
 

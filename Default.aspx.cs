@@ -8,7 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 namespace CTS
 {
-    public partial class Default : System.Web.UI.Page
+    public partial class Default :Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,6 +24,11 @@ namespace CTS
         {
             //redirects to login page
             Response.Redirect("Login.aspx");
+        }
+
+        protected void LoginBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
