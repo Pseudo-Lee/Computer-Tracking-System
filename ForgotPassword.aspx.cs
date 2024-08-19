@@ -42,26 +42,31 @@ namespace CTS
 
             if(username == "" || IdNum =="" || Email =="" || NewPassword =="" || password =="")
             {
-                LblUpdatedPS.Text = " please enter your information to reset password";
+               // LblUpdatedPS.Text = " please enter your information to reset password";
             }
 
+            LblComment.Text = " please enter your information to reset password";
+            Response.Write("<script>alert('Please enter correct information');</script<");
+        }
 
 
 
-            // Hash the password before storing (optional but recommended)
-            // string hashedPassword = HashPassword(password);
-
-            // Update the password in the database
-            //string connectionString = ConfigurationManager.ConnectionStrings["Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\GUSTAV\\Source\\Repos\\Group13Projects\\Computer-Tracking-System\\App_Data\\ComputerTrackerDB.mdf;Integrated Security = True\""].ConnectionString;
 
 
-            SqlConnection conn = new SqlConnection(str);
+        // Hash the password before storing (optional but recommended)
+        // string hashedPassword = HashPassword(password);
+
+        // Update the password in the database
+        //string connectionString = ConfigurationManager.ConnectionStrings["Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\GUSTAV\\Source\\Repos\\Group13Projects\\Computer-Tracking-System\\App_Data\\ComputerTrackerDB.mdf;Integrated Security = True\""].ConnectionString;
+
+
+       // SqlConnection conn = new SqlConnection(str);
            // SqlCommand comm = new SqlCommand("SELECT * FROM [USER] WHERE ";
 
 
 
 
-            }
+            
         
     }
 }
