@@ -12,7 +12,7 @@ namespace CTS
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void TestDatabaseConnection()
@@ -44,7 +44,7 @@ namespace CTS
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                   
+                    try {
                         conn.Open();
 
                         // SQL Command
@@ -88,10 +88,11 @@ namespace CTS
                              Response.Write("<script>alert('Login Unsuccessful');</script>");
                          }*/
                     }
-                   
+
+
                 }
             }
         }
 
     }
-
+}
