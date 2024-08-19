@@ -88,9 +88,13 @@
             
             <asp:TextBox ID="txtIdNum" runat="server" CssClass="textboxClass"></asp:TextBox>
             <br />
+            <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="txtEmail" ErrorMessage="Enter a valid ID number" MaximumValue="12" MinimumValue="1"></asp:RangeValidator>
+            <br />
             <asp:Label ID="LblFSEmail" runat="server" Text="Enter your email:" CssClass="labelClass"></asp:Label>
             <br />
             <asp:TextBox ID="txtEmail" runat="server" CssClass="textboxClass"></asp:TextBox>
+            <br />
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtEmail" ErrorMessage="Enter valid email address" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
             <br />
             <asp:Label ID="LblFSPassword" runat="server" Text="Enter new password:" CssClass="labelClass"></asp:Label>
             <br />
@@ -107,7 +111,6 @@
                 <br />
       <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="Login.aspx" Text="Back to login" CssClass="hyperlinkClass"></asp:HyperLink>
             <br />
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtEmail" ErrorMessage="Enter valid email address" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
             <br />
             <asp:Label ID="LblUpdatedPS" runat="server"></asp:Label>
         </div>
