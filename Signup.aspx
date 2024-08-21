@@ -1,6 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SignUp.aspx.cs" Inherits="CTS.SignUp" %>
 
 <!DOCTYPE html>
+<<<<<<< HEAD
+=======
+<script runat="server">
+
+  
+</script>
+
+>>>>>>> f270e6fe570bdc82c49c8eaac3dcba2f37d0122b
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Sign Up</title>

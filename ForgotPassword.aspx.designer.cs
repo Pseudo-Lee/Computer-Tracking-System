@@ -30,7 +30,7 @@ namespace CTS
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Header;
+        protected global::System.Web.UI.WebControls.Label Forgot;
 
         /// <summary>
         /// LblFSUserName control.
@@ -132,13 +132,13 @@ namespace CTS
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// txtConfirmPassword control.
+        /// ConfirmTxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtConfirmPassword;
+        protected global::System.Web.UI.WebControls.TextBox ConfirmTxt;
 
         /// <summary>
         /// BtnPasswordReset control.

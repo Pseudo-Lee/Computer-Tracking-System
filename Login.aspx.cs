@@ -8,7 +8,7 @@ namespace CTS
     public partial class Login : Page
     {
         // Connection string to the database
-        private  string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\GUSTAV\Documents\COMPUTER TRACKING SYSTEM\Group13Projects\Computer-Tracking-System\App_Data\CTS.mdf"";Integrated Security=True";
+        private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\User\OneDrive - North-West University\Documents\COMPUTER TRACKING SYSTEM\Group13Projects\Computer-Tracking-System\App_Data\CTS.mdf"";Integrated Security=True";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,7 +25,7 @@ namespace CTS
                     if (conn.State == ConnectionState.Open)
                     {
                         // Connection successful
-                        Response.Write("<script>alert('Connected');</script>");
+                        Response.Write(" < script>alert('Connected');</script>");
                     }
                 }
                 catch (Exception ex)
@@ -59,12 +59,12 @@ namespace CTS
                         DataSet ds = new DataSet();
                         da.Fill(ds);
 
-                        if (ds.Tables.Count == 0)
+                       /* if (ds.Tables.Count == 0)
                         {
                             // Handle case where no table or no rows are found
                             Response.Write("<script>alert('Invalid user or password');</script>");
                         }
-                        else if (ds.Tables.Count == 1)
+                        else if (ds.Tables.Count >0)
                         {
                             // Handle case where user is found
                             Response.Write("<script>alert('Login Successful');</script>");
@@ -73,10 +73,10 @@ namespace CTS
                         }
                         else
                         {
-                        }
+                        }*/
                         int count = Convert.ToInt32(comm.ExecuteScalar());
 
-                        /* if (count >= 1)
+                         if (count >= 1)
                          {
                              Response.Write("Redirecting to Main.aspx");  // Temporary debugging line
                              Response.Redirect("Main.aspx");
@@ -86,7 +86,7 @@ namespace CTS
                          {
                              // User not found
                              Response.Write("<script>alert('Login Unsuccessful');</script>");
-                         }*/
+                         }
                     }
                     catch
                     {

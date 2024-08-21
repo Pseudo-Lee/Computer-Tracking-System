@@ -19,6 +19,7 @@ namespace CTS
         {
 
         }
+        /*
         String str = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\GUSTAV\Source\Repos\Group13Projects\Computer-Tracking-System\App_Data\ComputerTrackerDB.mdf;Integrated Security = True";
 
         //declare my sql variables
@@ -38,35 +39,37 @@ namespace CTS
             String IdNum = txtIdNum.Text.Trim();
             String Email = txtEmail.Text.Trim();
             String NewPassword = txtPassword.Text.Trim();
-            String password = txtConfirmPassword.Text.Trim();
+            // String password= txtConfirmPassword.Text.Trim();
 
-            if(username == "" || IdNum =="" || Email =="" || NewPassword =="" || password =="")
-            {
-               // LblUpdatedPS.Text = " please enter your information to reset password";
-            }
+            /*  if(username == "" || IdNum =="" || Email =="" || NewPassword =="" || password =="")
+              {
+                 // LblUpdatedPS.Text = " please enter your information to reset password";
+              }
 
-            LblComment.Text = " please enter your information to reset password";
-            Response.Write("<script>alert('Please enter correct information');</script<");
+              LblComment.Text = " please enter your information to reset password";
+              Response.Write("<script>alert('Please enter correct information');</script<");
+          }
+            
+
+
+
+
+            // Hash the password before storing (optional but recommended)
+            // string hashedPassword = HashPassword(password);
+
+            // Update the password in the database
+            //string connectionString = ConfigurationManager.ConnectionStrings["Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\GUSTAV\\Source\\Repos\\Group13Projects\\Computer-Tracking-System\\App_Data\\ComputerTrackerDB.mdf;Integrated Security = True\""].ConnectionString;
+
+
+            // SqlConnection conn = new SqlConnection(str);
+            // SqlCommand comm = new SqlCommand("SELECT * FROM [USER] WHERE ";
+
+
+
+
+        */
+
         }
 
 
-
-
-
-        // Hash the password before storing (optional but recommended)
-        // string hashedPassword = HashPassword(password);
-
-        // Update the password in the database
-        //string connectionString = ConfigurationManager.ConnectionStrings["Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\GUSTAV\\Source\\Repos\\Group13Projects\\Computer-Tracking-System\\App_Data\\ComputerTrackerDB.mdf;Integrated Security = True\""].ConnectionString;
-
-
-       // SqlConnection conn = new SqlConnection(str);
-           // SqlCommand comm = new SqlCommand("SELECT * FROM [USER] WHERE ";
-
-
-
-
-            
-        
     }
-}
