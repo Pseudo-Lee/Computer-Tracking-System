@@ -90,7 +90,7 @@
             <br />
             <asp:Label ID="Label1" runat="server" Text="Confirm your new password:" CssClass="labelClass"></asp:Label>
             <br />
-            <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="textboxClass"></asp:TextBox>
+            <asp:TextBox ID="ConfirmTxt" runat="server" CssClass="textboxClass"></asp:TextBox>
             <br />
             <asp:Button ID="BtnPasswordReset" runat="server" Text="Reset Password" CssClass="buttonClass" OnClick="BtnPasswordReset_Click" />
             <br />
