@@ -42,6 +42,7 @@ namespace CTS
                     {
                         connection.Open();
                         command.ExecuteNonQuery();
+                        
                     }
                     catch (SqlException ex)
                     {
