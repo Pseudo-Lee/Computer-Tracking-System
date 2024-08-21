@@ -181,7 +181,7 @@
     <form id="AdminForm" runat="server">
         
         <div class="container">
-            <asp:Button ID="Button1" runat="server" Text="Logout" CssClass="logout-button" OnClick="LogoutBtn_Click" />
+            <asp:Button ID="LogoutBtn" runat="server" Text="Logout" CssClass="logout-button" OnClick="LogoutBtn_Click" />
 
            
             <div class="header">
@@ -212,7 +212,8 @@
             <!-- Buttons -->
             <div class="button-row">
                 <asp:Button ID="btnAdd" runat="server" Text="Add Learner" CssClass="button" OnClick="btnAdd_Click" />
-                <asp:Button ID="btnView" runat="server" Text="View Learners" CssClass="button" OnClick="btnView_Click" />
+                <asp:Button ID="ViewBtn" runat="server" Text="View Learners" CssClass="button" OnClick="ViewBtn_Click"></asp:Button>
+            
             </div>
 
             <!-- Hyperlinks -->
