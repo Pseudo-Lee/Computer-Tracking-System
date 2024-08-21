@@ -30,11 +30,7 @@ namespace CTS
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-<<<<<<< HEAD
         protected global::System.Web.UI.WebControls.Label Label8;
-=======
-        protected global::System.Web.UI.WebControls.Label signupHeader;
->>>>>>> f270e6fe570bdc82c49c8eaac3dcba2f37d0122b
 
         /// <summary>
         /// Label1 control.
