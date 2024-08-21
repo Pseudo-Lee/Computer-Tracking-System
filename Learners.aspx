@@ -24,6 +24,7 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             padding: 30px;
+            position: relative;
         }
 
         .header {
@@ -120,6 +121,40 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        .logout-button {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background-color: mediumpurple;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .logout-button:hover {
+            background-color: #c0392b;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .link {
+            color: #2980b9;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 0 10px;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
     </style>
     <script>
         function showModal(message) {
@@ -134,7 +169,7 @@
             modal.style.display = "none";
         }
 
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             var modal = document.getElementById("myModal");
             if (event.target == modal) {
                 modal.style.display = "none";
@@ -146,6 +181,9 @@
     <form id="AdminForm" runat="server">
         
         <div class="container">
+            <asp:Button ID="Button1" runat="server" Text="Logout" CssClass="logout-button" OnClick="LogoutBtn_Click" />
+
+           
             <div class="header">
                 Manage Learners
             </div>
@@ -175,6 +213,12 @@
             <div class="button-row">
                 <asp:Button ID="btnAdd" runat="server" Text="Add Learner" CssClass="button" OnClick="btnAdd_Click" />
                 <asp:Button ID="btnView" runat="server" Text="View Learners" CssClass="button" OnClick="btnView_Click" />
+            </div>
+
+            <!-- Hyperlinks -->
+            <div class="links">
+                <a href="Main.aspx" class="link">Home</a>
+                <a href="Computers.aspx" class="link">Go to Computers</a>
             </div>
         </div>
        
