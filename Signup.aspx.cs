@@ -32,7 +32,7 @@ namespace CTS
                     return;
                 }
 
-                // Hash the password using SHA-256
+                //Hash the password using SHA-256
                 string hashedPassword = HashPassword(password);
 
                 // Define connection string
