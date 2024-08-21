@@ -82,7 +82,65 @@
         .button:hover {
             background-color: #3498db;
         }
+
+        /* Modal styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 500px;
+            border-radius: 5px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
+    <script>
+        function showModal(message) {
+            var modal = document.getElementById("myModal");
+            var modalText = document.getElementById("modalText");
+            modalText.textContent = message;
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            var modal = document.getElementById("myModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </head>
 <body>
     <form id="AdminForm" runat="server">
@@ -116,9 +174,18 @@
             <!-- Buttons -->
             <div class="button-row">
                 <asp:Button ID="btnAdd" runat="server" Text="Add Learner" CssClass="button" OnClick="btnAdd_Click" />
-                <asp:Button ID="btnSearch" runat="server" Text="Search Learners" CssClass="button" />
+                <asp:Button ID="btnView" runat="server" Text="View Learners" CssClass="button" OnClick="btnView_Click" />
             </div>
         </div>
+       
     </form>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p id="modalText"></p>
+        </div>
+    </div>
 </body>
 </html>

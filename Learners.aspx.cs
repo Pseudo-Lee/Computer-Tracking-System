@@ -8,16 +8,16 @@ namespace CTS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Optionally, handle page load events here
+           
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\User\\OneDrive - North-West University\\Documents\\COMPUTER TRACKING SYSTEM\\Group13Projects\\Computer-Tracking-System\\App_Data\\CTS.mdf\";Integrated Security=True";
             string query = "INSERT INTO [Student] (FirstName, LastName, EmailAddress, TelephoneNo, DateOfBirth, IdNumber) VALUES (@Name, @Surname, @Email, @Telephone, @DateOfBirth, @IDNumber)";
-
+            //dateTime parsing
             DateTime dateOfBirth;
-            // Simplified date parsing
+           
             bool isDateValid = DateTime.TryParse(txtDOB.Text, out dateOfBirth);
 
             if (!isDateValid)
@@ -42,7 +42,9 @@ namespace CTS
                     {
                         connection.Open();
                         command.ExecuteNonQuery();
-                        
+                        Response.Write($"<Script>alert('{txtName} registered successfully');</script>");
+
+
                     }
                     catch (SqlException ex)
                     {
