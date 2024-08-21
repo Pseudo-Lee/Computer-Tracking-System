@@ -3,10 +3,7 @@
 <!DOCTYPE html>
 <script runat="server">
 
-    protected void TextBoxName_TextChanged(object sender, EventArgs e)
-    {
-
-    }
+  
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
