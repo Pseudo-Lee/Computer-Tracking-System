@@ -1,1 +1,2 @@
-﻿SELECT * FROM [Student] 
+﻿
+SELECT * FROM Student

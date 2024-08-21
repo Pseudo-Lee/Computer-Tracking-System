@@ -13,7 +13,7 @@ namespace CTS
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\User\\OneDrive - North-West University\\Documents\\COMPUTER TRACKING SYSTEM\\Group13Projects\\Computer-Tracking-System\\App_Data\\CTS.mdf\";Integrated Security=True";
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\User\OneDrive - North-West University\Documents\COMPUTER TRACKING SYSTEM\Group13Projects\Computer-Tracking-System\App_Data\CTS.mdf"";Integrated Security=True";
             string query = "INSERT INTO [Student] (FirstName, LastName, EmailAddress, TelephoneNo, DateOfBirth, IdNumber) VALUES (@Name, @Surname, @Email, @Telephone, @DateOfBirth, @IDNumber)";
             //dateTime parsing
             DateTime dateOfBirth;
@@ -42,7 +42,7 @@ namespace CTS
                     {
                         connection.Open();
                         command.ExecuteNonQuery();
-                        Response.Write($"<Script>alert('{txtName} registered successfully');</script>");
+                        Response.Write($"<Script>alert('{txtName.Text} registered successfully');</script>");
 
 
                     }
