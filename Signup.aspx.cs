@@ -38,29 +38,32 @@ namespace CTS
 
             SqlConnection con = new SqlConnection(str);
             
-            String query = "INSERT INTO [User] (name, surname, email, idnumber ,cellphone,password, confirmPassword) VALUES (@name ,@surname ,@email, @idnumber ,@cellphone ,@password ,@confirmPassword)";
+            String query = "INSERT INTO [User] (name,password) VALUES (@name ,@password )";
 
             try
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@name",name);
-                cmd.Parameters.AddWithValue("@surname", surname);
-                cmd.Parameters.AddWithValue("@email", email);
-                cmd.Parameters.AddWithValue("@idnumber", idnumber);
-                cmd.Parameters.AddWithValue("@cellphone", cellphone);
+                //cmd.Parameters.AddWithValue("@surname", surname);
+                //cmd.Parameters.AddWithValue("@email", email);
+                //cmd.Parameters.AddWithValue("@idnumber", idnumber);
+                //cmd.Parameters.AddWithValue("@cellphone", cellphone);
                 cmd.Parameters.AddWithValue("@password", password);
-                cmd.Parameters.AddWithValue("@confirmPassword", confirmPassword);
+                //cmd.Parameters.AddWithValue("@confirmPassword", confirmPassword);
                 cmd.ExecuteNonQuery();
+                Response.Redirect("Login.aspx", false);
 
-                if (password == confirmPassword)
+
+
+                //if (password == confirmPassword)
                 {
 
                 }
-                else
+                //else
                 {
-                    TextBoxConfirmPassword.Text = string.Empty;
-                    TextBoxConfirmPassword.Focus();
+                    //TextBoxConfirmPassword.Text = string.Empty;
+                    //TextBoxConfirmPassword.Focus();
                 }
             }
             catch(Exception ex) 
