@@ -38,7 +38,7 @@ namespace CTS
 
             SqlConnection con = new SqlConnection(str);
             
-            String query = "Insert into [User] (name, surname, email, idnumber ,cellphone,password, confirmPassword) VALUES (@name ,@surname ,@email, @idnumber ,@cellphone ,@password ,@confirmPassword";
+            String query = "INSERT INTO [User] (name, surname, email, idnumber ,cellphone,password, confirmPassword) VALUES (@name ,@surname ,@email, @idnumber ,@cellphone ,@password ,@confirmPassword)";
 
             try
             {
@@ -50,8 +50,18 @@ namespace CTS
                 cmd.Parameters.AddWithValue("@idnumber", idnumber);
                 cmd.Parameters.AddWithValue("@cellphone", cellphone);
                 cmd.Parameters.AddWithValue("@password", password);
-                cmd.Parameters.AddWithValue("@confirmPasswor", confirmPassword);
+                cmd.Parameters.AddWithValue("@confirmPassword", confirmPassword);
                 cmd.ExecuteNonQuery();
+
+                if (password == confirmPassword)
+                {
+
+                }
+                else
+                {
+                    TextBoxConfirmPassword.Text = string.Empty;
+                    TextBoxConfirmPassword.Focus();
+                }
             }
             catch(Exception ex) 
             {
