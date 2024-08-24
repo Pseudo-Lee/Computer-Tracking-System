@@ -9,7 +9,10 @@ namespace CTS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Any necessary logic for initial page load can be placed here
+            if (!IsPostBack)
+            {
+                lblDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            }
         }
 
         protected void SignUpBtn_Click(object sender, EventArgs e)
@@ -24,6 +27,7 @@ namespace CTS
                 string email = TextBoxEmail.Text.Trim();
                 string password = TextBoxPassword.Text.Trim();
                 string confirmPassword = TextBoxConfirmPassword.Text.Trim();
+                
 
                 // Compare passwords
                 if (password != confirmPassword)
