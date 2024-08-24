@@ -235,5 +235,9 @@ f270e6fe570bdc82c49c8eaac3dcba2f37d0122b
                 shootingStar.style.top = Math.random() * 100 + '%';
                 document.body.appendChild(shootingStar);
 
-                setTimeout(() => shootingStar.remove(),</script>
-</body></html>
+                setTimeout(() => shootingStar.remove(),
+
+    </script>
+</body >
+
+</html>
