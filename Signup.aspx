@@ -260,5 +260,37 @@
             </div>
         </div>
     </form>
+<<<<<<< HEAD
 </body>
 </html>
+=======
+
+    <!-- Shooting stars effect -->
+    <div class="shooting-star"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            function createStar() {
+                const star = document.createElement('span');
+                star.classList.add('star');
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDuration = Math.random() * 2.5 + 2.5 + 's';
+                document.body.appendChild(star);
+            }
+
+            function createShootingStar() {
+                const shootingStar = document.createElement('span');
+                shootingStar.classList.add('shooting-star');
+                shootingStar.style.left = Math.random() * 100 + '%';
+                shootingStar.style.top = Math.random() * 100 + '%';
+                document.body.appendChild(shootingStar);
+
+                setTimeout(() => shootingStar.remove(),
+
+    </script>
+</body >
+
+</html>
+>>>>>>> be3fe7b53d8f47c27c583f388ca2c575eb6f38d0
