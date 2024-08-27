@@ -2,6 +2,8 @@
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web.Services.Description;
+using System.Xml.Linq;
 
 namespace CTS
 {
@@ -40,7 +42,7 @@ namespace CTS
                 string hashedPassword = HashPassword(password);
 
                 // Define connection string
-                string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\tshir\\source\\repos\\Group13Projects\\Computer-Tracking-System\\App_Data\\CTS.mdf;Integrated Security=True";
+                string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\User\\OneDrive - North-West University\\Documents\\COMPUTER TRACKING SYSTEM\\Group13Projects\\Computer-Tracking-System\\App_Data\\CTS.mdf\";Integrated Security=True";
 
                 // Insert data into the database
                 using (SqlConnection conn = new SqlConnection(connectionString))
