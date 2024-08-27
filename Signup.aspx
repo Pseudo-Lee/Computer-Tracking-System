@@ -102,7 +102,7 @@
             
             <asp:Label ID="Label1" runat="server" Text="Enter your name:" CssClass="labelClass"></asp:Label>
             <asp:TextBox ID="TextBoxName" runat="server" CssClass="textboxClass"></asp:TextBox>
-            <asp:CustomValidator ID="CustomValidator1" runat="server" ControlToValidate="TextBoxName" ErrorMessage="Please enter your name"></asp:CustomValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldName" runat="server" ControlToValidate="TextBoxName" ErrorMessage="Name Required"></asp:RequiredFieldValidator>
             
             <asp:Label ID="Label2" runat="server" Text="Enter your surname:" CssClass="labelClass"></asp:Label>
             <asp:TextBox ID="TextBoxSurname" runat="server" CssClass="textboxClass"></asp:TextBox>

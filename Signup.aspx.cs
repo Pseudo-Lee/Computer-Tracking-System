@@ -54,6 +54,16 @@ namespace CTS
                 cmd.ExecuteNonQuery();
                 Response.Redirect("Login.aspx", false);
 
+                if (string.IsNullOrEmpty(TextBoxName.Text))
+                {
+                    MessageBox.Show("Enter a name");
+                    TextBoxName.Focus();
+                    return;
+                    
+                      
+
+                }
+
 
 
                 //if (password == confirmPassword)
