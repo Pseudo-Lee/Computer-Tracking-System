@@ -65,31 +65,17 @@
 <body>
     <form id="MainForm" runat="server">
         <div class="container">
+            
             <div class="header">
                 Admin Dashboard
             </div>
             <table>
                 <tr>
-                    <td>&nbsp;</td>
-                    <td>
-                        &nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td class="button-row" id="s">
-                        <asp:Button runat="server" Text="Maintain Students" ID="StudentsBtn" CssClass="button" OnClick="StudentsBtn_Click"></asp:Button>
-                        <asp:Button runat="server" Text="Maintain Computers" ID="ComputersBtn" CssClass="button" OnClick="ComputersBtn_Click"></asp:Button>
-                        <asp:Button runat="server" Text="Log out" CssClass="button" OnClick="Logout_Click"></asp:Button>
-
-
+                    <td class="button-row">
+                        <asp:Button runat="server" Text="Maintain Students" ID="StudentsBtn" CssClass="button" OnClick="StudentsBtn_Click"/>
+                        <asp:Button runat="server" Text="Maintain Computers" ID="ComputersBtn" CssClass="button" OnClick="ComputersBtn_Click"/>
+                        <asp:Button runat="server" Text="Log out" CssClass="button" ID="Logout" OnClick="Logout_Click"/>
                     </td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
                 </tr>
             </table>
         </div>

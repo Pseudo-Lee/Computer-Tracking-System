@@ -4,21 +4,28 @@ using System.Web.UI;
 
 namespace CTS
 {
-    public partial class Main1 : Page
+    public partial class Main: Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
 
-        protected void Submit_Click(object sender, EventArgs e)
+       
+
+        protected void StudentsBtn_Click(object sender, EventArgs e)
         {
             Response.Redirect("Learners.aspx");
         }
 
-        protected void MtnCompBtn_Click(object sender, EventArgs e)
+        protected void ComputersBtn_Click(object sender, EventArgs e)
         {
-            // Your code here
+            Response.Redirect("Computers.aspx");
+        }
+
+        protected void Logout_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Login.aspx");
         }
     }
 }
