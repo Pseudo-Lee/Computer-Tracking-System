@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace CTS
 {
-    public partial class Main : System.Web.UI.Page
+    public partial class Learners : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,7 +29,7 @@ namespace CTS
 
         protected void AddLearnerBtn_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Learners.aspx");
+           
         }
     }
 }

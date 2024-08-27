@@ -180,7 +180,7 @@
 <body>
     <form id="AdminForm" runat="server">
         <div class="container">
-            <asp:Button ID="LogoutBtn" runat="server" Text="Logout" CssClass="logout-button" OnClick="LogoutBtn_Click" />
+            <asp:Button ID="LogoutBtn" runat="server" Text="Logout" CssClass="logout-button" onClick="LogoutBtn_Click" />
             <div class="header">
                 Manage Learners
             </div>
