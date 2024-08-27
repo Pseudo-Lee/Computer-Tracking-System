@@ -48,7 +48,7 @@ namespace CTS
                         conn.Open();
 
                         // SQL Command
-                        string query = "SELECT COUNT(1) FROM [User] WHERE Name=@Name AND Password=@Password";
+                        string query = "SELECT COUNT(1) FROM [dbo].[User] WHERE Name=@Name AND Password=@Password";
                         SqlCommand comm = new SqlCommand(query, conn);
 
                         // Adding Parameters to prevent SQL Injection

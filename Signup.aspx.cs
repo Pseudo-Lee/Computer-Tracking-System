@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
@@ -7,6 +8,9 @@ namespace CTS
 {
     public partial class SignUp : System.Web.UI.Page
     {
+        string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\tshir\source\repos\Group13Projects\Computer-Tracking-System\App_Data\CTS.mdf;Integrated Security=True";
+
+       
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -15,57 +19,62 @@ namespace CTS
             }
         }
 
+
         protected void SignUpBtn_Click(object sender, EventArgs e)
         {
-            // Check if the page is valid (i.e., all validators are passed)
             if (Page.IsValid)
             {
-                // Retrieve user input
                 string name = TextBoxName.Text.Trim();
                 string surname = TextBoxSurname.Text.Trim();
                 string idNumber = TextBoxID.Text.Trim();
+                string cellphone = TextBoxCellphone.Text.Trim();
                 string email = TextBoxEmail.Text.Trim();
                 string password = TextBoxPassword.Text.Trim();
                 string confirmPassword = TextBoxConfirmPassword.Text.Trim();
-                
 
-                // Compare passwords
                 if (password != confirmPassword)
                 {
-                    Response.Write("<script>alert('Passwords do not match.');</script>");
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Passwords do not match.');", true);
                     return;
                 }
 
-                //Hash the password using SHA-256
                 string hashedPassword = HashPassword(password);
 
-                // Define connection string
-                string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\tshir\\source\\repos\\Group13Projects\\Computer-Tracking-System\\App_Data\\CTS.mdf;Integrated Security=True";
-
-                // Insert data into the database
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                try
                 {
-                    string query = "INSERT INTO [dbo].[User] (Name, Surname, IdNumber, Email, Password) VALUES (@Name, @Surname, @IdNumber, @Email, @Password)";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    using (SqlConnection conn = new SqlConnection(connectionString))
                     {
-                        cmd.Parameters.AddWithValue("@Name", name);
-                        cmd.Parameters.AddWithValue("@Surname", surname);
-                        cmd.Parameters.AddWithValue("@IdNumber", idNumber);
-                        cmd.Parameters.AddWithValue("@Email", email);
-                        cmd.Parameters.AddWithValue("@Password", hashedPassword);
+                        conn.Open();
 
-                        try
+                        string query = "INSERT INTO [dbo].[User] (Name, Surname, IdNumber, Cellphone, Email, Password) VALUES (@Name, @Surname, @IdNumber, @Cellphone, @Email, @Password)";
+                        using (SqlCommand cmd = new SqlCommand(query, conn))
                         {
-                            conn.Open();
-                            cmd.ExecuteNonQuery();
-                            Response.Write("<script>alert('Sign Up successful.');</script>");
-                        }
-                        catch (Exception ex)
-                        {
-                            // Log the error and display a friendly message
-                            Response.Write("<script>alert('An error occurred: " + ex.Message + "');</script>");
+                            cmd.Parameters.AddWithValue("@Name", name);
+                            cmd.Parameters.AddWithValue("@Surname", surname);
+                            cmd.Parameters.AddWithValue("@IdNumber", idNumber);
+                            cmd.Parameters.AddWithValue("@Cellphone", cellphone);
+                            cmd.Parameters.AddWithValue("@Email", email);
+                            cmd.Parameters.AddWithValue("@Password", hashedPassword);
+
+                            int rowsAffected = cmd.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                string script = "alert('Submitted successfully. Redirecting to login page...'); window.location='Login.aspx';";
+                                ClientScript.RegisterStartupScript(this.GetType(), "redirect", script, true);
+                                
+                            }
+        
+                            else
+                            {
+                                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Sign Up failed. Please try again.');", true);
+                            }
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred: " + ex.Message.Replace("'", "\\'") + "');", true);
                 }
             }
         }

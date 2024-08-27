@@ -76,7 +76,7 @@
             <br />
             <asp:TextBox ID="txtIdNum" runat="server" CssClass="textboxClass"></asp:TextBox>
             <br />
-            <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="txtIdNum" ErrorMessage="Enter a valid ID number" MinimumValue="1000000000000" MaximumValue="9999999999999" Type="Double"></asp:RangeValidator>
+            <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="txtIdNum" ErrorMessage="Enter a valid ID number" MinimumValue="0000000000000" MaximumValue="9999999999999" Type="Double"></asp:RangeValidator>
             <br />
             <asp:Label ID="LblFSEmail" runat="server" Text="Enter your email:" CssClass="labelClass"></asp:Label>
             <br />

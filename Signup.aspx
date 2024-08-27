@@ -29,7 +29,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative;
+            position: absolute;
             width: 400px;
             z-index: 10;
         }
@@ -94,7 +94,7 @@
             z-index: 10;
             left: 3px;
             top: -2px;
-            height: 967px;
+            height: 589px;
         }
         .auto-style8 {
             height: 489px;
@@ -260,10 +260,9 @@
             </div>
         </div>
     </form>
-<<<<<<< HEAD
+
 </body>
 </html>
-=======
 
     <!-- Shooting stars effect -->
     <div class="shooting-star"></div>
@@ -290,7 +289,46 @@
                 setTimeout(() => shootingStar.remove(),
 
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Shooting stars effect function
+        function createStar() {
+            const star = document.createElement('span');
+            star.classList.add('star');
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDuration = Math.random() * 2.5 + 2.5 + 's';
+            document.body.appendChild(star);
+        }
+
+        function createShootingStar() {
+            const shootingStar = document.createElement('span');
+            shootingStar.classList.add('shooting-star');
+            shootingStar.style.left = Math.random() * 100 + '%';
+            shootingStar.style.top = Math.random() * 100 + '%';
+            document.body.appendChild(shootingStar);
+
+            setTimeout(() => shootingStar.remove(), 5000);
+        }
+
+        // Simulate form submission response
+        $("#SignUpBtn").click(function (event) {
+            event.preventDefault(); // Prevent actual form submission
+            
+            // Replace with actual validation or submission logic
+            var isSuccess = true; // This should depend on form validation or submission result
+
+            if (isSuccess) {
+                alert("Submitted successfully");
+            } else {
+                alert("Something went wrong");
+            }
+        });
+    });
+</script>
+
 </body >
 
 </html>
->>>>>>> be3fe7b53d8f47c27c583f388ca2c575eb6f38d0
+
