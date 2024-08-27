@@ -17,17 +17,15 @@
             height: 100vh;
             overflow: hidden;
         }
-
         .container {
             width: 100%;
-            max-width: 600px;
+            max-width: 1200px;
             background-color: white;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             padding: 40px;
             text-align: center;
         }
-
         .header {
             background-color: #34495e;
             color: white;
@@ -37,7 +35,11 @@
             margin-bottom: 40px;
             border-radius: 10px;
         }
-
+        .button-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
         .button {
             background-color: #2980b9;
             color: white;
@@ -48,19 +50,15 @@
             font-size: 18px;
             transition: background-color 0.3s;
         }
-
         .button:hover {
             background-color: #3498db;
         }
-
         table {
             width: 100%;
-            border-spacing: 15px;
-            margin: 0 auto;
         }
-
         td {
             text-align: center;
+            padding: 10px;
         }
     </style>
 </head>
@@ -72,12 +70,26 @@
             </div>
             <table>
                 <tr>
+                    <td>&nbsp;</td>
                     <td>
-                        <asp:Button runat="server" Text="Maintain Students" CssClass="button" ID="MtnStuBtn" OnClick="MtnStuBtn_Click" />
+                        &nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td class="button-row" id="s">
+                        <asp:Button runat="server" Text="Maintain Students" ID="StudentsBtn" CssClass="button" OnClick="StudentsBtn_Click"></asp:Button>
+                        <asp:Button runat="server" Text="Maintain Computers" ID="ComputersBtn" CssClass="button" OnClick="ComputersBtn_Click"></asp:Button>
+                        <asp:Button runat="server" Text="Log out" CssClass="button" OnClick="Logout_Click"></asp:Button>
+
+
                     </td>
-                    <td>
-                        <asp:Button runat="server" Text="Maintain Computers" CssClass="button" ID="MtnCompBtn" OnClick="MtnCompBtn_Click" />
-                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
                 </tr>
             </table>
         </div>
