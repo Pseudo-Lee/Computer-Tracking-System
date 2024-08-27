@@ -175,12 +175,16 @@
                 modal.style.display = "none";
             }
         }
+
+        function confirmLogout() {
+            return confirm("Are you sure you want to log out?");
+        }
     </script>
 </head>
 <body>
     <form id="AdminForm" runat="server">
         <div class="container">
-            <asp:Button ID="LogoutBtn" runat="server" Text="Logout" CssClass="logout-button" onClick="LogoutBtn_Click" />
+            <asp:Button ID="LogoutBtn" runat="server" Text="Logout" CssClass="logout-button" OnClientClick="return confirmLogout();" OnClick="LogoutBtn_Click" />
             <div class="header">
                 Manage Learners
             </div>
@@ -227,5 +231,6 @@
             <p id="modalText"></p>
         </div>
     </div>
+        
 </body>
 </html>

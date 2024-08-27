@@ -20,16 +20,21 @@ namespace CTS
 
        
 
-        protected void Logout_Click(object sender, EventArgs e)
+       
+
+        protected void LogoutBtn_Click(object sender, EventArgs e)
         {
             Response.Redirect("Login.aspx");
         }
 
-       
-
         protected void AddLearnerBtn_Click(object sender, EventArgs e)
         {
-           
+
+        }
+
+        protected void btnView_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
