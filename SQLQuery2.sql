@@ -1,1 +1,2 @@
-﻿SELECT * FROM [User]
+﻿--DELETE FROM [USER] WHERE UserId>=13
+SELECT * FROM [User]

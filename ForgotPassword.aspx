@@ -1,14 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ForgotPassword.aspx.cs" Inherits="CTS.ForgotPassword" %>
 
 <!DOCTYPE html>
-<script runat="server">
-
-    protected void UpdatePasswordBtn_Click(object sender, EventArgs e)
-    {
-
-    }
-</script>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Forgot Password</title>
@@ -62,15 +54,12 @@
             background-color: #45a049;
         }
         .hyperlinkClass {
-    color: #1E90FF;
-    text-decoration: none;
-    margin-right: 10px;
-}
-.hyperlinkClass:hover {
-    text-decoration: underline;
-}
-        .auto-style1 {
-            margin-left: 0px;
+            color: #1E90FF;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .hyperlinkClass:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -85,33 +74,32 @@
             <br />
             <asp:Label ID="LblFSIdNum" runat="server" Text="Enter your ID number:" CssClass="labelClass"></asp:Label>
             <br />
-            
             <asp:TextBox ID="txtIdNum" runat="server" CssClass="textboxClass"></asp:TextBox>
+            <br />
+            <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="txtIdNum" ErrorMessage="Enter a valid ID number" MinimumValue="1000000000000" MaximumValue="9999999999999" Type="Double"></asp:RangeValidator>
             <br />
             <asp:Label ID="LblFSEmail" runat="server" Text="Enter your email:" CssClass="labelClass"></asp:Label>
             <br />
             <asp:TextBox ID="txtEmail" runat="server" CssClass="textboxClass"></asp:TextBox>
             <br />
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtEmail" ErrorMessage="Enter valid email address" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
+            <br />
             <asp:Label ID="LblFSPassword" runat="server" Text="Enter new password:" CssClass="labelClass"></asp:Label>
             <br />
             <asp:TextBox ID="txtPassword" runat="server" CssClass="textboxClass"></asp:TextBox>
-     
             <br />
-            <asp:Label ID="Label1" runat="server" Text="Confirm your new password:"></asp:Label>
+            <asp:Label ID="Label1" runat="server" Text="Confirm your new password:" CssClass="labelClass"></asp:Label>
             <br />
-            <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="textboxClass"></asp:TextBox>
+            <asp:TextBox ID="ConfirmTxt" runat="server" CssClass="textboxClass"></asp:TextBox>
             <br />
-     
+            <asp:Button ID="BtnPasswordReset" runat="server" Text="Reset Password" CssClass="buttonClass" OnClick="BtnPasswordReset_Click" />
             <br />
-            <asp:Button ID="BtnPasswordReset" runat="server" Text="Reset Password" CssClass="buttonClass" OnClick="UpdatePasswordBtn_Click" Height="39px" />
-                <br />
-      <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="Login.aspx" Text="Back to login" CssClass="hyperlinkClass"></asp:HyperLink>
+            <asp:Label ID="LblComment" runat="server" Text="......"></asp:Label>
             <br />
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtEmail" ErrorMessage="Enter valid email address" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
+            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="Login.aspx" Text="Back to login" CssClass="hyperlinkClass"></asp:HyperLink>
             <br />
-            <asp:Label ID="LblUpdatedPS" runat="server"></asp:Label>
+            <br />
         </div>
     </form>
-
 </body>
 </html>
