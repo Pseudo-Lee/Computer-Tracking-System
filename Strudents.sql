@@ -1,0 +1,1 @@
+﻿SELECT LearnerID, FirstName, LastName, DateOfBirth, TelephoneNo, EmailAddress, IdNumber FROM Student
