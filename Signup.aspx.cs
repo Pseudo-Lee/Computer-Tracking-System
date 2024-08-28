@@ -1,91 +1,86 @@
 ﻿using System;
-using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web.UI;
 
 namespace CTS
 {
     public partial class SignUp : System.Web.UI.Page
     {
-        string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\tshir\source\repos\Group13Projects\Computer-Tracking-System\App_Data\CTS.mdf;Integrated Security=True";
-
-       
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                lblDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                TxtbDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
             }
         }
 
-
-        protected void SignUpBtn_Click(object sender, EventArgs e)
+        protected void BtnSignUp_Click(object sender, EventArgs e)
         {
-            if (Page.IsValid)
+            // Retrieve user input
+            string name = TxtbName.Text.Trim();
+            string surname = TxtbSurname.Text.Trim();
+            string idNumber = TxtbID.Text.Trim();
+            string cellphone = TxtbCellphone.Text.Trim();
+            string email = TxtbEmail.Text.Trim();
+            string password = TxtbPassword.Text.Trim();
+
+            // Hash the password
+            string hashedPassword = Convert.ToBase64String(HashPassword(password)); // Convert to Base64 string
+
+            string connStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Computer-Tracking-System\App_Data\CTS.mdf;Integrated Security=True";
+
+            string query = "INSERT INTO [User] (Name, Surname, IdNumber, Cellphone, Email, Password) " +
+                           "VALUES (@Name, @Surname, @IdNumber, @Cellphone, @Email, @Password)";
+
+            using (SqlConnection connection = new SqlConnection(connStr))
             {
-                string name = TextBoxName.Text.Trim();
-                string surname = TextBoxSurname.Text.Trim();
-                string idNumber = TextBoxID.Text.Trim();
-                string cellphone = TextBoxCellphone.Text.Trim();
-                string email = TextBoxEmail.Text.Trim();
-                string password = TextBoxPassword.Text.Trim();
-                string confirmPassword = TextBoxConfirmPassword.Text.Trim();
-
-                if (password != confirmPassword)
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Passwords do not match.');", true);
-                    return;
-                }
+                    // Add parameters to the SQL command
+                    command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@Surname", surname);
+                    command.Parameters.AddWithValue("@IdNumber", idNumber);
+                    command.Parameters.AddWithValue("@Cellphone", cellphone);
+                    command.Parameters.AddWithValue("@Email", email);
+                    command.Parameters.AddWithValue("@Password", hashedPassword);
 
-                string hashedPassword = HashPassword(password);
-
-                try
-                {
-                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    try
                     {
-                        conn.Open();
-
-                        string query = "INSERT INTO [dbo].[User] (Name, Surname, IdNumber, Cellphone, Email, Password) VALUES (@Name, @Surname, @IdNumber, @Cellphone, @Email, @Password)";
-                        using (SqlCommand cmd = new SqlCommand(query, conn))
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+                        if (rowsAffected > 0)
                         {
-                            cmd.Parameters.AddWithValue("@Name", name);
-                            cmd.Parameters.AddWithValue("@Surname", surname);
-                            cmd.Parameters.AddWithValue("@IdNumber", idNumber);
-                            cmd.Parameters.AddWithValue("@Cellphone", cellphone);
-                            cmd.Parameters.AddWithValue("@Email", email);
-                            cmd.Parameters.AddWithValue("@Password", hashedPassword);
-
-                            int rowsAffected = cmd.ExecuteNonQuery();
-
-                            if (rowsAffected > 0)
-                            {
-                                string script = "alert('Submitted successfully. Redirecting to login page...'); window.location='Login.aspx';";
-                                ClientScript.RegisterStartupScript(this.GetType(), "redirect", script, true);
-                                
-                            }
-        
-                            else
-                            {
-                                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Sign Up failed. Please try again.');", true);
-                            }
+                            // Notify success and redirect
+                            Response.Write("<script>alert('Registration successful! Redirecting to login...');</script>");
+                            Response.Redirect("Login.aspx");
+                        }
+                        else
+                        {
+                            // Notify failure
+                            Response.Write("<script>alert('Registration failed. Please try again.');</script>");
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred: " + ex.Message.Replace("'", "\\'") + "');", true);
+                    catch (SqlException ex)
+                    {
+                        // Display SQL exception message
+                        Response.Write($"<script>alert('An error occurred while inserting data: {ex.Message}');</script>");
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
                 }
             }
         }
 
-        private string HashPassword(string password)
+        private byte[] HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
             {
                 byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
-                byte[] hashedBytes = sha256.ComputeHash(passwordBytes);
-                return Convert.ToBase64String(hashedBytes);
+                return sha256.ComputeHash(passwordBytes); // Return byte[] for VARBINARY storage
             }
         }
     }
