@@ -1,0 +1,68 @@
+-- Component Table
+CREATE TABLE [dbo].[Component] (
+    [ComponentID] INT          NOT NULL,
+    [Name]        VARCHAR (50) NULL,
+    [Description] TEXT         NULL,
+    [CompTypeID]  INT          NOT NULL,
+    PRIMARY KEY CLUSTERED ([ComponentID] ASC),
+    FOREIGN KEY ([CompTypeID]) REFERENCES [dbo].[Component_Type] ([CompTypeID])
+);
+
+-- Component Type Table
+CREATE TABLE [dbo].[Component_Type] (
+    [CompTypeID]  INT  NOT NULL,
+    [Description] TEXT NULL,
+    PRIMARY KEY CLUSTERED ([CompTypeID] ASC)
+);
+
+-- Computer Table
+CREATE TABLE [dbo].[Computer] (
+    [ComputerID]   INT          NOT NULL,
+    [Serial_no]    VARCHAR (50) NULL,
+    [Name]         VARCHAR (50) NULL,
+    [Description]  TEXT         NULL,
+    [ConditionID]  INT          NOT NULL,
+    [DateOfIssue]  DATE         NULL,
+    [DateOfReturn] DATE         NULL,
+    PRIMARY KEY CLUSTERED ([ComputerID] ASC),
+    FOREIGN KEY ([ConditionID]) REFERENCES [dbo].[Computer_Condition] ([ConditionID])
+);
+
+-- Computer Condition Table
+CREATE TABLE [dbo].[Computer_Condition] (
+    [ConditionID] INT  NOT NULL,
+    [Description] TEXT NULL,
+    PRIMARY KEY CLUSTERED ([ConditionID] ASC)
+);
+
+-- Student Table
+CREATE TABLE [dbo].[Student] (
+    [LearnerID]     INT          NOT NULL,
+    [FirstName]     VARCHAR (50) NULL,
+    [LastName]      VARCHAR (50) NULL,
+    [DateOfBirth]   DATE         NULL,
+    [University]    VARCHAR (50) NULL,
+    [TelephoneNo]   VARCHAR (50) NULL,
+    [EmailAddress]  VARCHAR (50) NULL,
+    [ComputerID]    INT          NOT NULL,
+    PRIMARY KEY CLUSTERED ([LearnerID] ASC),
+    FOREIGN KEY ([ComputerID]) REFERENCES [dbo].[Computer] ([ComputerID])
+);
+
+-- Update Table
+CREATE TABLE [dbo].[Update] (
+    [ComputerID]   INT  NOT NULL,
+    [ComponentID]  INT  NOT NULL,
+    [DateOfUpdate] DATE NULL,
+    PRIMARY KEY CLUSTERED ([ComputerID] ASC, [ComponentID] ASC),
+    FOREIGN KEY ([ComputerID]) REFERENCES [dbo].[Computer] ([ComputerID]),
+    FOREIGN KEY ([ComponentID]) REFERENCES [dbo].[Component] ([ComponentID])
+);
+
+-- User Table
+CREATE TABLE [dbo].[User] (
+    [UserID]   INT          NOT NULL,
+    [Name]     VARCHAR (50) NULL,
+    [Password] VARCHAR (50) NULL,
+    PRIMARY KEY CLUSTERED ([UserID] ASC)
+);

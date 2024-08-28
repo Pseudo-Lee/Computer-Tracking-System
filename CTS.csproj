@@ -94,6 +94,7 @@
     <Content Include="Default.aspx" />
     <Content Include="ForgotPassword.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="Learners.aspx" />
     <Content Include="Main.aspx" />
     <Content Include="obj\Debug\CTS.csproj.AssemblyReference.cache" />
     <Content Include="obj\Debug\CTS.csproj.CoreCompileInputs.cache" />
@@ -135,6 +136,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Learners.aspx.cs">
+      <DependentUpon>Learners.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Learners.aspx.designer.cs">
+      <DependentUpon>Learners.aspx</DependentUpon>
     </Compile>
     <Compile Include="Main.aspx.cs">
       <DependentUpon>Main.aspx</DependentUpon>

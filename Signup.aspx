@@ -102,7 +102,7 @@
             
             <asp:Label ID="Label1" runat="server" Text="Enter your name:" CssClass="labelClass"></asp:Label>
             <asp:TextBox ID="TextBoxName" runat="server" CssClass="textboxClass"></asp:TextBox>
-            <asp:CustomValidator ID="CustomValidator1" runat="server" ControlToValidate="TextBoxName" ErrorMessage="Please enter your name"></asp:CustomValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldName" runat="server" ControlToValidate="TextBoxName" ErrorMessage="Name Required"></asp:RequiredFieldValidator>
             
             <asp:Label ID="Label2" runat="server" Text="Enter your surname:" CssClass="labelClass"></asp:Label>
             <asp:TextBox ID="TextBoxSurname" runat="server" CssClass="textboxClass"></asp:TextBox>
@@ -115,12 +115,12 @@
             <asp:Label ID="Label4" runat="server" Text="Enter your ID number:" CssClass="labelClass"></asp:Label>
             <asp:TextBox ID="TextBoxID" runat="server" CssClass="textboxClass"></asp:TextBox>
             
-            <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="TextBoxID" ErrorMessage="Invalid ID number " MaximumValue="13" MinimumValue="1"></asp:RangeValidator>
+            <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="TextBoxID" ErrorMessage="Invalid ID number " MaximumValue="9999999999999" MinimumValue="0000000000000" Type="Double"></asp:RangeValidator>
             
             <asp:Label ID="Label5" runat="server" Text="Enter your cellphone number:" CssClass="labelClass"></asp:Label>
             <asp:TextBox ID="TextBoxCellphone" runat="server" CssClass="textboxClass"></asp:TextBox>
             
-            <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="TextBoxCellphone" ErrorMessage="Invalid number "></asp:RangeValidator>
+            <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="TextBoxCellphone" ErrorMessage="Invalid number " MaximumValue="9999999999" MinimumValue="0000000000" Type="Double"></asp:RangeValidator>
             
             <asp:Label ID="Label6" runat="server" Text="Add new password:" CssClass="labelClass"></asp:Label>
             <asp:TextBox ID="TextBoxPassword" runat="server" CssClass="textboxClass" TextMode="Password"></asp:TextBox>
