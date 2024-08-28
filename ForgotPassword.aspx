@@ -71,7 +71,7 @@
 }
     </style>
 </head>
-<body>
+<body style="left: -64px; top: 8px; margin-right: 0">
     <form id="form1" runat="server">
         <div class="form-container">
             <asp:Label runat="server" Text="Forgot Password" ID="Header" CssClass="Header"></asp:Label>
