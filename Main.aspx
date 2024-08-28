@@ -1,6 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Main.aspx.cs" Inherits="CTS.Main" %>
 
 <!DOCTYPE html>
+<script runat="server">
+
+    protected void StudentsBtn_Click(object sender, EventArgs e)
+    {
+
+    }
+</script>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Admin Dashboard</title>
@@ -17,57 +25,49 @@
             height: 100vh;
             overflow: hidden;
         }
-
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 800px;
             background-color: white;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
-            padding: 40px;
+            padding: 20px;
             text-align: center;
         }
-
         .header {
             background-color: #34495e;
             color: white;
             padding: 20px;
             font-size: 28px;
             font-weight: bold;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             border-radius: 10px;
         }
-
         .button-row {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
         }
-
         .button {
             background-color: #2980b9;
             color: white;
-            padding: 15px 30px;
+            padding: 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 18px;
             transition: background-color 0.3s;
         }
-
         .button:hover {
             background-color: #3498db;
         }
-
-        table {
-            width: 100%;
-        }
-
-        td {
-            text-align: center;
-            padding: 10px;
-        }
     </style>
+    <script type="text/javascript">
+        function confirmLogout() {
+            return confirm("Are you sure you want to log out?");
+        }
+    </script>
 </head>
 <body>
     <form id="MainForm" runat="server">
@@ -75,30 +75,11 @@
             <div class="header">
                 Admin Dashboard
             </div>
-            <table>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td>
-                        &nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td class="button-row" id="s">
-                        <asp:Button runat="server" Text="Maintain Students" ID="StudentsBtn" CssClass="button" OnClick="StudentsBtn_Click"></asp:Button>
-                        <asp:Button runat="server" Text="Maintain Computers" ID="ComputersBtn" CssClass="button" OnClick="ComputersBtn_Click"></asp:Button>
-                        <asp:Button runat="server" Text="Log out" CssClass="button" OnClick="Logout_Click"></asp:Button>
-                        
-                        
-                    </td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
-            </table>
+            <div class="button-row">
+                <asp:Button runat="server" Text="Maintain Students" ID="StudentsBtn" CssClass="button" OnClick="StudentsBtn_Click"/>
+                <asp:Button runat="server" Text="Maintain Computers" ID="ComputersBtn" CssClass="button" OnClick="ComputersBtn_Click"/>
+                <asp:Button runat="server" Text="Log out" CssClass="button" ID="Logout" OnClientClick="return confirmLogout();" OnClick="Logout_Click"/>
+            </div>
         </div>
     </form>
 </body>

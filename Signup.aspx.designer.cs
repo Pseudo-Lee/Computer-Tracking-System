@@ -24,13 +24,13 @@ namespace CTS
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// Label8 control.
+        /// Header control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label8;
+        protected global::System.Web.UI.WebControls.Label Signup;
 
         /// <summary>
         /// Label1 control.
@@ -42,6 +42,7 @@ namespace CTS
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
+<<<<<<< HEAD
         /// RequiredFieldValidator1 control.
         /// </summary>
         /// <remarks>
@@ -52,12 +53,24 @@ namespace CTS
 
         /// <summary>
         /// TxtbName control.
+=======
+        /// TextBoxName control.
+>>>>>>> 04cdbb1825274f3624d457a935282f52b6be1d96
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtbName;
+
+        /// <summary>
+        /// RequiredFieldName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldName;
 
         /// <summary>
         /// Label2 control.
@@ -69,6 +82,7 @@ namespace CTS
         protected global::System.Web.UI.WebControls.Label Label2;
 
         /// <summary>
+<<<<<<< HEAD
         /// RequiredFieldValidator2 control.
         /// </summary>
         /// <remarks>
@@ -79,6 +93,9 @@ namespace CTS
 
         /// <summary>
         /// TxtbSurname control.
+=======
+        /// TextBoxSurname control.
+>>>>>>> 04cdbb1825274f3624d457a935282f52b6be1d96
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -87,12 +104,13 @@ namespace CTS
         protected global::System.Web.UI.WebControls.TextBox TxtbSurname;
 
         /// <summary>
-        /// Label4 control.
+        /// CustomValidator2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+<<<<<<< HEAD
         protected global::System.Web.UI.WebControls.Label Label4;
 
         /// <summary>
@@ -175,6 +193,9 @@ namespace CTS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtbCellphone;
+=======
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator2;
+>>>>>>> 04cdbb1825274f3624d457a935282f52b6be1d96
 
         /// <summary>
         /// Label5 control.
@@ -186,6 +207,7 @@ namespace CTS
         protected global::System.Web.UI.WebControls.Label Label5;
 
         /// <summary>
+<<<<<<< HEAD
         /// RequiredFieldValidator5 control.
         /// </summary>
         /// <remarks>
@@ -205,6 +227,9 @@ namespace CTS
 
         /// <summary>
         /// TxtbEmail control.
+=======
+        /// TextBoxEmail control.
+>>>>>>> 04cdbb1825274f3624d457a935282f52b6be1d96
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -213,7 +238,74 @@ namespace CTS
         protected global::System.Web.UI.WebControls.TextBox TxtbEmail;
 
         /// <summary>
+<<<<<<< HEAD
         /// Label11 control.
+=======
+        /// RegularExpressionValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
+
+        /// <summary>
+        /// Label4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label4;
+
+        /// <summary>
+        /// TextBoxID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxID;
+
+        /// <summary>
+        /// RangeValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator2;
+
+        /// <summary>
+        /// Label5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label5;
+
+        /// <summary>
+        /// TextBoxCellphone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxCellphone;
+
+        /// <summary>
+        /// RangeValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator1;
+
+        /// <summary>
+        /// Label6 control.
+>>>>>>> 04cdbb1825274f3624d457a935282f52b6be1d96
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -222,6 +314,7 @@ namespace CTS
         protected global::System.Web.UI.WebControls.Label Label11;
 
         /// <summary>
+<<<<<<< HEAD
         /// RequiredFieldValidator6 control.
         /// </summary>
         /// <remarks>
@@ -232,6 +325,9 @@ namespace CTS
 
         /// <summary>
         /// TxtbPassword control.
+=======
+        /// TextBoxPassword control.
+>>>>>>> 04cdbb1825274f3624d457a935282f52b6be1d96
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -240,12 +336,26 @@ namespace CTS
         protected global::System.Web.UI.WebControls.TextBox TxtbPassword;
 
         /// <summary>
+<<<<<<< HEAD
         /// Label12 control.
+=======
+        /// RequiredFieldValidator1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+
+        /// <summary>
+        /// Label7 control.
+>>>>>>> 04cdbb1825274f3624d457a935282f52b6be1d96
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+<<<<<<< HEAD
         protected global::System.Web.UI.WebControls.Label Label12;
 
         /// <summary>
@@ -259,6 +369,12 @@ namespace CTS
 
         /// <summary>
         /// TxtbConfirmPassword control.
+=======
+        protected global::System.Web.UI.WebControls.Label Label7;
+
+        /// <summary>
+        /// TextBoxConfirmPassword control.
+>>>>>>> 04cdbb1825274f3624d457a935282f52b6be1d96
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

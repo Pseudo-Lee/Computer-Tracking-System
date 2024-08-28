@@ -7,20 +7,30 @@ using System.Web.UI.WebControls;
 using System.Net.Mail;
 using System.Data.SqlClient;
 using System.Data;
-using Microsoft.JScript;
-using System.Configuration;
-using System.Net.PeerToPeer;
 
 namespace CTS
 {
-    public partial class ForgotPassword : Page
+    public partial class ForgotPassword :Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
+<<<<<<< HEAD
 
         protected void BtnPasswordReset_Click(object sender, EventArgs e)
+=======
+        String str = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\GUSTAV\Source\Repos\Group13Projects\Computer-Tracking-System\App_Data\ComputerTrackerDB.mdf;Integrated Security = True";
+
+        //declare my sql variables
+        SqlConnection conn;
+        SqlCommand comm;
+        SqlDataAdapter adap;
+        SqlDataReader read;
+        DataSet ds;
+
+        protected void UpdatePasswordBtn_Click(object sender, EventArgs e)
+>>>>>>> 04cdbb1825274f3624d457a935282f52b6be1d96
         {
            if(Page.IsValid)
             {
@@ -30,6 +40,7 @@ namespace CTS
                 String Password = txtPassword.Text.Trim();
                 String NewPassword = ConfirmTxt.Text.Trim();
 
+<<<<<<< HEAD
                 if(String.IsNullOrEmpty(txtUserName.Text))
                 {
                     LblComment.Text = "enter  characters for username";
@@ -52,3 +63,16 @@ namespace CTS
 
 
 
+=======
+            }
+
+
+
+
+
+
+
+        }
+    }
+}
+>>>>>>> 04cdbb1825274f3624d457a935282f52b6be1d96

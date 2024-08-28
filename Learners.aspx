@@ -124,9 +124,9 @@
 
         .logout-button {
             position: absolute;
-            top: 30px;
-            right: 30px;
-            background-color: mediumpurple;
+            top: 15px;
+            right: 15px;
+            background-color: #e74c3c;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -175,15 +175,16 @@
                 modal.style.display = "none";
             }
         }
+
+        function confirmLogout() {
+            return confirm("Are you sure you want to log out?");
+        }
     </script>
 </head>
 <body>
     <form id="AdminForm" runat="server">
-        
         <div class="container">
-            <asp:Button ID="LogoutBtn" runat="server" Text="Logout" CssClass="logout-button" OnClick="LogoutBtn_Click" />
-
-           
+            <asp:Button ID="LogoutBtn" runat="server" Text="Logout" CssClass="logout-button" OnClientClick="return confirmLogout();" OnClick="LogoutBtn_Click" />
             <div class="header">
                 Manage Learners
             </div>
@@ -211,9 +212,8 @@
 
             <!-- Buttons -->
             <div class="button-row">
-                <asp:Button ID="btnAdd" runat="server" Text="Add Learner" CssClass="button" OnClick="btnAdd_Click" />
-                <asp:Button ID="ViewBtn" runat="server" Text="View Learners" CssClass="button" OnClick="ViewBtn_Click"></asp:Button>
-            
+                <asp:Button runat="server" Text="Add Learner" CssClass="button" OnClick="AddLearnerBtn_Click" ID="AddLearnerBtn"></asp:Button>
+                <asp:Button ID="btnView" runat="server" Text="View Learner" CssClass="button" OnClick="btnView_Click" />
             </div>
 
             <!-- Hyperlinks -->
@@ -222,7 +222,6 @@
                 <a href="Computers.aspx" class="link">Go to Computers</a>
             </div>
         </div>
-       
     </form>
 
     <!-- Modal -->
@@ -232,5 +231,6 @@
             <p id="modalText"></p>
         </div>
     </div>
+        
 </body>
 </html>

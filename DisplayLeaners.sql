@@ -1,2 +1,0 @@
-﻿DELETE FROM Student WHERE LearnerID = 1
-SELECT * FROM Student
