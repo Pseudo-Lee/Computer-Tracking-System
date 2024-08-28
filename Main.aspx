@@ -1,6 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Main.aspx.cs" Inherits="CTS.Main" %>
 
 <!DOCTYPE html>
+<script runat="server">
+
+    protected void StudentsBtn_Click(object sender, EventArgs e)
+    {
+
+    }
+</script>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Admin Dashboard</title>

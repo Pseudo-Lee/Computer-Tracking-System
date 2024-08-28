@@ -64,9 +64,15 @@ namespace CTS
                 {
                     conn.Open();
 
+<<<<<<< HEAD
+                        // SQL Command
+                        string query = "SELECT COUNT(1) FROM [dbo].[User] WHERE Name=@Name AND Password=@Password";
+                        SqlCommand comm = new SqlCommand(query, conn);
+=======
                     // SQL Command
                     string query = "SELECT COUNT(1) FROM [User] WHERE Name=@Name AND Password=@Password";
                     SqlCommand comm = new SqlCommand(query, conn);
+>>>>>>> 04cdbb1825274f3624d457a935282f52b6be1d96
 
                     // Adding Parameters to prevent SQL Injection
                     comm.Parameters.AddWithValue("@Name", username);
