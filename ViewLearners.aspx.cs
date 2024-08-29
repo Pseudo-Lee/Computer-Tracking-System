@@ -53,6 +53,14 @@ namespace CTS
 
                     GridViewLearners.DataSource = dt;
                     GridViewLearners.DataBind();
+                    if(dt.Rows.Count <= 0)
+                    {
+                        Response.Write("<script>alert('Unable to find data');</script>");
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Successfully retrieved learners from data base');</script>");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -61,5 +69,9 @@ namespace CTS
             }
         }
 
+        protected void GridViewLearners_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
