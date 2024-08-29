@@ -29,8 +29,7 @@ namespace CTS
             // Hash the password
             string hashedPassword = Convert.ToBase64String(HashPassword(password)); // Convert to Base64 string
 
-            string connStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\User\OneDrive - North-West University\Documents\COMPUTER TRACKING SYSTEM\Group13Projects\Computer-Tracking-System\App_Data\CTS.mdf"";Integrated Security=True";
-
+            string connStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CTS.mdf;Integrated Security=True";
             string query = "INSERT INTO [User] (Name, Surname, IdNumber, Cellphone, Email, Password) " +
                            "VALUES (@name, @surname, @idNumber, @cellphone, @email, @password)";
 
@@ -45,6 +44,7 @@ namespace CTS
                     command.Parameters.AddWithValue("@cellphone", cellphone);
                     command.Parameters.AddWithValue("@Email", email);
                     command.Parameters.AddWithValue("@password", hashedPassword);
+                    Response.Redirect("Login.aspx");
 
                     try
                     {
@@ -54,7 +54,7 @@ namespace CTS
                         {
                             // Notify success and redirect
                             Response.Write("<script>alert('Registration successful! Redirecting to login...');</script>");
-                            Response.Redirect("Login.aspx");
+                            
                         }
                         else
                         {
