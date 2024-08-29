@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Web.UI;
-
+using System.Web.UI.WebControls;
 namespace CTS
 {
     public partial class Learners : Page
@@ -106,7 +106,7 @@ namespace CTS
         protected void btnView_Click(object sender, EventArgs e)
         {
             // Debugging to see if event is triggered
-            Response.Write("<script>alert('View Button Clicked');</script>");
+           // Response.Write("<script>alert('View Button Clicked');</script>");
 
             Response.Redirect("ViewLearners.aspx");
         }
