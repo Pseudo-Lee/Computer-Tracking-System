@@ -208,6 +208,14 @@
                     <td class="label"><label for="txtDOB">Date of Birth:</label></td>
                     <td><asp:TextBox ID="txtDOB" runat="server" CssClass="input"></asp:TextBox></td>
                 </tr>
+                <td class="label"><label for="ddlGender">Gender:</label></td>
+    <td>
+        <asp:DropDownList ID="ddlGender" runat="server" CssClass="input">
+            <asp:ListItem Text="Select Gender" Value="" />
+            <asp:ListItem Text="Male" Value="Male" />
+            <asp:ListItem Text="Female" Value="Female" />
+        </asp:DropDownList>
+    </td>
             </table>
 
             <!-- Buttons -->
