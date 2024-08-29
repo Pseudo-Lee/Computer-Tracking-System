@@ -69,10 +69,7 @@
 .hyperlinkClass:hover {
     text-decoration: underline;
 }
-        .auto-style1 {
-            margin-left: 0px;
-        }
-    </style>
+        </style>
 </head>
 <body style="left: -64px; top: 8px; margin-right: 0">
     <form id="form1" runat="server">
@@ -109,7 +106,8 @@
             <br />
             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtEmail" ErrorMessage="Enter valid email address" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
             <br />
-            <asp:Label ID="LblUpdatedPS" runat="server"></asp:Label>
+            <asp:Label ID="LblComment" runat="server" Text="......" CssClass="<%$ ConnectionStrings:LocalSqlServer %>"></asp:Label>
+            <br />
         </div>
     </form>
 
