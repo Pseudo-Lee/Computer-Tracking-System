@@ -8,7 +8,7 @@ namespace CTS
 {
     public partial class ForgotPassword : Page
     {
-        private readonly string connStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\leseg\source\repos\Group13Projects\Computer-Tracking-System\App_Data\CTS.mdf;Integrated Security=True";
+        private readonly string connStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\GUSTAV\source\repos\Group13Projects\Computer-Tracking-System\App_Data\ComputerTrackerDB.mdf;Integrated Security=True";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -81,4 +81,4 @@ namespace CTS
         }
     }
 }
->>>>>>> 04cdbb1825274f3624d457a935282f52b6be1d96
+//>>>>>>> 04cdbb1825274f3624d457a935282f52b6be1d96
