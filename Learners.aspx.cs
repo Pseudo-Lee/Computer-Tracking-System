@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Web.UI;
-using System.Web.UI.WebControls;
+
 namespace CTS
 {
     public partial class Learners : Page
@@ -44,76 +44,73 @@ namespace CTS
         {
             Response.Write("<script>alert('Add Learner Clicked');</script>");
 
-            string learnerName = txtName.Text;
-            string surname = txtSurname.Text;
-            string email = txtEmail.Text;
-            string telephone = txtPhone.Text;
-            string IDnumber = txtID.Text;
-            string dateofbirth = txtDOB.Text;
+            string FirstName = txtName.Text;
+            string LastName = txtSurname.Text;
+            string EmailAddress = txtEmail.Text;
+            string TelephoneNo = txtPhone.Text;
+            string IdNumber = txtID.Text;
+            string DateOfBirth = txtDOB.Text;
+
+            // Validate all input fields
+            if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) || string.IsNullOrEmpty(EmailAddress) ||
+                string.IsNullOrEmpty(TelephoneNo) || string.IsNullOrEmpty(IdNumber) || string.IsNullOrEmpty(DateOfBirth))
+            {
+                Response.Write("<script>alert('All fields must be filled.');</script>");
+                return;
+            }
 
             DateTime dob;
-
-            // Attempt to convert the string to DateTime
-            if (DateTime.TryParse(dateofbirth, out dob))
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    try
-                    {
-                        conn.Open();
-                        string query = "INSERT INTO [Student] (FirstName, LastName, DateOfBirth, TelephoneNo, EmailAddress, IdNumber) " +
-                                       "VALUES (@FirstName, @LastName, @DateOfBirth, @TelephoneNo, @EmailAddress, @IdNumber)";
-
-                        using (SqlCommand comm = new SqlCommand(query, conn))
-                        {
-                            comm.Parameters.AddWithValue("@FirstName", learnerName);
-                            comm.Parameters.AddWithValue("@LastName", surname);
-                            comm.Parameters.AddWithValue("@DateOfBirth", dob); // Pass the DateTime object here
-                            comm.Parameters.AddWithValue("@TelephoneNo", telephone);
-                            comm.Parameters.AddWithValue("@EmailAddress", email);
-                            comm.Parameters.AddWithValue("@IdNumber", IDnumber);
-
-                            int rowsAffected = comm.ExecuteNonQuery();
-                            if (rowsAffected > 0)
-                            {
-                                Response.Write("<script>alert('Learner added successfully!');</script>");
-                            }
-                            else
-                            {
-                                Response.Write("<script>alert('Failed to add learner.');</script>");
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Response.Write("<script>alert('Error: " + ex.Message.Replace("'", "\\'") + "');</script>");
-                    }
-                    if (string.IsNullOrEmpty(dateofbirth))
-                    {
-                        Response.Write("<script>alert('Please enter date of birth');</script>");
-                       
-                    }
-                }
-            }
-            else
+            if (!DateTime.TryParse(DateOfBirth, out dob))
             {
                 // Handle invalid date format
                 Response.Write("<script>alert('Invalid date format. Please use a valid date.');</script>");
+                return;
+            }
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "INSERT INTO [Student] (FirstName, LastName, DateOfBirth, TelephoneNo, EmailAddress, IdNumber) " +
+                                   "VALUES (@FirstName, @LastName, @DateOfBirth, @TelephoneNo, @EmailAddress, @IdNumber)";
+
+                    using (SqlCommand comm = new SqlCommand(query, conn))
+                    {
+                        comm.Parameters.AddWithValue("@FirstName", FirstName);
+                        comm.Parameters.AddWithValue("@LastName", LastName);
+                        comm.Parameters.AddWithValue("@DateOfBirth", dob);
+                        comm.Parameters.AddWithValue("@TelephoneNo", TelephoneNo);
+                        comm.Parameters.AddWithValue("@EmailAddress", EmailAddress);
+                        comm.Parameters.AddWithValue("@IdNumber", IdNumber);
+
+                        int rowsAffected = comm.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            Response.Write("<script>alert('Learner added successfully!');</script>");
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('Failed to add learner.');</script>");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Response.Write("<script>alert('Error: " + ex.Message.Replace("'", "\\'") + "');</script>");
+                }
             }
         }
 
-
         protected void btnView_Click(object sender, EventArgs e)
         {
-            // Debugging to see if event is triggered
-           // Response.Write("<script>alert('View Button Clicked');</script>");
-
+            // Redirect to the ViewLearners page
             Response.Redirect("ViewLearners.aspx");
         }
 
         protected void LogoutBtn_Click(object sender, EventArgs e)
         {
-            // Redirect to login page on logout
+            // Redirect to the login page on logout
             Response.Redirect("Login.aspx");
         }
     }

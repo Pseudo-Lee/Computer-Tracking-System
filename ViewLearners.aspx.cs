@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace CTS
 {
@@ -25,7 +26,7 @@ namespace CTS
                 try
                 {
                     conn.Open();
-                    if (conn.State == System.Data.ConnectionState.Open)
+                    if (conn.State == ConnectionState.Open)
                     {
                         Response.Write("<script>alert('Connected');</script>");
                     }
@@ -45,9 +46,11 @@ namespace CTS
             {
                 try
                 {
+                    conn.Open();
                     SqlDataAdapter da = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
+
                     GridViewLearners.DataSource = dt;
                     GridViewLearners.DataBind();
                 }
@@ -57,5 +60,6 @@ namespace CTS
                 }
             }
         }
+
     }
 }
