@@ -42,7 +42,7 @@ namespace CTS
 
         protected void AddLearnerBtn_Click(object sender, EventArgs e)
         {
-            Response.Write("<script>alert('Add Learner Clicked');</script>");
+           // Response.Write("<script>alert('Add Learner Clicked');</script>");
 
             string FirstName = txtName.Text;
             string LastName = txtSurname.Text;
