@@ -16,10 +16,9 @@ namespace CTS
         {
 
         }
-<<<<<<< HEAD
 
         protected void BtnPasswordReset_Click(object sender, EventArgs e)
-=======
+=====
         String str = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\GUSTAV\Source\Repos\Group13Projects\Computer-Tracking-System\App_Data\ComputerTrackerDB.mdf;Integrated Security = True";
 
         //declare my sql variables

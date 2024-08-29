@@ -104,7 +104,7 @@ namespace CTS
         }
 
 
-        protected void SignUpBtn_Click(object sender, EventArgs e)
+        /*protected void SignUpBtn_Click(object sender, EventArgs e)
         {
             
             string name = TextBoxName.Text;
