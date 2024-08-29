@@ -91,6 +91,7 @@
     <Content Include="App_Data\CTS_log.ldf">
       <DependentUpon>CTS.mdf</DependentUpon>
     </Content>
+    <Content Include="Computers.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="ForgotPassword.aspx" />
     <Content Include="Login.aspx" />
@@ -113,9 +114,17 @@
     <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
     <Content Include="Scripts\nugetexample.js" />
     <Content Include="Signup.aspx" />
+    <Content Include="ViewLearners.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Computers.aspx.cs">
+      <DependentUpon>Computers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Computers.aspx.designer.cs">
+      <DependentUpon>Computers.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -160,6 +169,13 @@
     </Compile>
     <Compile Include="Signup.aspx.designer.cs">
       <DependentUpon>Signup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewLearners.aspx.cs">
+      <DependentUpon>ViewLearners.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewLearners.aspx.designer.cs">
+      <DependentUpon>ViewLearners.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
