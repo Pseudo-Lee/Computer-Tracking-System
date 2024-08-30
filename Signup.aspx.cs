@@ -31,7 +31,7 @@ namespace CTS
 
             string connStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CTS.mdf;Integrated Security=True";
             string query = "INSERT INTO [User] (Name, Surname, IdNumber, Cellphone, Email, Password) " +
-                           "VALUES (@name, @surname, @idNumber, @cellphone, @email, @password)";
+                           "VALUES (@name, @surname ,@idNumber, @cellphone,@email, @password)";
 
             using (SqlConnection connection = new SqlConnection(connStr))
             {
@@ -44,7 +44,7 @@ namespace CTS
                     command.Parameters.AddWithValue("@cellphone", cellphone);
                     command.Parameters.AddWithValue("@Email", email);
                     command.Parameters.AddWithValue("@password", hashedPassword);
-                    Response.Redirect("Login.aspx");
+                   
 
                     try
                     {
@@ -54,7 +54,7 @@ namespace CTS
                         {
                             // Notify success and redirect
                             Response.Write("<script>alert('Registration successful! Redirecting to login...');</script>");
-                            
+                            Response.Redirect("Login.aspx");
                         }
                         else
                         {
