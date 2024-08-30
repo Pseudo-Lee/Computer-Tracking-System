@@ -183,6 +183,7 @@
                                             <td class="auto-style29">
                                                 <asp:Label ID="Label10" runat="server" Text="Date of Registration:" CssClass="labelClass" ForeColor="#9966FF"></asp:Label>
                                                 <br />
+                                                <br />
                                                 <asp:TextBox ID="TxtbDate" runat="server" ReadOnly="True" CssClass="textboxClass full-width"></asp:TextBox>
                                             </td>
                                         </tr>
@@ -226,7 +227,8 @@
                                                 <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="TxtbPassword" ControlToValidate="TxtbConfirmPassword" ErrorMessage="Passwords does not match" ForeColor="Red"></asp:CompareValidator>
                                                 <br />
                                                 <br />
-                                                <asp:TextBox ID="TxtbConfirmPassword" runat="server" CssClass="textboxClass"></asp:TextBox>
+                                               <asp:TextBox ID="TxtbConfirmPassword" runat="server" CssClass="textboxClass" TextMode="Password"></asp:TextBox>
+
                                             </td>
                                         </tr>
                                         <tr>

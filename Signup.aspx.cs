@@ -31,20 +31,19 @@ namespace CTS
 
             string connStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CTS.mdf;Integrated Security=True";
             string query = "INSERT INTO [User] (Name, Surname, IdNumber, Cellphone, Email, Password) " +
-                           "VALUES (@name, @surname ,@idNumber, @cellphone,@email, @password)";
+                           "VALUES (@Name, @Surname, @IdNumber, @Cellphone, @Email, @Password)";
 
             using (SqlConnection connection = new SqlConnection(connStr))
             {
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     // Add parameters to the SQL command
-                    command.Parameters.AddWithValue("@name", name);
-                    command.Parameters.AddWithValue("@surname", surname);
-                    command.Parameters.AddWithValue("@idNumber", idNumber);
-                    command.Parameters.AddWithValue("@cellphone", cellphone);
+                    command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@Surname", surname);
+                    command.Parameters.AddWithValue("@IdNumber", idNumber);
+                    command.Parameters.AddWithValue("@Cellphone", cellphone);
                     command.Parameters.AddWithValue("@Email", email);
-                    command.Parameters.AddWithValue("@password", hashedPassword);
-                   
+                    command.Parameters.AddWithValue("@Password", hashedPassword);
 
                     try
                     {
