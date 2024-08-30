@@ -7,9 +7,29 @@ using System.Web.UI.WebControls;
 
 namespace CTS
 {
-    public partial class Computers : System.Web.UI.Page
+    public partial class Computers : Page
     {
         protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void AssignBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnAssignComputer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnRegisterComputer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnLoadComputers_Click(object sender, EventArgs e)
         {
 
         }
