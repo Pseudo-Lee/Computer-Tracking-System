@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace CTS
 {
@@ -50,7 +52,7 @@ namespace CTS
             string TelephoneNo = txtPhone.Text;
             string IdNumber = txtID.Text;
             string DateOfBirth = txtDOB.Text;
-
+            string genderType = ddlGender.SelectedValue;
             // Validate all input fields
             if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) || string.IsNullOrEmpty(EmailAddress) ||
                 string.IsNullOrEmpty(TelephoneNo) || string.IsNullOrEmpty(IdNumber) || string.IsNullOrEmpty(DateOfBirth))
@@ -66,15 +68,17 @@ namespace CTS
                 Response.Write("<script>alert('Invalid date format. Please use a valid date.');</script>");
                 return;
             }
+            //stores gender value
+            string genderValue = genderType == "Male" ? "M" : "F";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 try
                 {
                     conn.Open();
-                    string query = "INSERT INTO [Student] (FirstName, LastName, DateOfBirth, TelephoneNo, EmailAddress, IdNumber) " +
-                                   "VALUES (@FirstName, @LastName, @DateOfBirth, @TelephoneNo, @EmailAddress, @IdNumber)";
-
+                    string query = "INSERT INTO [Student] (FirstName, LastName, DateOfBirth, TelephoneNo, EmailAddress, IdNumber, Gender) " +
+                                   "VALUES (@FirstName, @LastName, @DateOfBirth, @TelephoneNo, @EmailAddress, @IdNumber,@Gender)";
+               
                     using (SqlCommand comm = new SqlCommand(query, conn))
                     {
                         comm.Parameters.AddWithValue("@FirstName", FirstName);
@@ -83,6 +87,7 @@ namespace CTS
                         comm.Parameters.AddWithValue("@TelephoneNo", TelephoneNo);
                         comm.Parameters.AddWithValue("@EmailAddress", EmailAddress);
                         comm.Parameters.AddWithValue("@IdNumber", IdNumber);
+                        comm.Parameters.AddWithValue("@Gender", genderValue);
 
                         int rowsAffected = comm.ExecuteNonQuery();
                         if (rowsAffected > 0)
