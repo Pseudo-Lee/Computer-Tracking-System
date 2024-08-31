@@ -265,6 +265,8 @@
                 <asp:Button ID="btnChangeRoleBulk" runat="server" Text="Change Role for Selected" OnClick="btnChangeRoleBulk_Click" />
                 <asp:Button ID="btnRemoveSelected" runat="server" Text="Remove Selected" OnClick="btnRemoveSelected_Click" />
                 <asp:Button ID="btnToggleActive" runat="server" Text="Activate/Deactivate Selected" OnClick="btnToggleActive_Click" />
+                <br />
+                <asp:Label ID="LblMessage" runat="server" Text="......"></asp:Label>
             </div>
         </div>
 
