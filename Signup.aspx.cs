@@ -42,15 +42,16 @@ namespace CTS
         protected void BtnSignUp_Click(object sender, EventArgs e)
         {
             // Retrieve user input
-            string Name = TxtbName.Text;
-            string Surname = TxtbSurname.Text;
-            string IdNumber = TxtbID.Text;
-            string Cellphone = TxtbCellphone.Text;
-            string Email = TxtbEmail.Text;
-            string Password = TxtbPassword.Text; // Make sure this is the correct field for password
+            string Name = TxtbName.Text.Trim();
+            string Surname = TxtbSurname.Text.Trim();
+            string IdNumber = TxtbID.Text.Trim();
+            string Cellphone = TxtbCellphone.Text.Trim();
+            string Email = TxtbEmail.Text.Trim();
+            string Password = TxtbPassword.Text.Trim();
+            string NewPassword = TxtbConfirmPassword.Text.Trim();// Make sure this is the correct field for password
 
             // Hash the password
-            if (TxtbPassword == TxtbConfirmPassword)
+            if (Password ==  NewPassword)// Make sure this is the correct field for password
             {
                 string hashedPassword = Convert.ToBase64String(HashPassword(Password)); // Convert to Base64 string
 
@@ -61,9 +62,9 @@ namespace CTS
 
                     try
                     {
-                        connection.Open();
+                        
 
-                        string query = "INSERT INTO User (Name, Surname, IdNumber, Cellphone, Email, Password) " +
+                        string query = "INSERT INTO [User] (Name, Surname, IdNumber, Cellphone, Email, Password) " +
                                        "VALUES (@Name, @Surname, @IdNumber, @Cellphone, @Email, @Password)";
 
 
@@ -78,7 +79,7 @@ namespace CTS
                             command.Parameters.AddWithValue("@Email", Email);
                             command.Parameters.AddWithValue("@Password", hashedPassword);
 
-
+                            connection.Open();
                             int rowsAffected = command.ExecuteNonQuery();
                             if (rowsAffected > 0)
                             {
