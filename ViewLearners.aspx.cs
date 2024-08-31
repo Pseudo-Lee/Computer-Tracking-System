@@ -278,7 +278,10 @@ namespace CTS
 
             BindGrid(); // Rebind data to GridView
         }
-         
-       
+
+        protected void GridViewLearners_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
