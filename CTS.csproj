@@ -93,6 +93,7 @@
     </Content>
     <Content Include="Computers.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="EditLearner.aspx" />
     <Content Include="ForgotPassword.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Learners.aspx" />
@@ -132,6 +133,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditLearner.aspx.cs">
+      <DependentUpon>EditLearner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditLearner.aspx.designer.cs">
+      <DependentUpon>EditLearner.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
