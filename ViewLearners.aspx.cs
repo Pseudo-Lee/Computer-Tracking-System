@@ -1,28 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml.XPath;
 
 namespace CTS
 {
     public partial class ViewLearners : Page
     {
-        // Connection string for database connection
+        // Connection string to the database
         public string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CTS.mdf;Integrated Security=True";
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                TestDatabaseConnection(); // Only test connection on first load
-                filterPanel.Visible = false; // Ensure filter panel is hidden initially
-                HideBtn.Visible = false; // Hide the "Hide Advanced Filters" button initially
-                // Load data initially if needed
-                // LoadData(); // Uncomment if you want to load data on initial page load
-               // BindGrid();
+                // Check if the session exists
+                if (Session["Username"] != null)
+                {
+                    // Display a welcome message with the username
+                    string username = Session["Username"].ToString();
+                    ShowMessage("Currently logged in as: " + username, true);
+                }
+                else
+                {
+                    // If no session exists, redirect to the login page
+                    Response.Redirect("Login.aspx");
+                }
+
+                // Initial UI settings
+                filterPanel.Visible = false;
+                HideBtn.Visible = false;
             }
         }
+
+        #region Database Connection
 
         private void TestDatabaseConnection()
         {
@@ -33,152 +47,20 @@ namespace CTS
                     conn.Open();
                     if (conn.State == ConnectionState.Open)
                     {
-                        // Log message for successful connection
-                        // Consider using a logging framework instead of alert for production
-                        Response.Write("<script>alert('Connected');</script>");
+                        // Connection successful; no further action needed here
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Log message for connection error
-                    Response.Write("<script>alert('Connection error: " + ex.Message.Replace("'", "\\'") + "');</script>");
+                    ShowMessage("Connection error: " + ex.Message, false);
                 }
             }
         }
 
-        protected void btnApplyFilters_Click(object sender, EventArgs e)
-        {
-            // This method will be used for applying advanced filters when implemented
-            // Currently, it's empty and does not perform any action
-        }
+        #endregion
 
-        protected void AdvFilters_Click(object sender, EventArgs e)
-        {
-            filterPanel.Visible = true; // Show the advanced filters panel
-            AdvFilters.Visible = false; // Hide the "Show Advanced Filters" button
-            HideBtn.Visible = true; // Show the "Hide Advanced Filters" button
-        }
+        #region GridView Management
 
-        protected void HideBtn_Click(object sender, EventArgs e)
-        {
-            filterPanel.Visible = false; // Hide the advanced filters panel
-            AdvFilters.Visible = true; // Show the "Show Advanced Filters" button
-            HideBtn.Visible = false; // Hide the "Hide Advanced Filters" button
-        }
-
-        private string BuildQuery(string searchTerm)
-        {
-            if (searchTerm == "ALL")
-            {
-                // If the search term is "ALL", retrieve all records
-                return "SELECT * FROM Student";
-            }
-
-            // Build the SQL query based on the search term
-            string query = "SELECT * FROM Student WHERE ";
-
-            // Check if the search term is numeric (likely an ID number or phone number)
-            if (long.TryParse(searchTerm, out long numericTerm))
-            {
-                query += "IdNumber = @SearchTerm OR TelephoneNo LIKE '%' + @SearchTerm + '%'";
-            }
-            // Check if the search term looks like an email address
-            else if (searchTerm.Contains("@"))
-            {
-                query += "EmailAddress LIKE '%' + @SearchTerm + '%'";
-            }
-            // Otherwise, treat it as a name or university search
-            else
-            {
-                query += "UPPER(FirstName) LIKE '%' + @SearchTerm + '%' OR " +
-                         "UPPER(LastName) LIKE '%' + @SearchTerm + '%' OR " +
-                         "UPPER(University) LIKE '%' + @SearchTerm + '%'";
-            }
-
-            // Add sorting clause; will be appended in the sorting method
-            return query;
-        }
-
-        private void LoadData()
-        {
-            
-        }
-
-        protected void btnLoadData_Click(object sender, EventArgs e)
-        {
-            // Get the search input from the search bar and convert it to uppercase
-            string searchTerm = txtSearch.Text.Trim().ToUpper();
-
-            // Initialize the SQL query using the search term
-            string query = BuildQuery(searchTerm);
-
-            // Append the ORDER BY clause based on the selected sort order
-            string sortOrder = order.SelectedValue; // Get selected sort order
-            if (sortOrder == "Asc") // Ascending
-            {
-                query += " ORDER BY FirstName ASC, LastName ASC, IdNumber ASC, EmailAddress ASC, DateOfBirth ASC";
-            }
-            else if (sortOrder == "Desc") // Descending
-            {
-                query += " ORDER BY FirstName DESC, LastName DESC, IdNumber DESC, EmailAddress DESC, DateOfBirth DESC";
-            }
-            else
-            {
-
-            }
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand(query, conn);
-
-                    // Add parameter only if it's not the "ALL" case
-                    if (searchTerm != "ALL")
-                    {
-                        cmd.Parameters.AddWithValue("@SearchTerm", searchTerm);
-                    }
-
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-
-                    GridViewLearners.DataSource = dt;
-                    GridViewLearners.DataBind();
-
-                    // Show success or no data message based on results
-                    if (dt.Rows.Count > 0)
-                    {
-                        Response.Write("<script>alert('Successfully retrieved learners from database');</script>");
-                    }
-                    else
-                    {
-                        Response.Write("<script>alert('Unable to find data');</script>");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Log message for data retrieval error
-                    Response.Write("<script>alert('Error: " + ex.Message.Replace("'", "\\'") + "');</script>");
-                }
-            }
-        }
-
-        protected void order_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Reload data when sorting order is changed
-            LoadData();
-        }
-
-        protected void ddlFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Implement filter logic if necessary
-        }
-        protected void btnLogout_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Login.aspx");
-        }
         private void BindGrid()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -193,76 +75,16 @@ namespace CTS
                 GridViewLearners.DataBind();
             }
         }
-        protected void GridViewLearners_RowEditing(object sender, GridViewEditEventArgs e)
+
+        protected void GridViewLearners_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            GridViewLearners.EditIndex = e.NewEditIndex;
-            BindGrid(); // Rebind data to GridView to reflect edit mode
-        }
-        protected void GridViewLearners_RowUpdating(object sender, GridViewUpdateEventArgs e)
-        {
-            GridViewRow row = GridViewLearners.Rows[e.RowIndex];
-           
-                int learnerID = Convert.ToInt32(GridViewLearners.DataKeys[e.RowIndex].Values["LearnerID"]);
-            
-           
-
-            TextBox txtFirstName = row.FindControl("txtFirstName") as TextBox;
-            TextBox txtLastName = row.FindControl("txtLastName") as TextBox;
-            TextBox txtEmail = row.FindControl("txtEmail") as TextBox;
-            TextBox txtIdNumber = row.FindControl("txtIdNumber") as TextBox;
-            TextBox txtGender = row.FindControl("txtGender") as TextBox;
-            
-            string FirstName = txtFirstName != null ? txtFirstName.Text : string.Empty;
-            string LastName = txtLastName != null ? txtLastName.Text : string.Empty;
-            string EmailAddress = txtEmail != null ? txtEmail.Text : string.Empty;
-            string IdNumber = txtIdNumber != null ? txtIdNumber.Text : string.Empty;
-            string Gender = txtGender != null ? txtGender.Text : string.Empty;
-
-            // Debug information
-            Response.Write("<script>alert('Updating Data: " + FirstName + ", " + LastName + ", " + EmailAddress + ", " + IdNumber + ", " + Gender + "');</script>");
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            if (e.CommandName == "EditLearner")
             {
-                try
-                {
-                    conn.Open();
-                    string query = "UPDATE Student SET FirstName=@FirstName, LastName=@LastName, EmailAddress=@EmailAddress, IdNumber=@IdNumber, Gender=@Gender WHERE LearnerID=@LearnerID";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@FirstName", FirstName);
-                    cmd.Parameters.AddWithValue("@LastName", LastName);
-                    cmd.Parameters.AddWithValue("@EmailAddress", EmailAddress);
-                    cmd.Parameters.AddWithValue("@IdNumber", IdNumber);
-                    cmd.Parameters.AddWithValue("@Gender", Gender);
-                    cmd.Parameters.AddWithValue("@LearnerID", learnerID);
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    if (rowsAffected > 0)
-                    {
-                        Response.Write("<script>alert('Record updated successfully.');</script>");
-                    }
-                    else
-                    {
-                        Response.Write("<script>alert('No record was updated.');</script>");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Response.Write("<script>alert('Error: " + ex.Message.Replace("'", "\\'") + "');</script>");
-                }
+                int learnerID = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect("EditLearner.aspx?LearnerID=" + learnerID);
             }
-
-            GridViewLearners.EditIndex = -1;
-            BindGrid(); // Refresh the GridView data          
         }
 
-
-
-
-        protected void GridViewLearners_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
-        {
-            GridViewLearners.EditIndex = -1; // Exit edit mode
-            BindGrid(); // Rebind data to GridView
-        }
         protected void GridViewLearners_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             int learnerID = Convert.ToInt32(GridViewLearners.DataKeys[e.RowIndex].Values[0]);
@@ -270,18 +92,177 @@ namespace CTS
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string query = "DELETE FROM Student WHERE LearnerID=@LearnerID";
+                string query = "DELETE FROM Student WHERE LearnerID = @LearnerID";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@LearnerID", learnerID);
                 cmd.ExecuteNonQuery();
             }
 
-            BindGrid(); // Rebind data to GridView
+            BindGrid(); // Refresh the GridView after deletion
         }
 
-        protected void GridViewLearners_SelectedIndexChanged(object sender, EventArgs e)
+        protected void GridViewLearners_RowEditing(object sender, GridViewEditEventArgs e)
         {
-
+            if (e.NewEditIndex >= 0 && e.NewEditIndex < GridViewLearners.DataKeys.Count)
+            {
+                int learnerID = Convert.ToInt32(GridViewLearners.DataKeys[e.NewEditIndex].Values["LearnerID"]);
+                Response.Redirect("EditLearner.aspx?LearnerID=" + learnerID);
+            }
+            else
+            {
+                ShowMessage("Invalid edit index", false);
+            }
         }
+
+        protected void GridViewLearners_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            GridViewLearners.EditIndex = -1; // Exit edit mode
+            BindGrid(); // Refresh the GridView to reflect the changes
+        }
+
+        protected void btnRetrieveSelected_Click(object sender, EventArgs e)
+        {
+            List<int> selectedLearnerIDs = new List<int>();
+
+            foreach (GridViewRow row in GridViewLearners.Rows)
+            {
+                CheckBox chkSelect = row.FindControl("chkSelect") as CheckBox;
+                if (chkSelect != null && chkSelect.Checked)
+                {
+                    int learnerID = Convert.ToInt32(GridViewLearners.DataKeys[row.RowIndex].Values["LearnerID"]);
+                    selectedLearnerIDs.Add(learnerID);
+                }
+            }
+
+            if (selectedLearnerIDs.Count > 0)
+            {
+                ShowMessage("Selected Learner IDs: " + string.Join(", ", selectedLearnerIDs), true);
+            }
+            else
+            {
+                ShowMessage("No rows selected.", false);
+            }
+        }
+
+        #endregion
+
+        #region Search and Filters
+
+        protected void btnLoadData_Click(object sender, EventArgs e)
+        {
+            string searchTerm = txtSearch.Text.Trim();
+            string filterColumn = ddlFilter.SelectedValue; // Get the selected column
+            string sortOrder = ddlFilter.SelectedValue; // Get the selected sort order
+            string query = "SELECT * FROM Student";
+            bool hasWhereClause = false;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = conn;
+
+                    // Apply filter based on the selected column and search term
+                    if (!string.IsNullOrEmpty(filterColumn) && filterColumn != "NULL" && !string.IsNullOrEmpty(searchTerm) && searchTerm != "ALL")
+                    {
+                        // Special case for numeric IdNumber search
+                        if (filterColumn == "IdNumber" && long.TryParse(searchTerm, out _))
+                        {
+                            query += $" WHERE {filterColumn} = @SearchTerm";
+                        }
+                        else
+                        {
+                            query += $" WHERE {filterColumn} LIKE '%' + @SearchTerm + '%'";
+                        }
+
+                        hasWhereClause = true;
+                        cmd.Parameters.AddWithValue("@SearchTerm", searchTerm);
+                    }
+
+                    // Apply sorting if sortOrder is valid
+                    if (!string.IsNullOrEmpty(sortOrder) && (sortOrder == "ASC" || sortOrder == "DESC"))
+                    {
+                        query += $" ORDER BY {filterColumn} {sortOrder}";
+                    }
+
+                    cmd.CommandText = query;
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    GridViewLearners.DataSource = dt;
+                    GridViewLearners.DataBind();
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        ShowMessage("Successfully retrieved learners from database", true);
+                    }
+                    else
+                    {
+                        ShowMessage("Unable to find data", false);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ShowMessage("Error: " + ex.Message, false);
+                }
+            }
+        }
+
+
+        #endregion
+
+        #region UI Controls
+
+        protected void AdvFilters_Click(object sender, EventArgs e)
+        {
+            filterPanel.Visible = true;
+            AdvFilters.Visible = false;
+            HideBtn.Visible = true;
+        }
+
+        protected void HideBtn_Click(object sender, EventArgs e)
+        {
+            filterPanel.Visible = false;
+            AdvFilters.Visible = true;
+            HideBtn.Visible = false;
+        }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        }
+
+        #endregion
+
+        #region NonActiveField
+
+        private void ShowMessage(string message, bool isSuccess)
+        {
+            lblMessage.Text = message;
+            Panel1.Visible = true; // Show the panel
+
+            // Set inline styles directly for debugging
+            Panel1.Style.Add("background-color", isSuccess ? "#d4edda" : "#f8d7da");
+            Panel1.Style.Add("border", isSuccess ? "1px solid #28a745" : "1px solid #dc3545");
+            Panel1.Style.Add("color", isSuccess ? "#155724" : "#721c24");
+            ScriptManager.RegisterStartupScript(this, GetType(), "HidePanel", "setTimeout(function() { hidePanel(); }, 3000);", true);
+        }
+
+        protected void ddlFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Optional: Update any UI or functionality based on the selected filter
+        }
+
+        protected void order_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Optional: Update sorting based on selected order
+        }
+         
+       
     }
 }

@@ -93,6 +93,7 @@
     </Content>
     <Content Include="Computers.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="EditLearner.aspx" />
     <Content Include="ForgotPassword.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Learners.aspx" />
@@ -114,6 +115,7 @@
     <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
     <Content Include="Scripts\nugetexample.js" />
     <Content Include="Signup.aspx" />
+    <Content Include="Users.aspx" />
     <Content Include="ViewLearners.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -131,6 +133,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditLearner.aspx.cs">
+      <DependentUpon>EditLearner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditLearner.aspx.designer.cs">
+      <DependentUpon>EditLearner.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
@@ -169,6 +178,13 @@
     </Compile>
     <Compile Include="Signup.aspx.designer.cs">
       <DependentUpon>Signup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Users.aspx.cs">
+      <DependentUpon>Users.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Users.aspx.designer.cs">
+      <DependentUpon>Users.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewLearners.aspx.cs">
       <DependentUpon>ViewLearners.aspx</DependentUpon>
