@@ -70,6 +70,7 @@
             <div class="button-row">
                 <asp:Button runat="server" Text="Maintain Students" ID="StudentsBtn" CssClass="button" OnClick="StudentsBtn_Click"/>
                 <asp:Button runat="server" Text="Maintain Computers" ID="ComputersBtn" CssClass="button" OnClick="ComputersBtn_Click"/>
+                <asp:Button ID="MaintainUsers" runat="server" Text="Maintain Users" CssClass="button" OnClick="MaintainUsers_Click" />
                 <asp:Button runat="server" Text="Log out" CssClass="button" ID="Logout" OnClientClick="return confirmLogout();" OnClick="Logout_Click"/>
             </div>
         </div>
