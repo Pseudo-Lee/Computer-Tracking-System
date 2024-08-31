@@ -44,8 +44,6 @@ namespace CTS
 
         protected void AddLearnerBtn_Click(object sender, EventArgs e)
         {
-           // Response.Write("<script>alert('Add Learner Clicked');</script>");
-
             string FirstName = txtName.Text;
             string LastName = txtSurname.Text;
             string EmailAddress = txtEmail.Text;
@@ -53,6 +51,7 @@ namespace CTS
             string IdNumber = txtID.Text;
             string DateOfBirth = txtDOB.Text;
             string genderType = ddlGender.SelectedValue;
+
             // Validate all input fields
             if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) || string.IsNullOrEmpty(EmailAddress) ||
                 string.IsNullOrEmpty(TelephoneNo) || string.IsNullOrEmpty(IdNumber) || string.IsNullOrEmpty(DateOfBirth))
@@ -61,6 +60,7 @@ namespace CTS
                 return;
             }
 
+            // Parse DateOfBirth into a DateTime object
             DateTime dob;
             if (!DateTime.TryParse(DateOfBirth, out dob))
             {
@@ -68,7 +68,15 @@ namespace CTS
                 Response.Write("<script>alert('Invalid date format. Please use a valid date.');</script>");
                 return;
             }
-            //stores gender value
+
+            // Validate the first 6 digits of the IdNumber against DateOfBirth
+            if (!ValidateIdNumber(IdNumber, dob))
+            {
+                Response.Write("<script>alert('The first 6 digits of the ID number do not match the date of birth.');</script>");
+                return;
+            }
+
+            // Stores gender value
             string genderValue = genderType == "Male" ? "M" : "F";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -77,8 +85,8 @@ namespace CTS
                 {
                     conn.Open();
                     string query = "INSERT INTO [Student] (FirstName, LastName, DateOfBirth, TelephoneNo, EmailAddress, IdNumber, Gender) " +
-                                   "VALUES (@FirstName, @LastName, @DateOfBirth, @TelephoneNo, @EmailAddress, @IdNumber,@Gender)";
-               
+                                   "VALUES (@FirstName, @LastName, @DateOfBirth, @TelephoneNo, @EmailAddress, @IdNumber, @Gender)";
+
                     using (SqlCommand comm = new SqlCommand(query, conn))
                     {
                         comm.Parameters.AddWithValue("@FirstName", FirstName);
@@ -106,6 +114,24 @@ namespace CTS
                 }
             }
         }
+
+        private bool ValidateIdNumber(string idNumber, DateTime dob)
+        {
+            if (idNumber.Length < 6)
+            {
+                return false; // ID number is too short
+            }
+
+            // Extract the first 6 digits of the ID number
+            string idDatePart = idNumber.Substring(0, 6);
+
+            // Convert the DateOfBirth to YYMMDD format
+            string dobPart = dob.ToString("yyMMdd");
+
+            // Compare the ID part with the DateOfBirth part
+            return idDatePart == dobPart;
+        }
+
 
         protected void btnView_Click(object sender, EventArgs e)
         {

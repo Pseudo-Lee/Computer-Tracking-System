@@ -20,7 +20,7 @@ namespace CTS
                 HideBtn.Visible = false; // Hide the "Hide Advanced Filters" button initially
                 // Load data initially if needed
                 // LoadData(); // Uncomment if you want to load data on initial page load
-                BindGrid();
+               // BindGrid();
             }
         }
 
@@ -201,22 +201,25 @@ namespace CTS
         protected void GridViewLearners_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             GridViewRow row = GridViewLearners.Rows[e.RowIndex];
-            int learnerID = Convert.ToInt32(GridViewLearners.DataKeys[e.RowIndex].Values[0]);
+           
+                int learnerID = Convert.ToInt32(GridViewLearners.DataKeys[e.RowIndex].Values["LearnerID"]);
+            
+           
 
             TextBox txtFirstName = row.FindControl("txtFirstName") as TextBox;
             TextBox txtLastName = row.FindControl("txtLastName") as TextBox;
             TextBox txtEmail = row.FindControl("txtEmail") as TextBox;
             TextBox txtIdNumber = row.FindControl("txtIdNumber") as TextBox;
             TextBox txtGender = row.FindControl("txtGender") as TextBox;
-
-            string firstName = txtFirstName != null ? txtFirstName.Text : string.Empty;
-            string lastName = txtLastName != null ? txtLastName.Text : string.Empty;
-            string email = txtEmail != null ? txtEmail.Text : string.Empty;
-            string idNumber = txtIdNumber != null ? txtIdNumber.Text : string.Empty;
-            string gender = txtGender != null ? txtGender.Text : string.Empty;
+            
+            string FirstName = txtFirstName != null ? txtFirstName.Text : string.Empty;
+            string LastName = txtLastName != null ? txtLastName.Text : string.Empty;
+            string EmailAddress = txtEmail != null ? txtEmail.Text : string.Empty;
+            string IdNumber = txtIdNumber != null ? txtIdNumber.Text : string.Empty;
+            string Gender = txtGender != null ? txtGender.Text : string.Empty;
 
             // Debug information
-            Response.Write("<script>alert('Updating Data: " + firstName + ", " + lastName + ", " + email + ", " + idNumber + ", " + gender + "');</script>");
+            Response.Write("<script>alert('Updating Data: " + FirstName + ", " + LastName + ", " + EmailAddress + ", " + IdNumber + ", " + Gender + "');</script>");
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -225,11 +228,11 @@ namespace CTS
                     conn.Open();
                     string query = "UPDATE Student SET FirstName=@FirstName, LastName=@LastName, EmailAddress=@EmailAddress, IdNumber=@IdNumber, Gender=@Gender WHERE LearnerID=@LearnerID";
                     SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@FirstName", firstName);
-                    cmd.Parameters.AddWithValue("@LastName", lastName);
-                    cmd.Parameters.AddWithValue("@EmailAddress", email);
-                    cmd.Parameters.AddWithValue("@IdNumber", idNumber);
-                    cmd.Parameters.AddWithValue("@Gender", gender);
+                    cmd.Parameters.AddWithValue("@FirstName", FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", LastName);
+                    cmd.Parameters.AddWithValue("@EmailAddress", EmailAddress);
+                    cmd.Parameters.AddWithValue("@IdNumber", IdNumber);
+                    cmd.Parameters.AddWithValue("@Gender", Gender);
                     cmd.Parameters.AddWithValue("@LearnerID", learnerID);
 
                     int rowsAffected = cmd.ExecuteNonQuery();
@@ -249,7 +252,7 @@ namespace CTS
             }
 
             GridViewLearners.EditIndex = -1;
-            BindGrid(); // Refresh the GridView data
+            BindGrid(); // Refresh the GridView data          
         }
 
 
@@ -275,7 +278,7 @@ namespace CTS
 
             BindGrid(); // Rebind data to GridView
         }
-
+         
        
     }
 }
