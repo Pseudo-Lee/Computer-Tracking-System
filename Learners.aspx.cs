@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Diagnostics.Eventing.Reader;
+using System.Text.RegularExpressions;
 using System.Web.UI;
 
 namespace CTS
 {
     public partial class Learners : Page
     {
+        #region Fields
+
         // Connection string for database connection
         public string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CTS.mdf;Integrated Security=True";
+
+        #endregion
+
+        #region Page Events
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -18,6 +24,10 @@ namespace CTS
             }
         }
 
+        #endregion
+
+        #region Methods
+
         private void TestDatabaseConnection()
         {
             // Attempt to open a connection to the database
@@ -25,13 +35,12 @@ namespace CTS
             {
                 try
                 {
-                    conn.Open();
-                    // Connection successful
+                    conn.Open(); // Connection successful
                 }
                 catch (Exception ex)
                 {
                     // Handle connection error
-                    ShowMessage($"Connection error: {ex}", false);
+                    ShowMessage($"Connection error: {ex.Message}", false);
                 }
             }
         }
@@ -52,12 +61,20 @@ namespace CTS
                 return;
             }
 
+            // Validate email address
+            if (!EmailValidator.IsValidEmail(txtEmail.Text))
+            {
+                txtEmail.CssClass = "highlight"; // Highlight if email format is invalid
+                ShowMessage("Error: Invalid email format", false);
+                return;
+            }
+
             // Parse DateOfBirth into a DateTime object
             DateTime dob;
             string[] formats = {
-        "dd/MM/yyyy", "MM/dd/yyyy", "yyyy-MM-dd", "d/M/yyyy", "M/d/yyyy", "yyyy-M-d",
-        "dd-MM-yyyy", "MM-dd-yyyy", "d-M-yyyy", "M-d-yyyy", "dd MMM yyyy", "MMM dd, yyyy"
-    };
+                "dd/MM/yyyy", "MM/dd/yyyy", "yyyy-MM-dd", "d/M/yyyy", "M/d/yyyy", "yyyy-M-d",
+                "dd-MM-yyyy", "MM-dd-yyyy", "d-M-yyyy", "M-d-yyyy", "dd MMM yyyy", "MMM dd, yyyy"
+            };
 
             if (!DateTime.TryParseExact(txtDOB.Text, formats, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dob))
             {
@@ -82,7 +99,7 @@ namespace CTS
             string genderType = ddlGender.SelectedValue;
             if (!ValidateGender(txtID.Text, genderType))
             {
-                ddlGender.CssClass += " highlight";
+                ddlGender.CssClass += " highlight"; // Highlight dropdown if gender does not match ID constraint
                 ShowMessage("Gender does not match ID constraint.", false);
                 return;
             }
@@ -90,6 +107,7 @@ namespace CTS
             // Stores gender value
             string genderValue = ddlGender.SelectedValue == "Male" ? "M" : "F";
 
+            // Insert into database
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 try
@@ -100,6 +118,7 @@ namespace CTS
 
                     using (SqlCommand comm = new SqlCommand(query, conn))
                     {
+                        // Add parameters for the SQL command
                         comm.Parameters.AddWithValue("@FirstName", txtName.Text);
                         comm.Parameters.AddWithValue("@LastName", txtSurname.Text);
                         comm.Parameters.AddWithValue("@DateOfBirth", dob);
@@ -108,7 +127,7 @@ namespace CTS
                         comm.Parameters.AddWithValue("@IdNumber", txtID.Text);
                         comm.Parameters.AddWithValue("@Gender", genderValue);
 
-                        int rowsAffected = comm.ExecuteNonQuery();
+                        int rowsAffected = comm.ExecuteNonQuery(); // Execute the command
                         if (rowsAffected > 0)
                         {
                             ShowMessage("Successfully added learner", true);
@@ -146,28 +165,22 @@ namespace CTS
             Panel1.Style.Add("color", isSuccess ? "#155724" : "#721c24");
             ScriptManager.RegisterStartupScript(this, GetType(), "HidePanel", "setTimeout(function() { hidePanel(); }, 3000);", true);
         }
+
         private bool ValidateFields()
         {
             bool hasError = false;
 
+            // Check if each required field is empty and highlight if true
             if (string.IsNullOrEmpty(txtName.Text))
             {
                 txtName.CssClass = "highlight";
                 hasError = true;
-            }
-            else
-            {
-                
             }
 
             if (string.IsNullOrEmpty(txtSurname.Text))
             {
                 txtSurname.CssClass = "highlight";
                 hasError = true;
-            }
-            else
-            {
-               
             }
 
             if (string.IsNullOrEmpty(txtEmail.Text))
@@ -206,13 +219,7 @@ namespace CTS
 
             // Extract the first 6 digits of the ID number
             string idDatePart = idNumber.Substring(0, 6);
-            string idYear = idNumber.Substring(0, 2);
 
-            /*if(idYear = int.TryParse(idYear, out int Year)
-             {
-
-
-                }*/
             // Convert the DateOfBirth to YYMMDD format
             string dobPart = dob.ToString("yyMMdd");
 
@@ -222,25 +229,20 @@ namespace CTS
 
         private bool ValidateGender(string idNumber, string genderType)
         {
-            string ssssPart = idNumber.Substring(6, 4);
-            int ssssNumber = int.Parse(ssssPart);
+            if (idNumber.Length < 13) return false; // Ensure ID number is long enough
 
+            string ssssPart = idNumber.Substring(6, 4);
+            if (!int.TryParse(ssssPart, out int ssssNumber)) return false;
+
+            // Validate gender based on the SSSS portion of the ID number
             return (genderType == "Male" && ssssNumber >= 5000) || (genderType == "Female" && ssssNumber < 5000);
         }
 
         private void ResetFieldHighlights()
         {
+            // Reset highlight class for all fields
             txtName.CssClass = txtSurname.CssClass = txtEmail.CssClass = txtPhone.CssClass = txtID.CssClass = txtDOB.CssClass = "";
         }
-
-       /* private void DisplayAlert(string message, bool isSuccess = true)
-        {
-            message = message.Replace("'", "\\'");
-
-            // Create the script to call showModal
-            string script = $"showModal('{message}', {isSuccess.ToString().ToLower()});";
-            ClientScript.RegisterStartupScript(this.GetType(), "ShowModal", script, true);
-        }*/
 
         protected void btnView_Click(object sender, EventArgs e)
         {
@@ -256,7 +258,30 @@ namespace CTS
 
         protected void txtName_TextChanged(object sender, EventArgs e)
         {
-            txtName.CssClass = "highlightNon";// when text is changed,textbox becomes green
+            txtName.CssClass = "highlightNon"; // when text is changed, textbox becomes green
         }
+
+        #endregion
+
+        #region Nested Classes
+
+        // Nested EmailValidator class for validating email addresses
+        public static class EmailValidator
+        {
+            private static readonly string EmailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+
+            public static bool IsValidEmail(string email)
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    return false;
+                }
+
+                // Use regular expression to validate email format
+                return Regex.IsMatch(email, EmailPattern, RegexOptions.IgnoreCase);
+            }
+        }
+
+        #endregion
     }
 }

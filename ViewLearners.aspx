@@ -126,7 +126,7 @@
             background-color: #e9ecef;
             border: 1px solid #ccc;
             margin-top: 20px;
-            display: none; /* Initially hidden */
+            display: block; /* Initially hidden */
         }
 
         .filter-panel input {
@@ -262,7 +262,16 @@
 .btn-delete:hover {
     background-color: #c82333;
 }
-
+.btnFilter{
+     background-color: #007bff;
+ color: #ffffff;
+ border: none;
+ padding: 8px 16px;
+ border-radius: 5px;
+ font-size: 14px;
+ cursor: pointer;
+ transition: background-color 0.3s;
+}
     </style>
     <script type="text/javascript">
         function hidePanel() {
@@ -344,7 +353,7 @@
                         <asp:CheckBox ID="chkSurname" runat="server" Text="Surname" />
                         <asp:CheckBox ID="chkID" runat="server" Text="ID" />
                         <asp:CheckBox ID="chkEmail" runat="server" Text="Email" />
-                        <asp:CheckBox ID="chkDOB" runat="server" Text="DOB" />
+                        <asp:CheckBox ID="chkDOB" runat="server" Text="DOB" /><asp:Button ID="filterBtn" runat="server" Text="Filter" CssClass="btnFilter" OnClick="filterBtn_Click" />
                     </asp:Panel>
                 </div>
               <div class="gridview-container">

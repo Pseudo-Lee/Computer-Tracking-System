@@ -96,6 +96,7 @@ namespace CTS
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@LearnerID", learnerID);
                 cmd.ExecuteNonQuery();
+                ShowMessage("Successfully deleted learner", true);
             }
 
             BindGrid(); // Refresh the GridView after deletion
@@ -264,5 +265,56 @@ namespace CTS
         }
 
         #endregion
+
+        protected void filterBtn_Click(object sender, EventArgs e)
+        {
+            foreach (GridViewRow row in GridViewLearners.Rows)
+            {
+                if (chkName.Checked)
+                {
+                    GridViewLearners.Columns[1].Visible = true; // Assuming Name is the first column
+                }
+                else
+                {
+                    GridViewLearners.Columns[1].Visible = false;
+                }
+
+                if (chkSurname.Checked)
+                {
+                    GridViewLearners.Columns[2].Visible = true; // Assuming Surname is the second column
+                }
+                else
+                {
+                    GridViewLearners.Columns[2].Visible = false;
+                }
+
+                if (chkID.Checked)
+                {
+                    GridViewLearners.Columns[3].Visible = true; // Assuming ID is the third column
+                }
+                else
+                {
+                    GridViewLearners.Columns[3].Visible = false;
+                }
+
+                if (chkEmail.Checked)
+                {
+                    GridViewLearners.Columns[4].Visible = true; // Assuming Email is the fourth column
+                }
+                else
+                {
+                    GridViewLearners.Columns[4].Visible = false;
+                }
+
+                if (chkDOB.Checked)
+                {
+                    GridViewLearners.Columns[5].Visible = true; // Assuming DOB is the fifth column
+                }
+                else
+                {
+                    GridViewLearners.Columns[5].Visible = false;
+                }
+            }
+        }
     }
 }

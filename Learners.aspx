@@ -267,7 +267,7 @@
  <script type="text/javascript">
         $(document).ready(function () {
             $(".datepicker").datepicker({
-                dateFormat: "yyyy-mm-dd", // Format can be changed as needed
+                dateFormat: "dd-mm-yyyy", // Format can be changed as needed
                 changeMonth: true,
                 changeYear: true,
                 yearRange: "-100:+0" // Limits the year range
