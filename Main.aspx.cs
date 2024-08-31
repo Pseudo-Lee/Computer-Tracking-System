@@ -27,5 +27,12 @@ namespace CTS
         {
             Response.Redirect("Login.aspx");
         }
+
+        
+
+        protected void MaintainUsers_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Users.aspx");
+        }
     }
 }
