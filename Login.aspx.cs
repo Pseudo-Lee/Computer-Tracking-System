@@ -31,7 +31,7 @@ namespace CTS
                     if (conn.State == ConnectionState.Open)
                     {
                         // Connection successful
-                        Response.Write("<script>alert('Connected');</script>");
+                        //Response.Write("<script>alert('Connected');</script>");
                     }
                 }
                 catch (Exception ex)
@@ -68,8 +68,11 @@ namespace CTS
 
                     if (count == 1)
                     {
+                        // Store username in session
+                        Session["Username"] = username;
+
                         // Handle case where user is found
-                        Response.Write("<script>alert('Login Successful');</script>");
+                        //Response.Write("<script>alert('Login Successful');</script>");
                         Response.Redirect("Main.aspx");
                     }
                     else
@@ -85,6 +88,7 @@ namespace CTS
                 }
             }
         }
+
 
         private byte[] HashPassword(string password)
         {
