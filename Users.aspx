@@ -204,9 +204,9 @@
         <div class="header">
             <h1>User Management</h1>
             <nav>
-                <a href="Home.aspx">Home</a>
-                <a href="Dashboard.aspx">Dashboard</a>
-                <a href="Logout.aspx" class="logout">Logout</a>
+                <a href="Main.aspx">Home</a>
+                <a href="learners.aspx">Dashboard</a>
+                <a href="Login.aspx" class="logout">Logout</a>
             </nav>
         </div>
 

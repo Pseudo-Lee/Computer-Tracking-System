@@ -1,5 +1,4 @@
 ﻿
-
---DBCC CHECKIDENT ('Student', RESEED, 0);
-
---SELECT * FROM Student;
+/*DBCC CHECKIDENT ('Student', RESEED, 0);
+DELETE FROM Student
+SELECT * FROM Student;*/
