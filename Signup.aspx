@@ -35,16 +35,24 @@
             color: #333;
             display: inline-block;
             text-align: left;
+            width: 100%;
             margin-bottom: 5px;
         }
         .textboxClass {
-            width: calc(100% - 20px);
+            width: 100%;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
             margin-bottom: 15px;
             box-sizing: border-box;
-            display: inline-block;
+        }
+        .row-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .half-width {
+            width: 48%;
         }
         .full-width {
             width: 100%;
@@ -57,7 +65,6 @@
             border-radius: 4px;
             cursor: pointer;
             width: 100%;
-            display: block;
             margin-top: 10px;
         }
         .buttonClass:hover {
@@ -66,7 +73,9 @@
         .validatorText {
             color: red;
             font-size: 14px;
-            margin-left: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+            text-align: left;
         }
     </style>
 </head>
@@ -75,19 +84,25 @@
         <div class="form-container">
             <asp:Label runat="server" Text="Sign Up" CssClass="Header" ID="Label8"></asp:Label>
 
-            <asp:Label ID="Label1" runat="server" Text="Enter your name:" CssClass="labelClass" ForeColor="#9966FF"></asp:Label>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
-                ControlToValidate="TxtbName" ErrorMessage="Name is required." 
-                CssClass="validatorText"></asp:RequiredFieldValidator>
-            <asp:TextBox ID="TxtbName" runat="server" CssClass="textboxClass"></asp:TextBox>
+            <div class="row-container">
+                <div class="half-width">
+                    <asp:Label ID="Label1" runat="server" Text="Name:" CssClass="labelClass" ForeColor="#9966FF"></asp:Label>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                        ControlToValidate="TxtbName" ErrorMessage="Name is required." 
+                        CssClass="validatorText"></asp:RequiredFieldValidator>
+                    <asp:TextBox ID="TxtbName" runat="server" CssClass="textboxClass"></asp:TextBox>
+                </div>
 
-            <asp:Label ID="Label2" runat="server" Text="Enter your surname:" CssClass="labelClass" ForeColor="#9966FF"></asp:Label>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
-                ControlToValidate="TxtbSurname" ErrorMessage="Surname is required." 
-                CssClass="validatorText"></asp:RequiredFieldValidator>
-            <asp:TextBox ID="TxtbSurname" runat="server" CssClass="textboxClass"></asp:TextBox>
+                <div class="half-width">
+                    <asp:Label ID="Label2" runat="server" Text="Surname:" CssClass="labelClass" ForeColor="#9966FF"></asp:Label>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+                        ControlToValidate="TxtbSurname" ErrorMessage="Surname is required." 
+                        CssClass="validatorText"></asp:RequiredFieldValidator>
+                    <asp:TextBox ID="TxtbSurname" runat="server" CssClass="textboxClass"></asp:TextBox>
+                </div>
+            </div>
 
-            <asp:Label ID="Label4" runat="server" Text="Enter your ID number:" CssClass="labelClass" ForeColor="#9966FF"></asp:Label>
+            <asp:Label ID="Label4" runat="server" Text="ID Number:" CssClass="labelClass" ForeColor="#9966FF"></asp:Label>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
                 ControlToValidate="TxtbID" ErrorMessage="ID number is required." 
                 CssClass="validatorText"></asp:RequiredFieldValidator>
@@ -99,36 +114,47 @@
             <asp:Label ID="Label10" runat="server" Text="Date of Registration:" CssClass="labelClass" ForeColor="#9966FF"></asp:Label>
             <asp:TextBox ID="TxtbDate" runat="server" ReadOnly="True" CssClass="textboxClass full-width"></asp:TextBox>
 
-            <asp:Label ID="Label6" runat="server" Text="Enter your cellphone number:" CssClass="labelClass" ForeColor="#9966FF"></asp:Label>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
-                ControlToValidate="TxtbCellphone" ErrorMessage="Cellphone number is required." 
-                CssClass="validatorText"></asp:RequiredFieldValidator>
-            <asp:RegularExpressionValidator ID="RegexValidatorCell" runat="server" 
-                ControlToValidate="TxtbCellphone" ErrorMessage="Invalid cellphone number." 
-                ValidationExpression="^\d{10}$" CssClass="validatorText"></asp:RegularExpressionValidator>
-            <asp:TextBox ID="TxtbCellphone" runat="server" CssClass="textboxClass"></asp:TextBox>
+            <div class="row-container">
+                <div class="half-width">
+                    <asp:Label ID="Label6" runat="server" Text="Cellphone:" CssClass="labelClass" ForeColor="#9966FF"></asp:Label>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
+                        ControlToValidate="TxtbCellphone" ErrorMessage="Cellphone number is required." 
+                        CssClass="validatorText"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegexValidatorCell" runat="server" 
+                        ControlToValidate="TxtbCellphone" ErrorMessage="Invalid cellphone number." 
+                        ValidationExpression="^\d{10}$" CssClass="validatorText"></asp:RegularExpressionValidator>
+                    <asp:TextBox ID="TxtbCellphone" runat="server" CssClass="textboxClass"></asp:TextBox>
+                </div>
 
-            <asp:Label ID="Label5" runat="server" Text="Enter your email:" CssClass="labelClass" ForeColor="#9966FF"></asp:Label>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
-                ControlToValidate="TxtbEmail" ErrorMessage="Email is required." 
-                CssClass="validatorText"></asp:RequiredFieldValidator>
-            <asp:RegularExpressionValidator ID="RegexValidatorEmail" runat="server" 
-                ControlToValidate="TxtbEmail" ErrorMessage="Invalid email format." 
-                ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$" CssClass="validatorText"></asp:RegularExpressionValidator>
-            <asp:TextBox ID="TxtbEmail" runat="server" CssClass="textboxClass"></asp:TextBox>
+                <div class="half-width">
+                    <asp:Label ID="Label5" runat="server" Text="Email:" CssClass="labelClass" ForeColor="#9966FF"></asp:Label>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
+                        ControlToValidate="TxtbEmail" ErrorMessage="Email is required." 
+                        CssClass="validatorText"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegexValidatorEmail" runat="server" 
+                        ControlToValidate="TxtbEmail" ErrorMessage="Invalid email format." 
+                        ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$" CssClass="validatorText"></asp:RegularExpressionValidator>
+                    <asp:TextBox ID="TxtbEmail" runat="server" CssClass="textboxClass"></asp:TextBox>
+                </div>
+            </div>
 
-            <asp:Label ID="Label11" runat="server" Text="Enter your password:" CssClass="labelClass" ForeColor="#9966FF"></asp:Label>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" 
-                ControlToValidate="TxtbPassword" ErrorMessage="Password is required." 
-                CssClass="validatorText"></asp:RequiredFieldValidator>
-            <asp:TextBox ID="TxtbPassword" runat="server" CssClass="textboxClass"></asp:TextBox>
+            <div class="row-container">
+                <div class="half-width">
+                    <asp:Label ID="Label11" runat="server" Text="Password:" CssClass="labelClass" ForeColor="#9966FF"></asp:Label>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" 
+                        ControlToValidate="TxtbPassword" ErrorMessage="Password is required." 
+                        CssClass="validatorText"></asp:RequiredFieldValidator>
+                    <asp:TextBox ID="TxtbPassword" runat="server" CssClass="textboxClass" TextMode="Password"></asp:TextBox>
+                </div>
 
-            <asp:Label ID="Label12" runat="server" Text="Confirm password:" CssClass="labelClass" ForeColor="#9966FF"></asp:Label>
-            <!--<asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="TxtbPassword" ControlToValidate="TxtbConfirmPassword" ErrorMessage="Passwords does not match" ForeColor="Red"></asp:CompareValidator>-->
-            <asp:TextBox ID="TxtbConfirmPassword" runat="server" CssClass="textboxClass" TextMode="Password"></asp:TextBox>
+                <div class="half-width">
+                    <asp:Label ID="Label12" runat="server" Text="Confirm Password:" CssClass="labelClass" ForeColor="#9966FF"></asp:Label>
+                    <!--<asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="TxtbPassword" ControlToValidate="TxtbConfirmPassword" ErrorMessage="Passwords does not match" ForeColor="Red"></asp:CompareValidator>-->
+                    <asp:TextBox ID="TxtbConfirmPassword" runat="server" CssClass="textboxClass" TextMode="Password"></asp:TextBox>
+                </div>
+            </div>
 
-            <br />
-            <asp:Label ID="LblComment" runat="server" Text="......"></asp:Label>
+            <asp:Label ID="LblComment" runat="server" Text="......" CssClass="validatorText"></asp:Label>
 
             <asp:Button ID="BtnSignUp" runat="server" Text="Sign Up" CssClass="buttonClass" OnClick="BtnSignUp_Click" />
         </div>
