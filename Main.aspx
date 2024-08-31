@@ -12,10 +12,21 @@
             padding: 0;
             color: #2c3e50;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
+        }
+        .welcome-panel {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #d4edda;
+            border: 1px solid #28a745;
+            color: #155724;
+            border-radius: 5px;
+            font-size: 18px;
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
         }
         .container {
             width: 100%;
@@ -25,6 +36,10 @@
             border-radius: 10px;
             padding: 20px;
             text-align: center;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         .header {
             background-color: #34495e;
@@ -54,14 +69,68 @@
         .button:hover {
             background-color: #3498db;
         }
+           .PanelDisplay {
+    background-color: #f8f9fa; /* Light background for both success and error */
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 1px;
+}
+
+.welcome-panel.success {
+    border: 1px solid #28a745; /* Green border for success */
+    color: #28a745; /* Green text for success */
+}
+
+.welcome-panel.error {
+    border: 1px solid #dc3545; /* Red border for error */
+    color: #dc3545; /* Red text for error */
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Apply the fade-in effect */
+.welcome-panel.show {
+    visibility: visible;
+    opacity: 1;
+    animation: fadeIn 1s ease-in fadeIn;
+}
+
+/* Apply the fade-out effect */
+.welcome-panel.hide {
+    animation: fadeOut 1s ease-out forwards;
+    visibility: hidden; /* Ensure it is hidden after the animation */
+}
     </style>
     <script type="text/javascript">
         function confirmLogout() {
             return confirm("Are you sure you want to log out?");
         }
     </script>
+     <script type="text/javascript">
+         function hidePanel() {
+             document.getElementById('<%= WelcomePanel.ClientID %>').style.display = 'none';
+         }
+    </script>
 </head>
 <body>
+    <asp:Panel ID="WelcomePanel" runat="server" CssClass="welcome-panel">
+        <asp:Label ID="WelcomeLabel" runat="server" Text=""></asp:Label>
+    </asp:Panel>
     <form id="MainForm" runat="server">
         <div class="container">
             <div class="header">
