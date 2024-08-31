@@ -9,9 +9,8 @@
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
             color: #333;
-            padding: 0;
             margin: 0;
-            overflow-x: auto; /* Prevent horizontal scrolling */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
         }
 
         .container {
@@ -79,7 +78,6 @@
             padding: 20px;
             text-align: center;
             width: 100%;
-            position: relative; /* Changed from page */
             box-sizing: border-box;
         }
 
@@ -122,13 +120,13 @@
         }
 
         .filter-panel {
-          /* Hidden by default */
             text-align: center;
             padding: 20px;
             border-radius: 8px;
             background-color: #e9ecef;
             border: 1px solid #ccc;
             margin-top: 20px;
+            display: none; /* Initially hidden */
         }
 
         .filter-panel input {
@@ -141,18 +139,17 @@
         }
 
         .gridview-container {
-            margin: 20px auto; /* Added margin to ensure spacing from other elements */
-            width: calc(100% - 20px); /* Adjust width as needed */
+            margin: 20px auto;
+            width: calc(100% - 40px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             background-color: #ffffff;
-            overflow: hidden; /* Adjust if content overflows */
+            overflow: hidden;
         }
 
         .GridView {
             width: 100%;
             border-collapse: collapse;
-            table-layout: auto; /* Ensure proper layout */
         }
 
         .GridView th, .GridView td {
@@ -183,7 +180,105 @@
         .center {
             text-align: center;
         }
+        .display-info {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #333;
+}
+        .btn-edit {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-edit:hover {
+    background-color: #0056b3;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+   .PanelDisplay {
+    background-color: #f8f9fa; /* Light background for both success and error */
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 1px;
+}
+
+.PanelDisplay.success {
+    border: 1px solid #28a745; /* Green border for success */
+    color: #28a745; /* Green text for success */
+}
+
+.PanelDisplay.error {
+    border: 1px solid #dc3545; /* Red border for error */
+    color: #dc3545; /* Red text for error */
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Apply the fade-in effect */
+.PanelDisplay.show {
+    visibility: visible;
+    opacity: 1;
+    animation: fadeIn 1s ease-in fadeIn;
+}
+
+/* Apply the fade-out effect */
+.PanelDisplay.hide {
+    animation: fadeOut 1s ease-out forwards;
+    visibility: hidden; /* Ensure it is hidden after the animation */
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
     </style>
+    <script type="text/javascript">
+        function hidePanel() {
+            var panel = document.getElementById('<%= Panel1.ClientID %>');
+            if (panel) {
+                panel.classList.remove('show');
+                panel.classList.add('hide');
+
+                // After the animation ends, set the panel to hidden without affecting layout
+                panel.addEventListener('animationend', function () {
+                    panel.style.visibility = 'hidden'; // Hide the panel while reserving space
+                }, { once: true });
+            }
+        }
+    </script>
+
     <script>
         function toggleSideTab() {
             var sideTab = document.querySelector('.side-tab');
@@ -194,35 +289,44 @@
             var filterPanel = document.querySelector('.filter-panel');
             filterPanel.style.display = filterPanel.style.display === 'none' ? 'block' : 'none';
         }
-    </script>
-    <script type="text/javascript">
+
         function confirmLogout() {
             return confirm("Are you sure you want to log out?");
         }
     </script>
 </head>
 <body>
-    <header class="header">Learners List</header>
+    <header class="header">
+        <h1>Learners List</h1>
+    </header>
     <div class="container">
         <form id="form1" runat="server">
             <button class="toggle-btn" type="button" onclick="toggleSideTab()">☰ Menu</button>
+           
             <div class="side-tab">
-                <br />
-                <br />
-                <br />
+                 <br />
+ <br />
                 <a href="Main.aspx">Home</a>
                 <a href="Computers.aspx">Computer Page</a>
                 <asp:Button ID="btnLogout" runat="server" Text="Logout" CssClass="btn" OnClick="btnLogout_Click" OnClientClick="return confirmLogout();" />
             </div>
+  
             <div class="content">
+               <asp:Panel ID="Panel1" runat="server" CssClass ="PanelDisplay">
+                   <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label></asp:Panel>
+                <br />
+               
+
                 <div class="search-container">
                     <asp:TextBox ID="txtSearch" runat="server" CssClass="search-box" placeholder="Enter search term"></asp:TextBox>
                     <asp:DropDownList ID="ddlFilter" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlFilter_SelectedIndexChanged">
                         <asp:ListItem Text="Select" Value="Null"></asp:ListItem>
+                         <asp:ListItem Text="LearnerID" Value="LearnerID"></asp:ListItem>
                         <asp:ListItem Text="First Name" Value="FirstName"></asp:ListItem>
                         <asp:ListItem Text="Last Name" Value="LastName"></asp:ListItem>
                         <asp:ListItem Text="Email" Value="Email"></asp:ListItem>
                         <asp:ListItem Text="ID Number" Value="IdNumber"></asp:ListItem>
+                         <asp:ListItem Text="Gender" Value="Gender"></asp:ListItem>
                     </asp:DropDownList>
                     <asp:DropDownList ID="order" runat="server" AutoPostBack="True" OnSelectedIndexChanged="order_SelectedIndexChanged">
                         <asp:ListItem Text="Order" Value="Null"></asp:ListItem>
@@ -232,30 +336,37 @@
                     <asp:Button ID="btnLoadData" runat="server" Text="Load Learners" CssClass="btn" OnClick="btnLoadData_Click" />
                 </div>
                 <div class="center">
+        <asp:Panel runat="server"></asp:Panel>
                     <asp:Button ID="AdvFilters" runat="server" Text="Show Advanced Filters" OnClick="AdvFilters_Click" CssClass="btn" />
                     <asp:Button ID="HideBtn" runat="server" Text="Hide Advanced Filters" OnClick="HideBtn_Click" CssClass="btn" />
-                    <br />
-                     <asp:Panel ID="filterPanel" runat="server" CssClass="filter-panel">
-     <asp:CheckBox ID="chkName" runat="server" Text="Name" />
-     <asp:CheckBox ID="chkSurname" runat="server" Text="Surname" />
-     <asp:CheckBox ID="chkID" runat="server" Text="ID" />
-     <asp:CheckBox ID="chkEmail" runat="server" Text="Email" />
-     <asp:CheckBox ID="chkDOB" runat="server" Text="DOB" />
- </asp:Panel>
+                    <asp:Panel ID="filterPanel" runat="server" CssClass="filter-panel">
+                        <asp:CheckBox ID="chkName" runat="server" Text="Name" />
+                        <asp:CheckBox ID="chkSurname" runat="server" Text="Surname" />
+                        <asp:CheckBox ID="chkID" runat="server" Text="ID" />
+                        <asp:CheckBox ID="chkEmail" runat="server" Text="Email" />
+                        <asp:CheckBox ID="chkDOB" runat="server" Text="DOB" />
+                    </asp:Panel>
                 </div>
-               
-                <div class="gridview-container">
-                    <asp:GridView ID="GridViewLearners" runat="server" AutoGenerateColumns="False" CssClass="GridView" AutoGenerateEditButton="True" AutoGenerateDeleteButton="True" OnRowEditing="GridViewLearners_RowEditing" OnRowUpdating="GridViewLearners_RowUpdating" OnRowCancelingEdit="GridViewLearners_RowCancelingEdit" DataKeyNames="LearnerID" OnSelectedIndexChanged="GridViewLearners_SelectedIndexChanged">
-                        <Columns>
-                            <asp:BoundField DataField="LearnerID" HeaderText="Learner ID" />
-                            <asp:BoundField DataField="FirstName" HeaderText="First Name" />
-                            <asp:BoundField DataField="LastName" HeaderText="Last Name" />
-                            <asp:BoundField DataField="EmailAddress" HeaderText="Email" />
-                            <asp:BoundField DataField="IdNumber" HeaderText="ID Number" />
-                             <asp:BoundField DataField="Gender" HeaderText="Gender" />
-                        </Columns>
-                    </asp:GridView>
-                </div>
+              <div class="gridview-container">
+    <asp:GridView ID="GridViewLearners" runat="server" AutoGenerateColumns="False" CssClass="GridView" 
+        OnRowEditing="GridViewLearners_RowEditing" OnRowCancelingEdit="GridViewLearners_RowCancelingEdit"
+        OnRowDeleting="GridViewLearners_RowDeleting" DataKeyNames="LearnerID">
+        <Columns>
+            <asp:BoundField DataField="LearnerID" HeaderText="LearnerID" />
+            <asp:BoundField DataField="IdNumber" HeaderText="ID Number" />
+            <asp:BoundField DataField="FirstName" HeaderText="First Name" />
+            <asp:BoundField DataField="LastName" HeaderText="Last Name" />
+            <asp:BoundField DataField="EmailAddress" HeaderText="Email" />
+            <asp:BoundField DataField="DateOfBirth" HeaderText="Date of Birth" />
+            <asp:TemplateField>
+                <ItemTemplate>
+                   <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="btn-edit" CommandName="Edit"  />
+                   <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="btn-delete" CommandName="Delete"  OnClientClick="return confirm('Are you sure you want to delete this record?');" />
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>
+    </asp:GridView>
+</div>
             </div>
         </form>
     </div>
