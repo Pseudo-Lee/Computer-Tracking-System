@@ -103,6 +103,10 @@ namespace CTS
 
                 }
             }
+            else if(Password != NewPassword)
+            {
+                LblComment.Text = "Password do not match !!";
+            }
             
 
         }

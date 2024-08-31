@@ -127,6 +127,9 @@
             <!--<asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="TxtbPassword" ControlToValidate="TxtbConfirmPassword" ErrorMessage="Passwords does not match" ForeColor="Red"></asp:CompareValidator>-->
             <asp:TextBox ID="TxtbConfirmPassword" runat="server" CssClass="textboxClass" TextMode="Password"></asp:TextBox>
 
+            <br />
+            <asp:Label ID="LblComment" runat="server" Text="......"></asp:Label>
+
             <asp:Button ID="BtnSignUp" runat="server" Text="Sign Up" CssClass="buttonClass" OnClick="BtnSignUp_Click" />
         </div>
     </form>
