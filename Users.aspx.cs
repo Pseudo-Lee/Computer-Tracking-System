@@ -353,7 +353,38 @@ namespace CTS
 
         protected void btnExport_Click(object sender, EventArgs e)
         {
+            // Set the content type and file name
+            Response.ContentType = "text/csv";
+            Response.AddHeader("content-disposition", "attachment;filename=UsersData.csv");
+            Response.Charset = "";
 
+            using (System.IO.StringWriter sw = new System.IO.StringWriter())
+            {
+                // Write the header row
+                for (int i = 0; i < gvUsers.Columns.Count; i++)
+                {
+                    if (i > 0)
+                        sw.Write(",");
+                    sw.Write("\"" + gvUsers.Columns[i].HeaderText.Replace("\"", "\"\"") + "\""); // Escape double quotes
+                }
+                sw.Write("\n");
+
+                // Write the data rows
+                foreach (GridViewRow row in gvUsers.Rows)
+                {
+                    for (int i = 0; i < gvUsers.Columns.Count; i++)
+                    {
+                        if (i > 0)
+                            sw.Write(",");
+                        sw.Write("\"" + row.Cells[i].Text.Replace("\"", "\"\"") + "\""); // Escape double quotes
+                    }
+                    sw.Write("\n");
+                }
+
+                // Output the CSV data
+                Response.Write(sw.ToString());
+                Response.End();
+            }
         }
     }
 }

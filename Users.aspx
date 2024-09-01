@@ -327,6 +327,34 @@
     background-color: #6c757d; /* Gray for disabled */
     cursor: not-allowed;
 }
+.btn{
+    background-color: dodgerblue;
+color: #ffffff;
+border: none;
+padding: 12px 20px;
+border-radius: 6px;
+cursor: pointer;
+font-size: 16px;
+margin: 0 8px;
+transition: background-color 0.3s ease;
+}
+.btn-delete{
+    background-color: indianred;
+color: #ffffff;
+border: none;
+padding: 12px 20px;
+border-radius: 6px;
+cursor: pointer;
+font-size: 16px;
+margin: 0 8px;
+transition: background-color 0.3s ease;
+}
+.btn-delete:hover{
+    background-color:red;
+}
+.btn:hover{
+    background-color:midnightblue;
+}
 
     </style>
     <script>
@@ -422,8 +450,8 @@
 
             <!-- Batch Actions -->
             <div class="batch-actions">
-                <asp:Button ID="btnDeleteSelected" runat="server" Text="Delete Selected" OnClick="btnDeleteSelected_Click" />
-                <asp:Button ID="btnExport" runat="server" Text="Export to CSV" OnClick="btnExport_Click" />
+                <asp:Button ID="btnDeleteSelected" runat="server" Text="Delete Selected" OnClick="btnDeleteSelected_Click" CssClass ="btn-delete"/>
+                <asp:Button ID="btnExport" runat="server" Text="Export to CSV" OnClick="btnExport_Click" CssClass ="btn"/>
             </div>
         </div>
 
