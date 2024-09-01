@@ -10,17 +10,28 @@ namespace CTS
 {
     public partial class Login : Page
     {
+        #region Fields
+
         // Connection string to the database
         private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CTS.mdf;Integrated Security=True";
+
+        #endregion
+
+        #region Page Load
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                TestDatabaseConnection(); // Test the database connection on first load
+                TestDatabaseConnection(); // Test the database connection on the first load
             }
         }
 
+        #endregion
+
+        #region Database Connection
+
+        // Method to test the database connection
         private void TestDatabaseConnection()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -31,7 +42,7 @@ namespace CTS
                     if (conn.State == ConnectionState.Open)
                     {
                         // Connection successful
-                        //Response.Write("<script>alert('Connected');</script>");
+                        // Response.Write("<script>alert('Connected');</script>");
                     }
                 }
                 catch (Exception ex)
@@ -42,12 +53,18 @@ namespace CTS
             }
         }
 
+        #endregion
+
+        #region Event Handlers
+
+        // Event handler for the login button click
         protected void LoginBtn_Click(object sender, EventArgs e)
         {
+            // Retrieve user input from textboxes
             string username = txtName.Text.Trim();
             string password = txtPassword.Text.Trim();
 
-            // Hash the input password
+            // Hash the input password for secure comparison
             string hashedPassword = Convert.ToBase64String(HashPassword(password));
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -57,28 +74,48 @@ namespace CTS
                     conn.Open();
 
                     // SQL Command to check if a user with the given username and hashed password exists
-                    string query = "SELECT COUNT(1) FROM [User] WHERE Name=@Name AND Password=@Password";
+                    string query = "SELECT Password, Role FROM [User] WHERE Name=@Name";
                     SqlCommand comm = new SqlCommand(query, conn);
 
                     // Adding Parameters to prevent SQL Injection
                     comm.Parameters.AddWithValue("@Name", username);
-                    comm.Parameters.AddWithValue("@Password", hashedPassword); // Use the hashed password
 
-                    int count = Convert.ToInt32(comm.ExecuteScalar());
-
-                    if (count == 1)
+                    // Execute the query and read the results
+                    using (SqlDataReader reader = comm.ExecuteReader())
                     {
-                        // Store username in session
-                        Session["Username"] = username;
+                        if (reader.Read())
+                        {
+                            // Retrieve stored password and role from the database
+                            string storedPassword = reader["Password"].ToString();
+                            bool isAdmin = Convert.ToBoolean(reader["Role"]);
 
-                        // Handle case where user is found
-                        //Response.Write("<script>alert('Login Successful');</script>");
-                        Response.Redirect("Main.aspx");
-                    }
-                    else
-                    {
-                        // User not found
-                        Response.Write("<script>alert('Invalid username or password');</script>");
+                            // Check if the provided password matches the stored hashed password
+                            if (storedPassword == hashedPassword)
+                            {
+                                // Store the username in the session
+                                Session["Username"] = username;
+
+                                // Redirect based on the user's role
+                                if (isAdmin)
+                                {
+                                    Response.Redirect("Main.aspx"); // Admin user
+                                }
+                                else
+                                {
+                                    Response.Redirect("Maintenance.aspx"); // Non-admin user
+                                }
+                            }
+                            else
+                            {
+                                // Password is incorrect
+                                Response.Write("<script>alert('Invalid username or password');</script>");
+                            }
+                        }
+                        else
+                        {
+                            // User not found
+                            Response.Write("<script>alert('Invalid username or password');</script>");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -89,7 +126,11 @@ namespace CTS
             }
         }
 
+        #endregion
 
+        #region Helper Methods
+
+        // Method to hash a password using SHA-256
         private byte[] HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
@@ -99,5 +140,6 @@ namespace CTS
             }
         }
 
+        #endregion
     }
 }
