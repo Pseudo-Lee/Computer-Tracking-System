@@ -94,10 +94,12 @@
     <Content Include="Computers.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="EditLearner.aspx" />
+    <Content Include="EditUser.aspx" />
     <Content Include="ForgotPassword.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Learners.aspx" />
     <Content Include="Main.aspx" />
+    <Content Include="Maintenance.aspx" />
     <Content Include="obj\Debug\CTS.csproj.AssemblyReference.cache" />
     <Content Include="obj\Debug\CTS.csproj.CoreCompileInputs.cache" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
@@ -141,6 +143,13 @@
     <Compile Include="EditLearner.aspx.designer.cs">
       <DependentUpon>EditLearner.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EditUser.aspx.cs">
+      <DependentUpon>EditUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditUser.aspx.designer.cs">
+      <DependentUpon>EditUser.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -168,6 +177,13 @@
     </Compile>
     <Compile Include="Main.aspx.designer.cs">
       <DependentUpon>Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maintenance.aspx.cs">
+      <DependentUpon>Maintenance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maintenance.aspx.designer.cs">
+      <DependentUpon>Maintenance.aspx</DependentUpon>
     </Compile>
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="obj\Release\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
