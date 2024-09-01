@@ -273,20 +273,7 @@
  transition: background-color 0.3s;
 }
     </style>
-    <script type="text/javascript">
-        function hidePanel() {
-            var panel = document.getElementById('<%= Panel1.ClientID %>');
-            if (panel) {
-                panel.classList.remove('show');
-                panel.classList.add('hide');
-
-                // After the animation ends, set the panel to hidden without affecting layout
-                panel.addEventListener('animationend', function () {
-                    panel.style.visibility = 'hidden'; // Hide the panel while reserving space
-                }, { once: true });
-            }
-        }
-    </script>
+  
 
     <script>
         function toggleSideTab() {
@@ -302,6 +289,19 @@
         function confirmLogout() {
             return confirm("Are you sure you want to log out?");
         }
+        function showNotification() {
+            var Panel1 = document.getElementById("Panel1");
+            Panel1.classList.remove("hide"); // Remove hide class if it's there
+            Panel1.classList.add("show"); // Add show class to trigger the fade-in and slide-in animation
+            Panel1.style.visibility = "visible"; // Ensure the panel is visible during the animation
+
+            // Automatically hide after a certain time (e.g., 3 seconds)
+            setTimeout(function () {
+                Panel1.classList.remove("show");
+                Panel1.classList.add("hide");
+            }, 3000); // Adjust timing as needed
+        }
+
     </script>
 </head>
 <body>
