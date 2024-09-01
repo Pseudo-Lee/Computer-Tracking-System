@@ -80,6 +80,7 @@
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
         .search-filter-panel {
@@ -197,21 +198,182 @@
             background-color: #ccc;
             cursor: not-allowed;
         }
+
+        /* Pop-up Panel Styling */
+       .popup-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    display:none;
+}
+
+.popup-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.popup-content button {
+    margin-top: 10px;
+}
+
+        .popup-content button {
+            margin-top: 15px;
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup-content button:hover {
+            background-color: #0056b3;
+        }
+           .PanelDisplay {
+    background-color: #f8f9fa; /* Light background for both success and error */
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 1px;
+}
+
+.PanelDisplay.success {
+    border: 1px solid #28a745; /* Green border for success */
+    color: #28a745; /* Green text for success */
+}
+
+.PanelDisplay.error {
+    border: 1px solid #dc3545; /* Red border for error */
+    color: #dc3545; /* Red text for error */
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Apply the fade-in effect */
+.PanelDisplay.show {
+    visibility: visible;
+    opacity: 1;
+    animation: fadeIn 1s ease-in fadeIn;
+}
+
+/* Apply the fade-out effect */
+.PanelDisplay.hide {
+    animation: fadeOut 1s ease-out forwards;
+    visibility: hidden; /* Ensure it is hidden after the animation */
+}
+/* GridView Button Styling */
+.user-table .edit-button,
+.user-table .delete-button {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    display: inline-block;
+}
+
+.user-table .edit-button {
+    background-color: #28a745; /* Green for Edit */
+}
+
+.user-table .edit-button:hover {
+    background-color: #218838;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.user-table .edit-button:disabled {
+    background-color: #6c757d; /* Gray for disabled */
+    cursor: not-allowed;
+}
+
+.user-table .delete-button {
+    background-color: #dc3545; /* Red for Delete */
+}
+
+.user-table .delete-button:hover {
+    background-color: #c82333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.user-table .delete-button:disabled {
+    background-color: #6c757d; /* Gray for disabled */
+    cursor: not-allowed;
+}
+
     </style>
+    <script>
+        function showPopup(message) {
+            document.getElementById('popupMessage').innerText = message;
+            document.getElementById('popupPanel').style.display = 'flex';
+        }
+
+        function hidePopup() {
+            document.getElementById('popupPanel').style.display = 'none';
+        }
+
+    </script>
+     <script type="text/javascript">
+         function hidePanel() {
+             var panel = document.getElementById('<%= Panel1.ClientID %>');
+             if (panel) {
+                 panel.classList.remove('show');
+                 panel.classList.add('hide');
+
+                 // After the animation ends, set the panel to hidden without affecting layout
+                 panel.addEventListener('animationend', function () {
+                     panel.style.visibility = 'hidden'; // Hide the panel while reserving space
+                 }, { once: true });
+             }
+         }
+         function confirmLogout() {
+             return confirm("Are you sure you want to log out?");
+         }
+     </script>
 </head>
 <body>
     <form id="form1" runat="server">
+        
         <div class="header">
             <h1>User Management</h1>
             <nav>
                 <a href="Main.aspx">Home</a>
                 <a href="learners.aspx">Dashboard</a>
-                <a href="Login.aspx" class="logout">Logout</a>
+                <a href="Login.aspx" class="logout" OnClientClick="return confirmLogout();" >Logout</a>
             </nav>
         </div>
 
         <div class="main-content">
             <!-- Search & Filter Panel -->
+            <asp:Panel ID="Panel1" runat="server" CssClass ="PanelDisplay">
+    <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label></asp:Panel>
             <div class="search-filter-panel">
                 <asp:TextBox ID="txtSearch" runat="server" Placeholder="Search users by name, email, or ID"></asp:TextBox>
                 <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" />
@@ -233,7 +395,7 @@
 
             <!-- User Table -->
             <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="False" CssClass="user-table"
-                OnRowCommand="gvUsers_RowCommand" OnRowEditing="gvUsers_RowEditing" OnRowDeleting="gvUsers_RowDeleting">
+                OnRowCommand="gvUsers_RowCommand" OnRowEditing="gvUsers_RowEditing" OnRowDeleting="gvUsers_RowDeleting" DataKeyNames="UserID" >
                 <Columns>
                     <asp:TemplateField>
                         <HeaderTemplate>
@@ -243,37 +405,39 @@
                             <asp:CheckBox ID="chkSelect" runat="server" />
                         </ItemTemplate>
                     </asp:TemplateField>
-
                     <asp:BoundField DataField="UserID" HeaderText="User ID" />
                     <asp:BoundField DataField="Name" HeaderText="Name" />
                     <asp:BoundField DataField="Email" HeaderText="Email" />
-                    <asp:BoundField DataField="Role" HeaderText="Role" />
-                    <asp:BoundField DataField="Status" HeaderText="Status" />
-
-                    <asp:TemplateField HeaderText="Actions">
-                        <ItemTemplate>
-                            <asp:Button ID="btnEdit" runat="server" CommandName="Edit" Text="Edit" />
-                            <asp:Button ID="btnChangeRole" runat="server" CommandName="ChangeRole" Text='<%# Eval("Role").ToString() == "Admin" ? "Demote to User" : "Promote to Admin" %>' CommandArgument='<%# Eval("UserID") %>' />
-                            <asp:Button ID="btnRemove" runat="server" CommandName="Delete" Text="Remove" CommandArgument='<%# Eval("UserID") %>' />
-                        </ItemTemplate>
-                    </asp:TemplateField>
+                    <asp:BoundField DataField="Role" HeaderText="Admin" />
+                    <asp:BoundField DataField="DateAdded" HeaderText="Date Added" DataFormatString="{0:yyyy-MM-dd}" />
+                  <asp:TemplateField>
+    <ItemTemplate>
+        <asp:Button ID="btnEdit" runat="server" CommandName="Edit" CssClass="edit-button" Text="Edit" />
+        <asp:Button ID="btnDelete" runat="server" CommandName="Delete" CssClass="delete-button" Text="Delete"   OnClientClick="return confirm('Are you sure you want to delete this record?');" />
+    </ItemTemplate>
+</asp:TemplateField>
+               
                 </Columns>
             </asp:GridView>
 
             <!-- Batch Actions -->
             <div class="batch-actions">
-                <asp:Button ID="btnChangeRoleBulk" runat="server" Text="Change Role for Selected" OnClick="btnChangeRoleBulk_Click" />
-                <asp:Button ID="btnRemoveSelected" runat="server" Text="Remove Selected" OnClick="btnRemoveSelected_Click" />
-                <asp:Button ID="btnToggleActive" runat="server" Text="Activate/Deactivate Selected" OnClick="btnToggleActive_Click" />
-                <br />
-                <asp:Label ID="LblMessage" runat="server" Text="......"></asp:Label>
+                <asp:Button ID="btnDeleteSelected" runat="server" Text="Delete Selected" OnClick="btnDeleteSelected_Click" />
+                <asp:Button ID="btnExport" runat="server" Text="Export to CSV" OnClick="btnExport_Click" />
             </div>
         </div>
 
         <div class="footer">
-            <p>© CTS 2024</p>
-            <a href="PrivacyPolicy.aspx">Privacy Policy</a> | 
-            <a href="TermsOfService.aspx">Terms of Service</a>
+            <p>&copy; 2024 CTS. All Rights Reserved.</p>
+            <p><a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a></p>
+        </div>
+
+        <!-- Pop-up Panel -->
+        <div id="popupPanel" class="popup-panel">
+            <div class="popup-content">
+                <p id="popupMessage">fhghg</p>
+                <button onclick="hidePopup()">Close</button>
+            </div>
         </div>
     </form>
 </body>

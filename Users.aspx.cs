@@ -2,31 +2,54 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace CTS
 {
     public partial class Users : System.Web.UI.Page
     {
-        private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\GUSTAV\Documents\CTS\Group13Projects\Computer-Tracking-System\App_Data\CTS.mdf;Integrated Security=True";
+        // Connection string to the database
+        private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CTS.mdf;Integrated Security=True";
 
+        #region Page Load
+        /// <summary>
+        /// Handles the Page_Load event. Binds the GridView only if it's not a postback.
+        /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 BindUsersGrid();
             }
-
-
         }
+        #endregion
 
+        #region Search Users
+        /// <summary>
+        /// Handles the search functionality for users based on Name or Email.
+        /// </summary>
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             string searchTerm = txtSearch.Text.Trim();
+            string roleFilter = rblFilterRole.SelectedValue;
+            string query;
+
+            if (roleFilter == "All")
+            {
+                query = "SELECT * FROM [User] WHERE Name LIKE @SearchTerm OR Email LIKE @SearchTerm";
+            }
+            else if (roleFilter == "Admin")
+            {
+                query = "SELECT * FROM [User] WHERE Role = 1 AND (Name LIKE @SearchTerm OR Email LIKE @SearchTerm)";
+            }
+            else // NonAdmin
+            {
+                query = "SELECT * FROM [User] WHERE Role = 0 AND (Name LIKE @SearchTerm OR Email LIKE @SearchTerm)";
+            }
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT * FROM [User] WHERE Name LIKE @SearchTerm OR Email LIKE @SearchTerm";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@SearchTerm", "%" + searchTerm + "%");
 
@@ -38,200 +61,201 @@ namespace CTS
                 gvUsers.DataBind();
             }
         }
+        #endregion
 
+        #region Bulk Role Change
+        /// <summary>
+        /// Handles the bulk role change for selected users.
+        /// </summary>
         protected void btnChangeRoleBulk_Click(object sender, EventArgs e)
-        {
-            //string newRole = ddlRoles.SelectedValue;
-
-            foreach (GridViewRow row in gvUsers.Rows)
-            {
-                CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
-                if (chkSelect != null && chkSelect.Checked)
-                {
-                    int UserID = Convert.ToInt32(gvUsers.DataKeys[row.RowIndex].Value);
-                    string newRole = (row.FindControl("ddlRole") as DropDownList)?.SelectedValue;
-
-                    //bool newRole = Convert.ToBoolean(gvUsers.DataMember[row.RowIndex].ToString());
-                    using (SqlConnection conn = new SqlConnection(connectionString))
-                    {
-                        string query = "UPDATE [User] SET Role = @Role WHERE UserID = @UserID";
-                        SqlCommand cmd = new SqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@Role", newRole);
-                        cmd.Parameters.AddWithValue("@UserID", UserID);
-
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-                    }
-                }
-            }
-
-            BindUsersGrid();
-        }
-
-        protected void btnRemoveSelected_Click(object sender, EventArgs e)
-        {
-            foreach (GridViewRow row in gvUsers.Rows)
-            {
-                CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
-                if (chkSelect != null && chkSelect.Checked)
-                {
-                    try
-                    {
-                        // Ensure the row index is valid
-                        if (row.RowIndex >= 0 && row.RowIndex < gvUsers.DataKeys.Count)
-                        {
-                            int UserID = Convert.ToInt32(gvUsers.DataKeys[row.RowIndex].Value);
-
-                            using (SqlConnection conn = new SqlConnection(connectionString))
-                            {
-                                string query = "DELETE FROM [User] WHERE UserID = @UserID";
-                                SqlCommand cmd = new SqlCommand(query, conn);
-                                cmd.Parameters.AddWithValue("@IdNumber", UserID);
-
-                                conn.Open();
-                                cmd.ExecuteNonQuery();
-                                conn.Close();
-                            }
-                        }
-                        else
-                        {
-                            // Log or handle the invalid row index
-                            // Example: Log the issue or notify the user
-                            Debug.WriteLine($"Invalid RowIndex: {row.RowIndex} - DataKeys count: {gvUsers.DataKeys.Count}");
-                            // Optionally, display a user-friendly message
-                            LblMessage.Text = "An error occurred while processing some rows. Please try again.";
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Log the exception details and/or display a user-friendly message
-                        Debug.WriteLine($"Exception occurred: {ex.Message}");
-                        // Optionally, display an error message to the user
-                        LblMessage.Text = "An error occurred while removing selected users. Please try again.";
-                    }
-                }
-            }
-
-            // Rebind the GridView to reflect the changes
-            BindUsersGrid();
-        }
-
-        protected void btnToggleActive_Click(object sender, EventArgs e)
-        {
-            foreach (GridViewRow row in gvUsers.Rows)
-            {
-                CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
-                CheckBox chkSelectAll = (CheckBox)row.FindControl("chkSelectAll");
-                if ((chkSelect != null && chkSelect.Checked) || (chkSelectAll != null && chkSelectAll.Checked))
-                {
-                    int UserID = Convert.ToInt32(gvUsers.DataKeys[row.RowIndex].Value);
-                    using (SqlConnection conn = new SqlConnection(connectionString))
-                    {
-                        string query = "UPDATE [User] SET IsActive = NOT IsActive WHERE UserID = @UserID";
-                        SqlCommand cmd = new SqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@UserID", UserID);
-
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-                    }
-                }
-            }
-
-            BindUsersGrid();
-        }
-
-        protected void gvUsers_RowEditing(object sender, GridViewEditEventArgs e)
-        {
-            gvUsers.EditIndex = e.NewEditIndex;
-            BindUsersGrid();
-        }
-
-        private void BindUsersGrid()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT UserID, Name, IdNumber, Email, Role, Status FROM [User]";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
+                conn.Open();
+                SqlTransaction transaction = conn.BeginTransaction();
+                try
+                {
+                    foreach (GridViewRow row in gvUsers.Rows)
+                    {
+                        CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
+                        if (chkSelect != null && chkSelect.Checked)
+                        {
+                            int UserID = Convert.ToInt32(gvUsers.DataKeys[row.RowIndex].Value);
+                            string newRole = (row.FindControl("ddlRole") as DropDownList)?.SelectedValue;
 
-                gvUsers.DataSource = dt;
-                gvUsers.DataBind();
+                            string query = "UPDATE [User] SET Role = @Role WHERE UserID = @UserID";
+                            SqlCommand cmd = new SqlCommand(query, conn, transaction);
+                            cmd.Parameters.AddWithValue("@Role", newRole);
+                            cmd.Parameters.AddWithValue("@UserID", UserID);
+
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    transaction.Commit();
+                    ShowMessage("Roles updated successfully.", true);
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    Debug.WriteLine($"Exception occurred: {ex.Message}");
+                    ShowMessage("An error occurred while updating roles. Please try again.", false);
+                }
             }
+
+            BindUsersGrid();
+        }
+        #endregion
+
+        #region Remove Selected Users
+        /// <summary>
+        /// Handles the removal of selected users.
+        /// </summary>
+        protected void btnRemoveSelected_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlTransaction transaction = conn.BeginTransaction();
+                try
+                {
+                    foreach (GridViewRow row in gvUsers.Rows)
+                    {
+                        CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
+                        if (chkSelect != null && chkSelect.Checked)
+                        {
+                            int UserID = Convert.ToInt32(gvUsers.DataKeys[row.RowIndex].Value);
+
+                            string query = "DELETE FROM [User] WHERE UserID = @UserID";
+                            SqlCommand cmd = new SqlCommand(query, conn, transaction);
+                            cmd.Parameters.AddWithValue("@UserID", UserID);
+
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    transaction.Commit();
+                    ShowMessage("Selected users removed successfully.", true);
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    Debug.WriteLine($"Exception occurred: {ex.Message}");
+                    ShowMessage("An error occurred while removing users. Please try again.", false);
+                }
+            }
+
+            BindUsersGrid();
+        }
+        #endregion
+
+        #region Toggle Active Status
+        /// <summary>
+        /// Toggles the active status of selected users.
+        /// </summary>
+        protected void btnToggleActive_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlTransaction transaction = conn.BeginTransaction();
+                try
+                {
+                    foreach (GridViewRow row in gvUsers.Rows)
+                    {
+                        CheckBox chkSelect = (CheckBox)row.FindControl("chkSelect");
+                        CheckBox chkSelectAll = (CheckBox)row.FindControl("chkSelectAll");
+                        if ((chkSelect != null && chkSelect.Checked) || (chkSelectAll != null && chkSelectAll.Checked))
+                        {
+                            int UserID = Convert.ToInt32(gvUsers.DataKeys[row.RowIndex].Value);
+
+                            string query = "UPDATE [User] SET IsActive = NOT IsActive WHERE UserID = @UserID";
+                            SqlCommand cmd = new SqlCommand(query, conn, transaction);
+                            cmd.Parameters.AddWithValue("@UserID", UserID);
+
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    transaction.Commit();
+                    ShowMessage("User statuses updated successfully.", true);
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    Debug.WriteLine($"Exception occurred: {ex.Message}");
+                    ShowMessage("An error occurred while updating user statuses. Please try again.", false);
+                }
+            }
+
+            BindUsersGrid();
+        }
+        #endregion
+
+        #region GridView Events
+        /// <summary>
+        /// Handles the GridView RowEditing event to enable editing mode.
+        /// </summary>
+        protected void gvUsers_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            gvUsers.EditIndex = e.NewEditIndex;
+            if (e.NewEditIndex >= 0 && e.NewEditIndex < gvUsers.DataKeys.Count)
+            {
+                int UserID = Convert.ToInt32(gvUsers.DataKeys[e.NewEditIndex].Values["UserID"]);
+                Response.Redirect("EditUser.aspx?UserID=" + UserID);
+            }
+            else
+            {
+                ShowMessage("Invalid edit index", false);
+            }
+            BindUsersGrid();
         }
 
+        /// <summary>
+        /// Handles the GridView RowDeleting event to delete a user.
+        /// </summary>
         protected void gvUsers_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             try
             {
-                // Retrieve the user ID from the DataKeys collection
-                int UserID;
-                if (int.TryParse(gvUsers.DataKeys[e.RowIndex].Value.ToString(), out UserID))
+                int UserID = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Value);
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    conn.Open();
+                    string query = "DELETE FROM [User] WHERE UserID = @UserID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        string query = "DELETE FROM [User] WHERE UserID = @UserID";
-                        using (SqlCommand cmd = new SqlCommand(query, conn))
+                        cmd.Parameters.AddWithValue("@UserID", UserID);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        if (rowsAffected > 0)
                         {
-                            cmd.Parameters.AddWithValue("@UserID", UserID);
-
-                            conn.Open();
-                            int rowsAffected = cmd.ExecuteNonQuery();
-
-                            // Check if the deletion was successful
-                            if (rowsAffected > 0)
-                            {
-                                Debug.WriteLine($"User with ID {UserID} deleted successfully.");
-                            }
-                            else
-                            {
-                                Debug.WriteLine($"No user found with ID {UserID}. Deletion failed.");
-                            }
+                            ShowMessage("User deleted successfully.", true);
+                        }
+                        else
+                        {
+                            ShowMessage("No user found with the given ID. Deletion failed.", false);
                         }
                     }
-
-                    // Rebind the GridView to refresh the data
-                    BindUsersGrid();
                 }
-                else
-                {
-                    // Handle invalid user ID format
-                    Debug.WriteLine($"Invalid user ID format: {gvUsers.DataKeys[e.RowIndex].Value}");
-                    // Optionally, display a user-friendly message
-                    LblMessage.Text = "Invalid user ID format. Please try again.";
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                // Handle SQL exceptions
-                Debug.WriteLine($"SQL exception occurred: {sqlEx.Message}");
-                // Optionally, display an error message to the user
-                LblMessage.Text = "An error occurred while deleting the user. Please try again.";
             }
             catch (Exception ex)
             {
-                // Handle general exceptions
-                Debug.WriteLine($"Exception occurred: {ex.Message}");
-                // Optionally, display an error message to the user
-                LblMessage.Text = "An error occurred while processing your request. Please try again.";
+                ShowMessage($"An error occurred while processing your request: {ex.Message}", false);
             }
+
+            BindUsersGrid();
         }
 
-
+        /// <summary>
+        /// Handles the GridView RowCommand event for custom commands.
+        /// </summary>
         protected void gvUsers_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             string commandName = e.CommandName;
 
             try
             {
-                // Safely get the row index from CommandArgument
                 int rowIndex;
                 if (int.TryParse(e.CommandArgument.ToString(), out rowIndex))
                 {
-                    // Ensure the row index is valid
                     if (rowIndex >= 0 && rowIndex < gvUsers.Rows.Count)
                     {
                         int UserID = Convert.ToInt32(gvUsers.DataKeys[rowIndex].Value);
@@ -244,45 +268,44 @@ namespace CTS
 
                             case "Delete":
                                 DeleteUser(UserID);
-                                BindUsersGrid(); // Ensure grid is refreshed after deletion
+                                BindUsersGrid();
                                 break;
 
-
+                            default:
+                                ShowMessage("Unknown command", false);
+                                break;
                         }
                     }
                     else
                     {
-                        // Handle invalid row index
-                        Debug.WriteLine($"Invalid rowIndex: {rowIndex}. Total rows: {gvUsers.Rows.Count}");
-                        // Optionally, display a user-friendly message
-                        LblMessage.Text = "Invalid row index. Please try again.";
+                        ShowMessage("Invalid row format", false);
                     }
                 }
                 else
                 {
-                    // Handle invalid CommandArgument
-                    Debug.WriteLine($"Invalid CommandArgument: {e.CommandArgument}");
-                    // Optionally, display a user-friendly message
-                    LblMessage.Text = "Invalid command argument. Please try again.";
+                    ShowMessage("Invalid row format", false);
                 }
             }
             catch (Exception ex)
             {
-                // Log the exception details and/or display a user-friendly message
                 Debug.WriteLine($"Exception occurred: {ex.Message}");
-                // Optionally, display an error message to the user
-                LblMessage.Text = "An error occurred while processing your request. Please try again.";
+                ShowMessage("An error occurred", false);
             }
         }
+        #endregion
 
-
-        private void DeleteUser(int UserID)
+        #region Helper Methods
+        /// <summary>
+        /// Deletes a user by UserID.
+        /// </summary>
+        /// <param name="userId">The UserID of the user to delete.</param>
+        private void DeleteUser(int userId)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = "DELETE FROM [User] WHERE UserID = @UserID";
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@UserID", UserID);
+                cmd.Parameters.AddWithValue("@UserID", userId);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -290,7 +313,45 @@ namespace CTS
             }
         }
 
-        protected void gvUsers_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Displays a message to the user in a message panel.
+        /// </summary>
+        /// <param name="message">The message to display.</param>
+        /// <param name="isSuccess">Whether the operation was successful.</param>
+        private void ShowMessage(string message, bool isSuccess)
+        {
+            lblMessage.Text = message;
+            Panel1.Visible = true; // Show the panel
+
+            // Set inline styles directly for debugging
+            Panel1.Style.Add("background-color", isSuccess ? "green" : "red");
+            lblMessage.ForeColor = System.Drawing.Color.White;
+        }
+
+        /// <summary>
+        /// Binds the data to the GridView.
+        /// </summary>
+        private void BindUsersGrid()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT UserID, Name, Email, Role,DateAdded, Status FROM [User]";
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                gvUsers.DataSource = dt;
+                gvUsers.DataBind();
+            }
+        }
+        #endregion
+
+        protected void btnDeleteSelected_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnExport_Click(object sender, EventArgs e)
         {
 
         }
