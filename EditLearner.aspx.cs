@@ -178,8 +178,10 @@ namespace CTS
                         cmd.ExecuteNonQuery();
 
                         // Redirect to the ViewLearners page
+                        btnCancel.Text = "Return";
                         ShowMessage("Learner updated successfully!", true);
-                        //Response.Redirect("ViewLearners.aspx");
+                       // Response.Redirect("ViewLearners.aspx");
+                       
                     }
                     catch (Exception ex)
                     {
