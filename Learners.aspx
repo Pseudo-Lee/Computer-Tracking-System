@@ -252,6 +252,7 @@
             <div class="links">
                 <a href="Main.aspx" class="link">Home</a>
                 <a href="Computers.aspx" class="link">Go to Computers</a>
+                  <a href="Help.aspx">Help</a>
             </div>
         </div>
     </form>

@@ -137,10 +137,10 @@
                 Admin Dashboard
             </div>
             <div class="button-row">
-                <asp:Button runat="server" Text="Maintain Students" ID="StudentsBtn" CssClass="button" OnClick="StudentsBtn_Click"/>
-                <asp:Button runat="server" Text="Maintain Computers" ID="ComputersBtn" CssClass="button" OnClick="ComputersBtn_Click"/>
-                <asp:Button ID="MaintainUsers" runat="server" Text="Maintain Users" CssClass="button" OnClick="MaintainUsers_Click" />
-                <asp:Button runat="server" Text="Log out" CssClass="button" ID="Logout" OnClientClick="return confirmLogout();" OnClick="Logout_Click"/>
+                <asp:Button runat="server" Text="Maintain Students" ID="StudentsBtn" CssClass="button" OnClick="StudentsBtn_Click" ToolTip="Go to Add or view Learners" />
+                <asp:Button runat="server" Text="Maintain Computers" ID="ComputersBtn" CssClass="button" OnClick="ComputersBtn_Click" ToolTip="Go to computers page" />
+                <asp:Button ID="MaintainUsers" runat="server" Text="Maintain Users" CssClass="button" OnClick="MaintainUsers_Click" ToolTip="Go to users page" />
+                <asp:Button runat="server" Text="Log out" CssClass="button" ID="Logout" OnClientClick="return confirmLogout();" OnClick="Logout_Click" ToolTip="Exit program" />
             </div>
         </div>
     </form>

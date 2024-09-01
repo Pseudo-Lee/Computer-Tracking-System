@@ -403,16 +403,16 @@ transition: background-color 0.3s ease;
             <asp:Panel ID="Panel1" runat="server" CssClass ="PanelDisplay">
     <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label></asp:Panel>
             <div class="search-filter-panel">
-                <asp:TextBox ID="txtSearch" runat="server" Placeholder="Search users by name, email, or ID"></asp:TextBox>
+                <asp:TextBox ID="txtSearch" runat="server" Placeholder="Search users by name, email, or ID" ToolTip="Add search Item"></asp:TextBox>
                 <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" />
 
-                <asp:RadioButtonList ID="rblFilterRole" runat="server" RepeatDirection="Horizontal">
+                <asp:RadioButtonList ID="rblFilterRole" runat="server" RepeatDirection="Horizontal" ToolTip="Filter by role">
                     <asp:ListItem Text="All" Value="All" Selected="True"></asp:ListItem>
                     <asp:ListItem Text="Admins" Value="Admin"></asp:ListItem>
                     <asp:ListItem Text="Non-Admins" Value="NonAdmin"></asp:ListItem>
                 </asp:RadioButtonList>
 
-                <asp:DropDownList ID="ddlSortBy" runat="server">
+                <asp:DropDownList ID="ddlSortBy" runat="server" ToolTip="Filter by column">
                     <asp:ListItem Text="Name" Value="Name"></asp:ListItem>
                     <asp:ListItem Text="Role" Value="Role"></asp:ListItem>
                     <asp:ListItem Text="Date Added" Value="DateAdded"></asp:ListItem>

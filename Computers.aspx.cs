@@ -258,7 +258,7 @@ namespace CTS
         protected void ddlOrder_SelectedIndexChanged(object sender, EventArgs e)
         {
             string sortOrder = ddlOrder.SelectedValue;
-            string query = $"SELECT * FROM Computer ORDER BY ComputerID {sortOrder}"; // Modify this as needed
+            string query = $"SELECT * FROM Computer WHERE LearnerID IS NULL ORDER BY ComputerID {sortOrder}";
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
@@ -270,7 +270,6 @@ namespace CTS
                 gvComputer.DataBind();
             }
         }
-
         // Event handler for GridView row command (e.g., edit)
         protected void gvComputer_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -345,5 +344,117 @@ namespace CTS
             return dt;
         }
         #endregion
+
+        protected void txtComputerName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnRegisterComputer_Click1(object sender, EventArgs e)
+        {
+            string serialNumber = txtSerialNumber.Text;
+            string computerName = txtComputerName.Text;
+            string description = Description.Text;
+
+            string query = "INSERT INTO Computer (Serial_no, Name, Description) VALUES (@SerialNumber, @ComputerName, @Description)";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@SerialNumber", serialNumber);
+                        cmd.Parameters.AddWithValue("@ComputerName", computerName);
+                        cmd.Parameters.AddWithValue("@Description", description);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
+                }
+
+                DisplayNotification($"Computer {serialNumber} registered successfully", true);
+                ClearForm();
+            }
+            catch (Exception ex)
+            {
+                DisplayNotification($"An error occurred while processing your request: {ex.Message}", false);
+            }
+        }
+
+        protected void btnAssignComputer_Click1(object sender, EventArgs e)
+        {
+            string firstName = FirstName.Text;
+            string lastSurname = LastName.Text;
+            string idNumber = IDTextBox.Text;
+            int computerID = int.Parse(ComputerID.Text);
+            DateTime currentDate = DateTime.Now;
+
+            int learnerID = -1;
+            try
+            {
+                // Get learner ID by ID number
+                if (!string.IsNullOrEmpty(idNumber))
+                {
+                    learnerID = GetLearnerIDByIdNumber(idNumber);
+                }
+
+                if (learnerID > 0)
+                {
+                    // Update computer assignment in database
+                    string query = "UPDATE Computer SET LearnerID = @LearnerID, DateOfIssue = @DateOfIssue WHERE ComputerID = @ComputerID";
+
+                    using (SqlConnection con = new SqlConnection(connStr))
+                    {
+                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        {
+                            cmd.Parameters.AddWithValue("@LearnerID", learnerID);
+                            cmd.Parameters.AddWithValue("@DateOfIssue", currentDate);
+                            cmd.Parameters.AddWithValue("@ComputerID", computerID);
+
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                            DisplayNotification($"Computer {computerID} assigned successfully to {learnerID}", true);
+                        }
+                    }
+                }
+                else
+                {
+                    DisplayNotification("Learner not found", false);
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayNotification($"Unable to process your request. An error occurred: {ex.Message}", false);
+            }
+        }
+
+        protected void ViewBtn_Click(object sender, EventArgs e)
+        {
+            string query = "SELECT * FROM Computer";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                gvComputer.DataSource = dt;
+                gvComputer.DataBind();
+
+                if (dt.Rows.Count > 0)
+                {
+                    DisplayNotification("Successfully retrieved computer information", true);
+                }
+                else
+                {
+                    DisplayNotification("No computer information found", false);
+                }
+            }
+        }
     }
 }

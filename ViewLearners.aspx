@@ -317,6 +317,7 @@
  <br />
                 <a href="Main.aspx">Home</a>
                 <a href="Computers.aspx">Computer Page</a>
+                <a href="Help.aspx">Help</a>
                 <asp:Button ID="btnLogout" runat="server" Text="Logout" CssClass="btn" OnClick="btnLogout_Click" OnClientClick="return confirmLogout();" />
             </div>
   
@@ -327,8 +328,8 @@
                
 
                 <div class="search-container">
-                    <asp:TextBox ID="txtSearch" runat="server" CssClass="search-box" placeholder="Enter search term"></asp:TextBox>
-                    <asp:DropDownList ID="ddlFilter" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlFilter_SelectedIndexChanged">
+                    <asp:TextBox ID="txtSearch" runat="server" CssClass="search-box" placeholder="Enter search term" ToolTip="Enter Search tern"></asp:TextBox>
+                    <asp:DropDownList ID="ddlFilter" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlFilter_SelectedIndexChanged" ToolTip="Filter by column">
                         <asp:ListItem Text="Select" Value="Null"></asp:ListItem>
                          <asp:ListItem Text="LearnerID" Value="LearnerID"></asp:ListItem>
                         <asp:ListItem Text="First Name" Value="FirstName"></asp:ListItem>
@@ -337,7 +338,7 @@
                         <asp:ListItem Text="ID Number" Value="IdNumber"></asp:ListItem>
                          <asp:ListItem Text="Gender" Value="Gender"></asp:ListItem>
                     </asp:DropDownList>
-                    <asp:DropDownList ID="order" runat="server" AutoPostBack="True" OnSelectedIndexChanged="order_SelectedIndexChanged">
+                    <asp:DropDownList ID="order" runat="server" AutoPostBack="True" OnSelectedIndexChanged="order_SelectedIndexChanged" ToolTip="Selected order">
                         <asp:ListItem Text="Order" Value="Null"></asp:ListItem>
                         <asp:ListItem Text="Ascending" Value="Asc"></asp:ListItem>
                         <asp:ListItem Text="Descending" Value="Desc"></asp:ListItem>
@@ -353,7 +354,7 @@
                         <asp:CheckBox ID="chkSurname" runat="server" Text="Surname" />
                         <asp:CheckBox ID="chkID" runat="server" Text="ID" />
                         <asp:CheckBox ID="chkEmail" runat="server" Text="Email" />
-                        <asp:CheckBox ID="chkDOB" runat="server" Text="DOB" /><asp:Button ID="filterBtn" runat="server" Text="Filter" CssClass="btnFilter" OnClick="filterBtn_Click" />
+                        <asp:CheckBox ID="chkDOB" runat="server" Text="DOB" /><asp:Button ID="filterBtn" runat="server" Text="Filter" CssClass="btnFilter" OnClick="filterBtn_Click" ToolTip="Apply filter" />
                     </asp:Panel>
                 </div>
               <div class="gridview-container">

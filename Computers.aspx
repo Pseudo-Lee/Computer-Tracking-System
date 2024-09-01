@@ -413,6 +413,7 @@
                 <li><a href="Computers.aspx">Home</a></li>
                 <li><a href="RegisterComputer.aspx">Register New Computer</a></li>
                 <li><a href="AssignComputer.aspx">Assign Computer</a></li>
+                  <a href="Help.aspx">Help</a>
             </ul>
         </div>
         <div class="main-content">
@@ -424,7 +425,7 @@
                     <asp:TextBox ID="txtSerialNumber" runat="server" Placeholder="Serial Number" ToolTip="SerialNumber" />
                     <asp:TextBox ID="Description" runat="server" Placeholder="Description" ToolTip="Enter Computer Description" />
                     <asp:DropDownList ID="Condition" runat="server" ToolTip="Enter computer condition">
-                         <asp:ListItem Text="Codition" Value="NULL" />
+                         <asp:ListItem Text="Condition" Value="NULL" />
                          <asp:ListItem Text="New" Value="New" />
                         <asp:ListItem Text="Good" Value="Good" />
                         <asp:ListItem Text="Fair" Value="Fair" />
@@ -440,13 +441,13 @@
                     <asp:TextBox ID="IDTextBox" runat="server" Placeholder="Learner ID" ToolTip="Enter Learner Id Number" AutoPostBack="True" />
                     <asp:TextBox ID="FirstName" runat="server" Placeholder="Learner Name" ReadOnly="True" AutoPostBack="True" />
                     <asp:TextBox ID="LastName" runat="server" Placeholder="Learner Surname" ReadOnly="True" AutoPostBack="True" />
-                    <asp:Button ID="btnAssignComputer" runat="server" Text="Assign Computer" CssClass="btn" ForeColor="White" BackColor ="#0047ab" />
+                    <asp:Button ID="btnAssignComputer" runat="server" Text="Assign Computer" CssClass="btn" ForeColor="White" BackColor="#0047ab" OnClick="btnAssignComputer_Click1" />
                 </div>
        
             </div>
             <div class="section">
                 <asp:Button ID="ViewBtn" runat="server" Text="View Computers" CssClass="btn" ForeColor="White" BackColor="#0047ab" OnClick="ViewBtn_Click" />
-                <asp:DropDownList runat="server" ID="ddlOrder" AutoPostBack="True" OnSelectedIndexChanged="ddlOrder_SelectedIndexChanged" CssClass ="orderlist">
+                <asp:DropDownList runat="server" ID="ddlOrder" AutoPostBack="True" OnSelectedIndexChanged="ddlOrder_SelectedIndexChanged" CssClass="orderlist" ToolTip="Select order">
     <asp:ListItem Text="Sort by: Ascending" Value="ASC"></asp:ListItem>
     <asp:ListItem Text="Sort by: Descending" Value="DESC"></asp:ListItem>
 </asp:DropDownList>
