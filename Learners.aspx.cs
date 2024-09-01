@@ -72,9 +72,9 @@ namespace CTS
             // Parse DateOfBirth into a DateTime object
             DateTime dob;
             string[] formats = {
-                "dd/MM/yyyy", "MM/dd/yyyy", "yyyy-MM-dd", "d/M/yyyy", "M/d/yyyy", "yyyy-M-d",
-                "dd-MM-yyyy", "MM-dd-yyyy", "d-M-yyyy", "M-d-yyyy", "dd MMM yyyy", "MMM dd, yyyy"
-            };
+        "dd/MM/yyyy", "MM/dd/yyyy", "yyyy-MM-dd", "d/M/yyyy", "M/d/yyyy", "yyyy-M-d",
+        "dd-MM-yyyy", "MM-dd-yyyy", "d-M-yyyy", "M-d-yyyy", "dd MMM yyyy", "MMM dd, yyyy"
+    };
 
             if (!DateTime.TryParseExact(txtDOB.Text, formats, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dob))
             {
@@ -101,6 +101,14 @@ namespace CTS
             {
                 ddlGender.CssClass += " highlight"; // Highlight dropdown if gender does not match ID constraint
                 ShowMessage("Gender does not match ID constraint.", false);
+                return;
+            }
+
+            // Check if the learner with the same ID already exists
+            if (LearnerExists(txtID.Text))
+            {
+                txtID.CssClass = "highlight"; // Highlight if ID number is a duplicate
+                ShowMessage("Error: A learner with this ID number already exists.", false);
                 return;
             }
 
@@ -153,6 +161,31 @@ namespace CTS
                 }
             }
         }
+
+        private bool LearnerExists(string idNumber)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT COUNT(*) FROM [Student] WHERE IdNumber = @IdNumber";
+                using (SqlCommand comm = new SqlCommand(query, conn))
+                {
+                    comm.Parameters.AddWithValue("@IdNumber", idNumber);
+
+                    try
+                    {
+                        conn.Open();
+                        int count = (int)comm.ExecuteScalar(); // Execute the query and get the count
+                        return count > 0; // Return true if learner exists
+                    }
+                    catch (Exception ex)
+                    {
+                        ShowMessage($"Error checking learner existence: {ex.Message}", false);
+                        return true; // Default to true in case of error to prevent duplicate insertion
+                    }
+                }
+            }
+        }
+
 
         private void ShowMessage(string message, bool isSuccess)
         {
