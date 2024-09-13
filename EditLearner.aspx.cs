@@ -124,7 +124,7 @@ namespace CTS
                     int rowsAffected = cmd.ExecuteNonQuery();
                     if (rowsAffected > 0) {
                         ShowMessage("Learner updated successfully!", true);
-                        // Response.Redirect("ViewLearners.aspx");
+                        Response.Redirect("ViewLearners.aspx");
                         btnCancel.Text = "Return";
                     }
                     else
@@ -180,7 +180,7 @@ namespace CTS
                         // Redirect to the ViewLearners page
                         btnCancel.Text = "Return";
                         ShowMessage("Learner updated successfully!", true);
-                       // Response.Redirect("ViewLearners.aspx");
+                       Response.Redirect("ViewLearners.aspx");
                        
                     }
                     catch (Exception ex)
