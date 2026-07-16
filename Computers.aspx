@@ -455,7 +455,7 @@
                 <div class="section-header">Computers List</div>
                 <div class="gridview-container">
 
-                  <asp:GridView ID="gvComputer" runat="server" AutoGenerateColumns="False" CssClass="gridview">
+                  <asp:GridView ID="gvComputer" runat="server" AutoGenerateColumns="False" CssClass="gridview" OnSelectedIndexChanged="gvComputer_SelectedIndexChanged">
     <Columns>
         <asp:BoundField DataField="ComputerID" HeaderText="Computer ID" />
         <asp:BoundField DataField="Serial_no" HeaderText="Serial Number" />
@@ -481,14 +481,21 @@
             var panel = document.getElementById('<%= panel.ClientID %>');
             var label = document.getElementById('<%= lblMessage.ClientID %>');
 
-            label.innerText = message;
-            panel.classList.add(isGoodNews ? 'good-news' : 'bad-news');
-            panel.classList.add('show');
+            if (label) {
+                label.innerText = message;
+            }
 
-            // Remove the 'show' class after the animation completes
-            setTimeout(function () {
-                panel.classList.remove('show');
-            }, 3500); // Matches the timing of your animation
+            if (panel) {
+                // remove any previous state classes first
+                panel.classList.remove('good-news', 'bad-news');
+                panel.classList.add(isGoodNews ? 'good-news' : 'bad-news');
+                panel.classList.add('show');
+
+                // Remove the 'show' class after the animation completes
+                setTimeout(function () {
+                    if (panel) panel.classList.remove('show');
+                }, 3500); // Matches the timing of your animation
+            }
         }
 
     </script>

@@ -456,5 +456,10 @@ namespace CTS
                 }
             }
         }
+
+        protected void gvComputer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
