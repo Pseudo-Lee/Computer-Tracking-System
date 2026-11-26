@@ -1,6 +1,48 @@
-The  Computer Tracking System is a system designed  to allow  High School to keep track, manage, and optimize computers given to matriculants, by the government. 
-This system allows the users and owners to monitor data digitally, be able to make updates in case changes to the data is made.
-instead of using a paper-based system, this system will allow admins to add, remove, computers, learners and components.
-This is far more effective, as the data will be stored didgitally, which is far safer and less labour intensive in comparison to writing and recording students names on a piece of paper.
-System owners will not have to worry about the security of their data as it will be secure and reliable.
+# Computer Tracking System
 
+A web application that helps high schools track, manage and optimize the computers the government provides to matriculants.
+
+## Overview
+
+Many schools still record their issued computers and the learners who received them on paper. This is slow, easy to get wrong, and hard to keep secure. The Computer Tracking System replaces that process with a digital one. Data is stored centrally, can be updated whenever something changes, and is far less labour-intensive to maintain.
+
+## Features
+
+- **Manage computers:** add, remove and update computer records.
+- **Manage learners:** add, remove and update learner records.
+- **Manage components:** track the individual components that belong to each computer.
+- **Digital record keeping:** no more paper lists of learners' names.
+- **Secure and reliable storage:** school data is kept safe and available to the people who need it.
+
+## Why Digital?
+
+| Paper-based system | Computer Tracking System |
+| --- | --- |
+| Manual, repetitive writing | Quick add, remove and update actions |
+| Easy to lose or damage | Stored digitally, secure and reliable |
+| Hard to correct or keep current | Records updated as changes happen |
+| Labour-intensive | Far less admin effort |
+
+## Tech Stack
+
+- ASP.NET web application
+
+## Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Pseudo-Lee/Computer-Tracking-System.git
+   cd Computer-Tracking-System
+   ```
+2. Open the solution in Visual Studio (or your preferred .NET IDE).
+3. Restore dependencies and run the project.
+
+## Project Info
+
+- **Year:** 2024
+- **Type:** Team project
+- **Status:** Complete
+
+## Team
+
+Built by a team of students. 
